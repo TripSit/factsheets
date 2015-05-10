@@ -1,5 +1,43 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .container-fluid(style="margin-top:2%;")
+    .jumbotron
+      .table-responsive
+        table.table.table-striped(data-toggle="table",data-url="x",data-search="true")
+          thead
+              tr
+                th.theader(style='width: 30%;')
+                  | Name
+                th.theader(style='width: 70%;')
+                  | Summary
+          tbody.tbody1
+            -each drug in drugs
+              tr
+                td.ttext(style='width: 30%;') 
+                  a.boxed2(href='/factsheet/'+drug.name) 
+                    | #{drug.name}
+                  if drug.categories 
+                    each kw in drug.categories
+                      if kw == 'psychedelic'
+                        span.label.label-warning(style='float:right;padding:3px;margin-right:5px;' data-placement="right") #{kw}
+                      else if kw == 'benzodiazepine'
+                        span.label.label-default(style='background-color:#000;color:#FF0000;float:right;padding:3px;margin-right:5px;' data-placement="right") benzo
+                      else if kw == 'stimulant'
+                        span.label.label-info(style='float:right;padding:3px;margin-right:5px;' data-placement="right") stimulant
+                      else if kw == 'dissociative'
+                        span.label.label-default(style='background-color:purple;color:white;float:right;padding:3px;margin-right:5px;' data-placement="right") dissociative
+                      else if kw == 'opioid'
+                        span.label.label-success(style='float:right;padding:3px;margin-right:5px;' data-placement="right") opioid
+                      else if kw == 'depressant'
+                        span.label.label-danger(style='float:right;padding:3px;margin-right:5px;' data-placement="right") depressant 
+                      else
+                        span.label.label-default(style='float:right;padding:3px;margin-right:5px;' data-placement="right") other
+                  else
+                    span.label.label-default(style='float:right;padding:3px;margin-right:5px;' data-placement="right") other
+                td.ttext(style='width: 70%;')
+                  | #{drug.properties.summary}
+       p
+       p
+       b Factsheets on #{drugs.length} drugs
+
