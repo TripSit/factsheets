@@ -1,0 +1,56 @@
+extends layout
+
+block content
+      div.sidebar
+        div#sidebarcontent
+            ul.nav.nav-sidebar
+              li
+                a(href='/') 
+                  span.glyphicon.glyphicon-menu-left(aria-hidden='true') 
+                  span Back to Browse
+              li.divider(role='presentation', style="background-color:#aaa;display:block;height:5px;")
+              li.active
+                a(href='#') Basic Information
+              li
+                a(href='#interact') Interactions
+              li
+                a(href='#sources') External Links
+      .main
+        h1#drug.page-header #{drug.name}
+        h2.sub-header Basic Information
+        table.table2.table-striped
+          tbody.tbody1
+            for pName in order
+              if drug.properties[pName]
+                - name = pName.charAt(0).toUpperCase() + pName.slice(1);
+                - property = drug.properties[pName]
+                - if(pName == 'dose' && drug.hasOwnProperty('formatted_dose'))
+                    td.tlefttext(style='width:25%;vertical-align: top;') 
+                      b Dose
+                    td.ttext(style='width:75%')
+                      -each item,roa in drug.formatted_dose
+                        table
+                          tr
+                            td(width="30%",style="margin-right:30px;")
+                                table.table
+                                  thead
+                                    tr
+                                      th(colspan='2') #{roa}
+                                  -each i,t in item
+                                   tr 
+                                    td(style='width:20%') #{t}
+                                    td #{i}
+                            td(style="margin-left:25px;")
+                              div(id=roa+'Chart', style="height:200px;width:500px;margin-left:100px;")
+                - else
+                    tr
+                      td.tlefttext(style='width: 25%;') 
+                        b #{name}
+                      td.ttext(style='width: 75%;')
+                        - if (typeof(property) === 'string'){
+                          | #{property}
+                        -} else {
+                          -each line in property
+                            | #{line}
+                            br
+                        -}
