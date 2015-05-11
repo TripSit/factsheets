@@ -34,7 +34,73 @@ window.onload = function () {
           chart.render();
         });
       }
+      if(results.formatted_duration) {
+        var chart = new CanvasJS.Chart("durationChart", {
+                title:{
+                        text:name + " duration"
+                },
+                animationEnabled: true,
+                axisX:{
+                        interval: 1,
+                        labelFontSize: 10,
+                        lineThickness: 0
+                },
+                axisY2:{
+                        valueFormatString: "0 hours",
+                        lineThickness: 0                                
+                },
+                toolTip: {
+                        shared: true
+                },
+                legend:{
+                        verticalAlign: "top",
+                        horizontalAlign: "center"
+                },
+
+                data: [
+                {     
+                        type: "stackedBar",
+                        showInLegend: true,
+                        name: "Onset",
+                        axisYType: "secondary",
+                        color: "#7E8F74",
+                        dataPoints: [
+                                {y: parseInt(results.formatted_onset['Insufflated']) / 60, label: "Insufflated"},
+                                {y: parseInt(results.formatted_onset['Oral']) / 60, label: "Oral" },
+                                {y: parseInt(results.formatted_onset['Plugged']) / 60, label: "Plugged" }
+                        ]
+                },
+                {     
+                        type: "stackedBar",
+                        showInLegend: true,
+                        name: "Duration",
+                        axisYType: "secondary",
+                        color: "#F0E6A7",
+                        dataPoints: [
+                                {y: parseInt(results.formatted_duration['Insufflated']), label: "Insufflated" },
+                                {y: parseInt(results.formatted_duration['Oral']), label: "Oral" },
+                                {y: parseInt(results.formatted_duration['Plugged']), label: "Plugged"   },                    
+                        ]
+                },                
+                {     
+                        type: "stackedBar",
+                        showInLegend: true,
+                        name: "After effects",
+                        axisYType: "secondary",
+                        color: "#DB9079",
+                        dataPoints: [
+                                {y: parseInt(results.formatted_aftereffects.value), label: "Insufflated" },
+                                {y: parseInt(results.formatted_aftereffects.value), label: "Oral" },
+                                {y: parseInt(results.formatted_aftereffects.value), label: "Plugged" },                    
+                        ]
+                }
+            ]
+                });
+        chart.render();
+    }
+
   });
+
 var bt = $('.sidebar').position().top;
 
 $(window).scroll(function() {
@@ -44,4 +110,6 @@ $(window).scroll(function() {
     $('.sidebar').css({position: 'fixed', top: 15+'px' }) :  
     $('.sidebar').css({position: 'absolute', top: bt+'px' })
 });
+
+  $('[data-toggle="tooltip"]').tooltip()
 };
