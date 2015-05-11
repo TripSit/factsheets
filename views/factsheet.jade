@@ -10,12 +10,13 @@ block content
                   span Back to Browse
               li.divider(role='presentation', style="background-color:#aaa;display:block;height:5px;")
               li.active
-                a(href='#') Basic Information
+                a(href='#basic') Basic Information
               li
                 a(href='#interact') Interactions
               li
                 a(href='#sources') External Links
       .main
+        a(name='basic')
         h1#drug.page-header #{drug.name}
         h2.sub-header Basic Information
         table.table
@@ -97,3 +98,31 @@ block content
                             | #{line}
                             br
                         -}
+        a(name='interact')
+        h2.sub-header Interactions
+        .bs-callout.bs-callout-danger
+          h3 Deadly
+          ul
+            -each d in interactions.deadly
+              li
+                a(href='/factsheet/'+d) #{d}
+        .bs-callout.bs-callout-unsafe
+          h3 Unsafe
+          ul
+            -each d in interactions.unsafe
+              li
+                a(href='/factsheet/'+d) #{d}
+        .bs-callout.bs-callout-safeinc
+          h3 Low risk & Increased Effects
+          ul
+            -each d in interactions.safeinc
+              li
+                a(href='/factsheet/'+d) #{d}
+        .bs-callout.bs-callout-safedec
+          h3 Low risk & Decreased Effects
+          ul
+            -each d in interactions.safedec
+              li
+                a(href='/factsheet/'+d) #{d}
+        a(name='sources')
+        h2.sub-header External Links

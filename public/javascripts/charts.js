@@ -87,7 +87,7 @@ window.onload = function () {
                         showInLegend: true,
                         name: "After effects",
                         axisYType: "secondary",
-                        color: "#DB9079",
+                        color: "#ADD8E6",
                         dataPoints: [
                                 {y: parseInt(results.formatted_aftereffects.value), label: "Insufflated" },
                                 {y: parseInt(results.formatted_aftereffects.value), label: "Oral" },

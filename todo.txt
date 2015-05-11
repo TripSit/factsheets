@@ -1,0 +1,4 @@
+display name
+effects list
+graceful degrade
+wiki link
