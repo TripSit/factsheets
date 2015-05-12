@@ -6,17 +6,18 @@ var fs = require('fs');
 var glossary = JSON.parse(fs.readFileSync('glossary.json', 'utf-8'));
 var drugCache = {};
 var combos = {};
-  request.get('http://tripbot.tripsit.me/api/tripsit/getAllDrugs', {
-    'json': true
-  }, function(request, response, body) {
-    drugCache = body.data[0];
-  });
 
-  request.get('http://tripsit.me/combo.json', {
-    'json': true
-  }, function(request, response, body) {
-    combos = body;
-  });
+request.get('http://tripbot.tripsit.me/api/tripsit/getAllDrugs', {
+  'json': true
+}, function(request, response, body) {
+  drugCache = body.data[0];
+});
+
+request.get('http://tripsit.me/combo.json', {
+  'json': true
+}, function(request, response, body) {
+  combos = body;
+});
 
 
 
