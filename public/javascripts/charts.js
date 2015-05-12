@@ -34,8 +34,136 @@ window.onload = function () {
           chart.render();
         });
       }
-      if(results.formatted_duration) {
-        var chart = new CanvasJS.Chart("durationChart", {
+        var data = [];
+      if(results.formatted_duration.value && results.formatted_onset.value && results.formatted_aftereffects.value) {
+        var onset = parseInt(results.formatted_onset.value);
+        if(results.formatted_onset._unit == 'minutes') {
+          onset = onset / 60;
+        }
+        onset = [{'y': onset, 'label': 'All ROAs'}];
+        
+        var duration = parseInt(results.formatted_duration.value);
+        if(results.formatted_duration._unit == 'minutes') {
+          duration = duration / 60;
+        }
+        duration = [{'y': duration, 'label': 'All ROAs'}];
+
+        var after = parseInt(results.formatted_aftereffects.value);
+        if(results.formatted_aftereffects._unit == 'minutes') {
+          after = after / 60;
+        }
+        after = [{'y': after, 'label': 'All ROAs'}];
+
+        data.push({     
+          type: "stackedBar",
+          showInLegend: true,
+          name: "Onset",
+          axisYType: "secondary",
+          color: "#7E8F74",
+          dataPoints: onset
+        });
+        data.push({     
+            type: "stackedBar",
+            showInLegend: true,
+            name: "Duration",
+            axisYType: "secondary",
+            color: "#F0E6A7",
+            dataPoints: duration
+        }); 
+        data.push({     
+            type: "stackedBar",
+            showInLegend: true,
+            name: "After effects",
+            axisYType: "secondary",
+            color: "#ADD8E6",
+            dataPoints: after
+        });
+      } else {
+        var roas = []; 
+
+        // TODO : can actually loop this
+        // Onset
+        var dp = {
+          'onset': [],
+          'duration': [],
+          'aftereffects': []
+        };
+
+        $.each(results.formatted_onset, function(roa, value) {
+          if(roa == '_unit' || roa == 'value') return;
+          if($.inArray(roa, roas) == -1) roas.push(roa);
+
+          var val = parseInt(value);
+          if(results.formatted_onset._unit == 'minutes') {
+            val = val / 60;
+          }
+          dp.onset.push({'y': val, 'label': roa}) 
+        });
+        
+        // Duration
+        $.each(results.formatted_duration, function(roa, value) {
+          if(roa == '_unit' || roa == 'value') return;
+          if($.inArray(roa, roas) == -1) roas.push(roa);
+
+          var val = parseInt(value);
+          if(results.formatted_duration._unit == 'minutes') {
+            val = val / 60;
+          }
+          dp.duration.push({'y': val, 'label': roa}) 
+        });
+
+        // After effects
+        $.each(results.formatted_aftereffects, function(roa, value) {
+          if(roa == '_unit' || roa == 'value') return;
+          if($.inArray(roa, roas) == -1) roas.push(roa);
+
+          var val = parseInt(value);
+          if(results.formatted_aftereffects._unit == 'minutes') {
+            val = val / 60;
+          }
+          dp.aftereffects.push({'y': val, 'label': roa}) 
+        });
+
+        $.each(['onset','duration','aftereffects'], function(a, c) {
+          var s = results['formatted_'+c];
+          if(s.value) {
+            var val = parseInt(s.value);
+            if(s._unit == 'minutes') {
+              val = val / 60;
+            }
+            for(var i=0;i<roas.length;i++) {
+              dp[c].push({'y': val, 'label':roas[i]});  
+            }
+          }
+        });
+        console.log(dp);
+
+        data.push({     
+          type: "stackedBar",
+          showInLegend: true,
+          name: "Onset",
+          axisYType: "secondary",
+          color: "#7E8F74",
+          dataPoints: dp.onset
+        });
+        data.push({     
+            type: "stackedBar",
+            showInLegend: true,
+            name: "Duration",
+            axisYType: "secondary",
+            color: "#F0E6A7",
+            dataPoints: dp.duration
+        }); 
+        data.push({     
+            type: "stackedBar",
+            showInLegend: true,
+            name: "After effects",
+            axisYType: "secondary",
+            color: "#ADD8E6",
+            dataPoints: dp.aftereffects
+        });
+      }
+      var chart = new CanvasJS.Chart("durationChart", {
                 title:{
                         text:name + " duration"
                 },
@@ -57,47 +185,10 @@ window.onload = function () {
                         horizontalAlign: "center"
                 },
 
-                data: [
-                {     
-                        type: "stackedBar",
-                        showInLegend: true,
-                        name: "Onset",
-                        axisYType: "secondary",
-                        color: "#7E8F74",
-                        dataPoints: [
-                                {y: parseInt(results.formatted_onset['Insufflated']) / 60, label: "Insufflated"},
-                                {y: parseInt(results.formatted_onset['Oral']) / 60, label: "Oral" },
-                                {y: parseInt(results.formatted_onset['Plugged']) / 60, label: "Plugged" }
-                        ]
-                },
-                {     
-                        type: "stackedBar",
-                        showInLegend: true,
-                        name: "Duration",
-                        axisYType: "secondary",
-                        color: "#F0E6A7",
-                        dataPoints: [
-                                {y: parseInt(results.formatted_duration['Insufflated']), label: "Insufflated" },
-                                {y: parseInt(results.formatted_duration['Oral']), label: "Oral" },
-                                {y: parseInt(results.formatted_duration['Plugged']), label: "Plugged"   },                    
-                        ]
-                },                
-                {     
-                        type: "stackedBar",
-                        showInLegend: true,
-                        name: "After effects",
-                        axisYType: "secondary",
-                        color: "#ADD8E6",
-                        dataPoints: [
-                                {y: parseInt(results.formatted_aftereffects.value), label: "Insufflated" },
-                                {y: parseInt(results.formatted_aftereffects.value), label: "Oral" },
-                                {y: parseInt(results.formatted_aftereffects.value), label: "Plugged" },                    
-                        ]
-                }
-            ]
-                });
+                data: data 
+        });
         chart.render();
-    }
+
 
   });
 
