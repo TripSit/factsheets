@@ -76,17 +76,19 @@ router.get('/factsheet/:name', function(req, res) {
         'safeinc': [],
         'safedec': []
       };
-      _.each(combos['benzodiazepines'], function(d,k) {
-        if(d == 'Safe & Synergy') {
-            safety.safeinc.push(k); 
-        } else if(d == 'Safe & No Synergy') {
-            safety.safedec.push(k);
-        } else if(d == 'Deadly') {
-            safety.deadly.push(k);
-        } else if(d == 'Unsafe') {
-            safety.unsafe.push(k);
-        }
-      }); 
+      if(_.has(combos, body.data[0].name)) {
+        _.each(combos[body.data[0].name], function(d,k) {
+          if(d == 'Safe & Synergy') {
+              safety.safeinc.push(k); 
+          } else if(d == 'Safe & No Synergy') {
+              safety.safedec.push(k);
+          } else if(d == 'Deadly') {
+              safety.deadly.push(k);
+          } else if(d == 'Unsafe') {
+              safety.unsafe.push(k);
+          }
+        }); 
+      }
 
       res.render('factsheet', { title: 'TripSit Factsheets - ' + body.data[0].pretty_name, 'drug': body.data[0], 'order': order, 'glossary': glossary, 'interactions': safety });
   });
