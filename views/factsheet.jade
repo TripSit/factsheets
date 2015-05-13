@@ -26,7 +26,8 @@ block content
               if drug.properties[pName]
                 - name = pName.charAt(0).toUpperCase() + pName.slice(1);
                 - property = drug.properties[pName]
-                - if(pName == 'dose' && drug.hasOwnProperty('formatted_dose'))
+                - if(pName == 'dose')
+                  -if(drug.hasOwnProperty('formatted_dose'))
                     td.tlefttext(style='width:25%;vertical-align: top;') 
                       b Dose
                     td.ttext(style='width:75%')
@@ -44,6 +45,11 @@ block content
                                     td #{i}
                             td(style="margin-left:25px;")
                               div(id=roa+'Chart', style="height:200px;width:500px;margin-left:100px;")
+                      -if(drug.hasOwnProperty('dose_note'))
+                        .bs-callout.bs-callout-benzo
+                          h4 
+                          p #{drug.dose_note}
+
                 - else if(pName == 'effects' && drug.hasOwnProperty('formatted_effects'))
                   tr
                     td.tlefttext(style='width:25%;vertical-align: top;') 
@@ -113,16 +119,16 @@ block content
                       p !{drug.properties.summary}
                       -each i in drug.properties.categories
                         -if(i == 'research-chemical')
-                          .bs-callout.bs-callout-unsafe
+                          .bs-callout.bs-callout-research
                             h4 
                               a(href='/category/research-chemical') Research Chemical
                             p #{drug.pretty_name} is a research chemical. This means it has relatively little history of human use, and thus particular care should be taken if choosing to ingest this drug. 
                             a(href='https://wiki.tripsit.me/wiki/Research_Chemicals') Read more about research chemicals...
                         -else if(i == 'habit-forming')
-                          .bs-callout.bs-callout-danger
+                          .bs-callout.bs-callout-habit
                             h4 
                               a(href='/category/habit-forming') Habit Forming
-                            p #{drug.pretty_name} is at a higher risk of causing habit forming behaviour, take particular care with the amount and frequency you take this drug. 
+                            p #{drug.pretty_name} poses a higher risk of causing habit forming behaviour, take particular care with the amount and frequency you take this drug. 
                             a(href='https://wiki.tripsit.me/wiki/Addiction') Read more about addiction...
                         -else if(i == 'opioid')
                           .bs-callout.bs-callout-opioid
@@ -149,17 +155,22 @@ block content
                             p #{drug.pretty_name} is a benzodiazepine. These are generally hypnotic or anxiolytic depressant drugs.
                             a(href='https://wiki.tripsit.me/wiki/Benzodiazepines') Read more about benzodiazepines...
                         -else if(i == 'depressant')
-                          .bs-callout.bs-callout-safeinc
+                          .bs-callout.bs-callout-depressant
                             h4 
                               a(href='/category/depressant') Depressant
                             p #{drug.pretty_name} is a depressant. These are drugs which slow shit down.
                             a(href='https://wiki.tripsit.me/wiki/Depressants') Read more about depressants...
                         -else if(i == 'psychedelic')
-                          .bs-callout.bs-callout-safedec
+                          .bs-callout.bs-callout-psychedelic
                             h4 
                               a(href='/category/psychedelic') Psychedelic
                             p #{drug.pretty_name} is a psychedelic. These are drugs which make things shiny.
                             a(href='https://wiki.tripsit.me/wiki/Psychedelics') Read more about psychedelics...
+                        -else if(i == 'tentative')
+                          .bs-callout.bs-callout-tentative
+                            h4 
+                              a(href='/category/tentative') Tentative
+                            p The information given for #{drug.pretty_name} is tentative, which usually means it is very new or that there isn't much reliable information about it. Be careful with this drug.
                 - else
                     tr
                       td.tlefttext(style='width: 25%;') 

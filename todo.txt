@@ -7,3 +7,4 @@ x cat list
 - graceful degrade
 - add links external
 - wiki link
+- fix duration globbing

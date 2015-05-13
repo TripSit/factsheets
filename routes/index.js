@@ -25,7 +25,23 @@ router.get('/', function(req, res) {
     'json': true
   }, function(request, response, body) {
       drugs = _.sortBy(body.data[0], 'name');
-      res.render('index', { title: 'TripSit Factsheets', 'drugs': body.data[0] });
+      res.render('index', { title: 'TripSit Factsheets', 'drugs': drugs });
+  });
+});
+
+router.get('/status', function(req, res) {
+  request.get('http://tripbot.tripsit.me/api/tripsit/getAllDrugs', {
+    'json': true
+  }, function(request, response, body) {
+      drugs = _.sortBy(body.data[0], 'name');
+
+      var brokenDose = _.filter(drugs, function(drug) { return !_.has(drug, 'formatted_dose'); });
+
+      var brokenOnset = _.filter(drugs, function(drug) { return !_.has(drug, 'formatted_onset'); });
+      var brokenDuration = _.filter(drugs, function(drug) { return !_.has(drug, 'formatted_duration'); });
+      var brokenAfter = _.filter(drugs, function(drug) { return !_.has(drug, 'formatted_aftereffects'); });
+
+      res.render('status', { title: 'TripSit Factsheets', 'brokenDose': brokenDose, 'brokenOnset': brokenOnset, 'brokenDuration': brokenDuration, 'brokenAfter': brokenAfter });
   });
 });
 

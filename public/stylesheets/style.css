@@ -58,7 +58,7 @@ word-wrap: break-word;
     padding-left:10px;
     padding-top:0px;
     min-height:100vh;
-    width:20%;
+    width:16%;
     float:left;
     background-color: #f5f5f5;
     border-right: 1px solid #eee;
@@ -91,7 +91,7 @@ word-wrap: break-word;
 
 .main {
   padding: 20px;
-  margin-left:20%;
+  margin-left:15%;
 }
 @media (min-width: 768px) {
   .main {
@@ -130,6 +130,7 @@ word-wrap: break-word;
   padding: 15px 15px 15px 15px;
 padding-top:5px;
   border-left: 5px solid #eee;
+background-color:#eeeeee;
 }
 .bs-callout h4 {
   margin-top: 0;
@@ -159,20 +160,93 @@ padding-top:5px;
   background-color: #f0f7fd;
   border-color: #d0e3f0;
 }
+.bs-callout-psychedelic {
+ /* background-color: #CCFFCC;*/
+  border-color: #00A388;
+}
 .bs-callout-opioid {
-  background-color: #CCFFCC;
+ /* background-color: #CCFFCC;*/
   border-color: #C0D9AF;
 }
 .bs-callout-stimulant {
-  background-color: #BFEFFF;
-  border-color: #B0E0E6;
+  /*background-color: #BFEFFF;*/
+  border-color: #31B0D5;
 }
 .bs-callout-dissociative {
-background-color:#B23609;
-border-color:#DB70DB;
+/*background-color:#B23609;*/
+border-color:#9b59b6;
 }
 .bs-callout-benzo {
-border-color:#737373;
-background-color:#DCDCDC;
+border-color:#000;
+}
+.bs-callout-research {
+border-color:#EC971F;
+}
+.bs-callout-habit {
+border-color:#e67e22;
+}
+.bs-callout-depressant {
+border-color:#C9302C;
+}
+.bs-callout-tentative {
+border-color:#FFFF9D;
 }
 
+.catcallout {
+  background-color: #FFF;
+}
+
+.phaedra-colors .label {
+  color: #001713;
+}
+.phaedra-colors .label-default {
+  background-color: #95a5a6;
+}
+.phaedra-colors .label-default[href]:hover,
+.phaedra-colors .label-default[href]:focus {
+  background-color: #7f8c8d;
+}
+.label-psychedelic {
+  background-color: #00A388;
+}
+.phaedra-colors .label-primary[href]:hover,
+.phaedra-colors .label-primary[href]:focus {
+  background-color: #007D68;
+}
+.label-empathogen {
+  background-color: #79BD8F;
+}
+.phaedra-colors .label-success[href]:hover,
+.phaedra-colors .label-success[href]:focus {
+  background-color: #659E78;
+}
+.phaedra-colors .label-info {
+  background-color: #BEEB9F;
+}
+.phaedra-colors .label-info[href]:hover,
+.phaedra-colors .label-info[href]:focus {
+  background-color: #A5CC8A;
+}
+.label-tentative {
+  background-color: #FFFF9D;
+  color: #001713;
+}
+.phaedra-colors .label-warning[href]:hover,
+.phaedra-colors .label-warning[href]:focus {
+  background-color: #D1D181;
+}
+.phaedra-colors .label-danger {
+  background-color: #FF6138;
+}
+.phaedra-colors .label-danger[href]:hover,
+.phaedra-colors .label-danger[href]:focus {
+  background-color: #D6512F;
+}
+
+.label-disso {
+  background-color: #9b59b6;
+}
+
+.label-habit {
+  background-color: #e67e22;
+}
