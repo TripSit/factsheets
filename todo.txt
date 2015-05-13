@@ -1,7 +1,9 @@
-display name
-warnings for research chemical, habit forming
-link to scales
-effects list
-graceful degrade
-add links external
-wiki link
+x display name
+x warnings for research chemical, habit forming
+- link to scales
+x effects list
+x cat list
+- pass js data http://stackoverflow.com/questions/7681821/passing-objects-to-client-in-node-express-jade
+- graceful degrade
+- add links external
+- wiki link

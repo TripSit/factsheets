@@ -17,7 +17,8 @@ block content
                 a(href='#sources') External Links
       .main
         a(name='basic')
-        h1#drug.page-header #{drug.name}
+        h1#drug.page-header #{drug.pretty_name}
+        div#drugname(style='display:none;') #{drug.name}
         h2.sub-header Basic Information
         table.table
           tbody.tbody1
@@ -49,7 +50,10 @@ block content
                       b Effects
                     td.ttext(style='width:75%')
                       -each i in drug.formatted_effects
-                        button.btn.btn-default(data-toggle="tooltip" data-placement="top" title="test" style="padding:5px;margin:5px;") #{i}
+                        -if(glossary[i])
+                          button.btn.btn-default(data-toggle="tooltip" data-placement="top" title="#{glossary[i]}" style="padding:5px;margin:5px;") #{i}
+                        -else
+                          button.btn.btn-default(style="padding:5px;margin:5px;") #{i}
                 - else if(pName == 'duration' && drug.hasOwnProperty('formatted_duration'))
                   tr
                     td.tlefttext(style='width:25%;vertical-align: top;') 
@@ -99,15 +103,63 @@ block content
                                         td #{drug.formatted_aftereffects.value} #{drug.formatted_aftereffects._unit}
                           td(style="margin-left:25px;vertical-align:top")
                             div(id='durationChart', style="height:200px;width:500px;margin-left:100px;")
-                - else if(pName == 'onset' || pName == 'after-effects')
+                - else if(pName == 'onset' || pName == 'after-effects' || pName == 'categories')
                   span 
-                - else if(pName == 'categories')
+                - else if(pName == 'summary')
                   tr
                     td.tlefttext(style='width:25%;vertical-align: top;') 
-                      b Categories
+                      b Summary
                     td.ttext(style='width:75%')
+                      p !{drug.properties.summary}
                       -each i in drug.properties.categories
-                        button.btn.btn-default(data-toggle="tooltip" data-placement="top" title="test" style="padding:5px;margin:5px;") #{i}
+                        -if(i == 'research-chemical')
+                          .bs-callout.bs-callout-unsafe
+                            h4 
+                              a(href='/category/research-chemical') Research Chemical
+                            p #{drug.pretty_name} is a research chemical. This means it has relatively little history of human use, and thus particular care should be taken if choosing to ingest this drug. 
+                            a(href='https://wiki.tripsit.me/wiki/Research_Chemicals') Read more about research chemicals...
+                        -else if(i == 'habit-forming')
+                          .bs-callout.bs-callout-danger
+                            h4 
+                              a(href='/category/habit-forming') Habit Forming
+                            p #{drug.pretty_name} is at a higher risk of causing habit forming behaviour, take particular care with the amount and frequency you take this drug. 
+                            a(href='https://wiki.tripsit.me/wiki/Addiction') Read more about addiction...
+                        -else if(i == 'opioid')
+                          .bs-callout.bs-callout-opioid
+                            h4 
+                              a(href='/category/opioid') Opioid
+                            p #{drug.pretty_name} is an opioid. Opioids are pain-killing depressants which may also cause euphoria.
+                            a(href='https://wiki.tripsit.me/wiki/Opioids') Read more about opioids...
+                        -else if(i == 'stimulant')
+                          .bs-callout.bs-callout-stimulant
+                            h4 
+                              a(href='/category/stimulant') Stimulant
+                            p #{drug.pretty_name} is a stimulant. Stimulants excite the nervous system and increase physiological function.
+                            a(href='https://wiki.tripsit.me/wiki/Stimulants') Read more about stimulants...
+                        -else if(i == 'dissociative')
+                          .bs-callout.bs-callout-dissociative
+                            h4 
+                              a(href='/category/dissociative') Dissociative
+                            p #{drug.pretty_name} is a dissociative. That means it's awesome.
+                            a(href='https://wiki.tripsit.me/wiki/Dissociatives') Read more about dissociatives...
+                        -else if(i == 'benzodiazepine')
+                          .bs-callout.bs-callout-benzo
+                            h4 
+                              a(href='/category/benzodiazepine') Benzodiazepine
+                            p #{drug.pretty_name} is a benzodiazepine. These are generally hypnotic or anxiolytic depressant drugs.
+                            a(href='https://wiki.tripsit.me/wiki/Benzodiazepines') Read more about benzodiazepines...
+                        -else if(i == 'depressant')
+                          .bs-callout.bs-callout-safeinc
+                            h4 
+                              a(href='/category/depressant') Depressant
+                            p #{drug.pretty_name} is a depressant. These are drugs which slow shit down.
+                            a(href='https://wiki.tripsit.me/wiki/Depressants') Read more about depressants...
+                        -else if(i == 'psychedelic')
+                          .bs-callout.bs-callout-safedec
+                            h4 
+                              a(href='/category/psychedelic') Psychedelic
+                            p #{drug.pretty_name} is a psychedelic. These are drugs which make things shiny.
+                            a(href='https://wiki.tripsit.me/wiki/Psychedelics') Read more about psychedelics...
                 - else
                     tr
                       td.tlefttext(style='width: 25%;') 

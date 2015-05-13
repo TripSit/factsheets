@@ -159,3 +159,20 @@ padding-top:5px;
   background-color: #f0f7fd;
   border-color: #d0e3f0;
 }
+.bs-callout-opioid {
+  background-color: #CCFFCC;
+  border-color: #C0D9AF;
+}
+.bs-callout-stimulant {
+  background-color: #BFEFFF;
+  border-color: #B0E0E6;
+}
+.bs-callout-dissociative {
+background-color:#B23609;
+border-color:#DB70DB;
+}
+.bs-callout-benzo {
+border-color:#737373;
+background-color:#DCDCDC;
+}
+

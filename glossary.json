@@ -5,6 +5,7 @@
     "cathinone": "Cathinone, or Benzoylethanamine is a monoamine alkaloid found in the shrub Catha edulis (khat) and is chemically similar to ephedrine, cathine and other amphetamines. Cathinone differs from amphetamine by possessing a ketone oxygen atom on the β position of the side chain.",
     "chirality": "The term chiral describes an object, especially a molecule, which has or produces a non-superimposeable mirror image of itself.",
     "dopamine": "A neurotransmitter associated with movement, attention, learning, and the brain’s pleasure and reward system.",
+    "dystaxia": "A reduced control of the muscles, which results in the loss of coordination or balance. This increases the likelihood of physical accidents causing harm.",
     "enantiomer": "One of two stereoisomers that are mirror images of each other that are non-superposable (not identical). Think of it like the left and right hand, which are identical aside from orientation.",
     "first pass metabolism": "First pass metabolism is the process in which the liver starts to break down drugs before they reach systemic circulation.  Different ROA's including insufflation are used to bypass this process to increase potency.",
     "empathogen": "An empathogen is a drug which induces feelings of love and connectedness and heightened (usually positive) emotion in the user.",
@@ -23,5 +24,10 @@
     "roa": "Common abbreviation for Route Of Administration, used to describe the various different methods of ingesting drugs, including oral, insufflation, sublingual/buccal, rectal, intramuscular (IM) and intravenous (IV) injection.",
     "serotonin": "A monoamine neurotransmitter, biochemically derived from tryptophan, that is primarily found in the gastrointestinal (GI) tract, platelets, and central nervous system (CNS) of humans and animals. It is a well-known contributor to feelings of well-being.",
     "tryptamine": "Tryptamine is a monoamine alkaloid found in plants, fungi, and animals. It is based around the indole ring structure, and is chemically related to the amino acid tryptophan, from which its name is derived.",
-    "roa": "Common abbreviation for Route Of Administration, used to describe the various different methods of ingesting drugs, including oral, insufflation, sublingual/buccal, rectal, vaginal, intramuscular (IM) and intravenous (IV) injection"
+    "roa": "Common abbreviation for Route Of Administration, used to describe the various different methods of ingesting drugs, including oral, insufflation, sublingual/buccal, rectal, vaginal, intramuscular (IM) and intravenous (IV) injection",
+    "anxiolytic": "A type of medication which helps to relieve anxiety.",
+    "hypnotic": "Induces sleep. It may be difficult to stay awake under the influence of this drug.",
+    "sedative": "Induces sleep or promotes calmness in the user.",
+    "muscle relaxant": "Substance that reduces muscle contractability by blocking the transmission of nerve impulses.",
+    "amnesia": "A partial or total loss of memory. The user may not be aware of their actions in this state, or remember them afterwards."
 }

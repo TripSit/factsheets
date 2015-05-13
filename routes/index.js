@@ -19,14 +19,26 @@ request.get('http://tripsit.me/combo.json', {
   combos = body;
 });
 
-
-
 /* GET home page. */
 router.get('/', function(req, res) {
   request.get('http://tripbot.tripsit.me/api/tripsit/getAllDrugs', {
     'json': true
   }, function(request, response, body) {
+      drugs = _.sortBy(body.data[0], 'name');
       res.render('index', { title: 'TripSit Factsheets', 'drugs': body.data[0] });
+  });
+});
+
+router.get('/category/:name', function(req, res) {
+  request.get('http://tripbot.tripsit.me/api/tripsit/getAllDrugs', {
+    'json': true
+  }, function(request, response, body) {
+    var drugs = _.filter(body.data[0], function(drug) {
+      return _.include(drug.categories, req.params.name);
+    });
+    drugs = _.sortBy(drugs, 'name');
+
+    res.render('category', { title: 'TripSit Factsheets', 'category': req.params.name, 'drugs': drugs });
   });
 });
 
@@ -40,7 +52,7 @@ router.get('/factsheet/:name', function(req, res) {
       _.each(_.keys(drugCache), function(item) {
         body.data[0].properties.summary = body.data[0].properties.summary.replace(new RegExp(' '+item+' ', 'gi'), ' <a href="/factsheet/'+item+'">'+item+'</a> ');
       });
-      var order = _.union(['summary', 'dose', 'onset', 'duration', 'after-effects', 'effects'], _.keys(body.data[0].properties));
+      var order = _.union(['summary', 'categories', 'dose', 'onset', 'duration', 'after-effects', 'effects'], _.keys(body.data[0].properties));
 
       var safety = {
         'deadly': [],
@@ -48,7 +60,7 @@ router.get('/factsheet/:name', function(req, res) {
         'safeinc': [],
         'safedec': []
       };
-      _.each(combos['2c-x'], function(d,k) {
+      _.each(combos['benzodiazepines'], function(d,k) {
         if(d == 'Safe & Synergy') {
             safety.safeinc.push(k); 
         } else if(d == 'Safe & No Synergy') {
@@ -60,7 +72,7 @@ router.get('/factsheet/:name', function(req, res) {
         }
       }); 
 
-      res.render('factsheet', { title: 'TripSit Factsheets - ' + body.data[0].name, 'drug': body.data[0], 'order': order, 'glossary': glossary, 'interactions': safety });
+      res.render('factsheet', { title: 'TripSit Factsheets - ' + body.data[0].pretty_name, 'drug': body.data[0], 'order': order, 'glossary': glossary, 'interactions': safety });
   });
 });
 

@@ -9,6 +9,8 @@ block content
               tr
                 th.theader(style='width: 30%;')
                   | Name
+                th.theader(style='width: 30%;')
+                  | Categories
                 th.theader(style='width: 70%;')
                   | Summary
           tbody.tbody1
@@ -16,28 +18,32 @@ block content
               tr
                 td.ttext(style='width: 30%;') 
                   a.boxed2(href='/factsheet/'+drug.name) 
-                    | #{drug.name}
+                    | #{drug.pretty_name}
+                td(style='width:20%')
                   if drug.categories 
                     each kw in drug.categories
                       if kw == 'psychedelic'
-                        span.label.label-warning(style='float:right;padding:3px;margin-right:5px;' data-placement="right") #{kw}
+                        a.label.label-warning(href='/category/'+kw style='float:right;padding:3px;margin:5px;' data-placement="right") #{kw}
                       else if kw == 'benzodiazepine'
-                        span.label.label-default(style='background-color:#000;color:#FF0000;float:right;padding:3px;margin-right:5px;' data-placement="right") benzo
+                        a.label.label-default(href='/category/'+kw style='background-color:#000;color:#FF0000;float:right;padding:3px;margin:5px;' data-placement="right") benzo
                       else if kw == 'stimulant'
-                        span.label.label-info(style='float:right;padding:3px;margin-right:5px;' data-placement="right") stimulant
+                        a.label.label-info(href='/category/'+kw style='float:right;padding:3px;margin:5px;' data-placement="right") stimulant
                       else if kw == 'dissociative'
-                        span.label.label-default(style='background-color:purple;color:white;float:right;padding:3px;margin-right:5px;' data-placement="right") dissociative
+                        a.label.label-default(href='/category/'+kw style='background-color:purple;color:white;float:right;padding:3px;margin:5px;' data-placement="right") dissociative
                       else if kw == 'opioid'
-                        span.label.label-success(style='float:right;padding:3px;margin-right:5px;' data-placement="right") opioid
+                        a.label.label-success(href='/category/'+kw style='float:right;padding:3px;margin:5px;' data-placement="right") opioid
                       else if kw == 'depressant'
-                        span.label.label-danger(style='float:right;padding:3px;margin-right:5px;' data-placement="right") depressant 
+                        a.label.label-danger(href='/category/'+kw style='float:right;padding:3px;margin:5px;' data-placement="right") depressant 
+                      else if kw == 'habit-forming'
+                        a.label.label-danger(href='/category/'+kw style='float:right;padding:3px;margin:5px;' data-placement="right") habit forming
+                      else if kw == 'research-chemical'
+                        a.label.label-warning(href='/category/'+kw style='float:right;padding:3px;margin:5px;' data-placement="right") research chemical
                       else
-                        span.label.label-default(style='float:right;padding:3px;margin-right:5px;' data-placement="right") other
+                        a.label.label-default(href='/category/'+kw style='float:right;padding:3px;margin:5px;' data-placement="right") other
                   else
-                    span.label.label-default(style='float:right;padding:3px;margin-right:5px;' data-placement="right") other
+                    span.label.label-default(href='/category/'+kw style='float:right;padding:3px;margin:5px;' data-placement="right") other
                 td.ttext(style='width: 70%;')
                   | #{drug.properties.summary}
        p
        p
        b Factsheets on #{drugs.length} drugs
-

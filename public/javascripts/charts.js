@@ -1,5 +1,5 @@
 window.onload = function () {
-    var name = $('#drug').text()
+    var name = $('#drugname').text()
   $.getJSON('/raw/'+name, function(results) {
       if(results.formatted_dose) {
         $.each(results.formatted_dose, function(roa, levels) {
