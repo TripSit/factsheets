@@ -6,6 +6,53 @@ var fs = require('fs');
 var glossary = JSON.parse(fs.readFileSync('glossary.json', 'utf-8'));
 var drugCache = {};
 var combos = {};
+var pCats = { 
+  "dox": {
+    "pname": "DOx",
+    "wiki": "https://wiki.tripsit.me/wiki/DOx"
+  },
+  "nbomes": {
+    "pname": "NBOMes",
+    "wiki": "https://wiki.tripsit.me/wiki/NBOMes"
+  },
+  "2c-x": {
+    "pname": "2C-x",
+    "wiki": "https://wiki.tripsit.me/wiki/2C-X"
+  },
+  "2c-t-x": {
+    "pname": "2C-T-x",
+    "wiki": "https://wiki.tripsit.me/wiki/2C-X"
+  },
+  "5-meo-xxt": {
+    "pname": "5-MeO-xxT",
+    "wiki": "https://wiki.tripsit.me/wiki/5-MeO-DMT"
+  },
+  "amphetamines": {
+    "pname": "Amphetamines",
+    "wiki": "https://wiki.tripsit.me/wiki/Amphetamine"
+  },
+  "benzodiazepines": {
+    "pname": "Benzodiazepines",
+    "wiki": "https://wiki.tripsit.me/wiki/Benzodiazepines"
+  },
+  "maois": {
+    "pname": "MAOIs",
+    "wiki": "https://wiki.tripsit.me/wiki/Antidepressants#MAOIs"
+  },
+  "ssris": {
+    "pname": "SSRIs",
+    "wiki": "https://wiki.tripsit.me/wiki/Antidepressants#SSRIs"
+  },
+  "opioids": {
+    "pname": "Opioids",
+    "wiki": "https://wiki.tripsit.me/wiki/Opioids"
+  },
+  "ghb/gbl": {
+    "pname": "GHB/GBL",
+    "wiki": "https://wiki.tripsit.me/wiki/GHB"
+  }
+}; 
+var wikiCache = {};
 
 request.get('http://tripbot.tripsit.me/api/tripsit/getAllDrugs', {
   'json': true
@@ -61,30 +108,63 @@ router.get('/category/:name', function(req, res) {
 router.get('/factsheet/:name', function(req, res) {
   request.get('http://tripbot.tripsit.me/api/tripsit/getDrug?name=' + req.params.name, {
     'json': true
-  }, function(request, response, body) {
+  }, function(err, response, body) {
+    if(err || !body || !body.data[0].properties) {
+        return res.render('error', {
+            message: 'no drig'
+        });
+    }
     var drug = body.data[0];
+    _.each(_.keys(drugCache), function(item) {
+      drug.properties.summary = drug.properties.summary.replace(new RegExp(' '+item+' ', 'gi'), ' <a href="/factsheet/'+item+'">'+drugCache[item].pretty_name+'</a> ');
+    });
     _.each(_.keys(glossary), function(item) {
-      drug.properties.summary = drug.properties.summary.replace(new RegExp(item, 'gi'), '['+item+']');
+      drug.properties.summary = drug.properties.summary.replace(new RegExp('('+item+')', 'gi'), '[$1]');
     });
     var terms = /\[([^\]]+)\]/gi;
     var item = terms.exec(drug.properties.summary);
     while(item != null) {
-        drug.properties.summary = drug.properties.summary.replace(item[0], '<span style="color:#50007F;" data-toggle="tooltip", title="'+glossary[item[1]]+'">'+item[1]+'</span>');
+        drug.properties.summary = drug.properties.summary.replace(item[0], '<span class="glossary" data-toggle="tooltip" title="'+glossary[item[1].toLowerCase()]+'">'+item[1]+'</span>');
         item = terms.exec(drug.properties.summary);
     }
-    _.each(_.keys(drugCache), function(item) {
-      drug.properties.summary = drug.properties.summary.replace(new RegExp(' '+item+' ', 'gi'), ' <a href="/factsheet/'+item+'">'+item+'</a> ');
-    });
     var order = _.union(['summary', 'categories', 'dose', 'onset', 'duration', 'after-effects', 'effects'], _.keys(drug.properties));
 
-    var safety = {
-      'deadly': [],
-      'unsafe': [],
-      'safeinc': [],
-      'safedec': []
-    };
+    var safetyKey = null,
+        safety = null;
     if(_.has(combos, drug.name)) {
-      _.each(combos[drug.name], function(d,k) {
+      safetyKey = drug.name;
+    } else if(drug.name.match(/^do.$/i)) {
+      safetyKey = 'dox';
+    } else if(drug.name.match(/^2c-.$/i)) {
+      safetyKey = '2c-x';
+    } else if(drug.name.match(/^5-meo-..t$/i)) {
+      safetyKey = '5-meo-xxt';
+    } else if(_.include(drug.categories, 'benzodiazepine')) {
+      safetyKey = 'benzodiazepines';
+    }
+
+    if(safetyKey) {
+      safety = {
+        'deadly': [],
+        'unsafe': [],
+        'safeinc': [],
+        'ss': [],
+        'safedec': []
+      };
+
+      _.each(combos[safetyKey], function(d,k) {
+        k = {
+          'pname': k,
+          'name': k
+        };
+        if(_.has(drugCache, k.name)) {
+          k.pname = drugCache[k.name].pretty_name;
+        }
+        if(_.has(pCats, k.name)) {
+          k.pname = pCats[k.name].pname;
+          k.wiki = pCats[k.name].wiki;
+        }
+
         if(d == 'Safe & Synergy') {
             safety.safeinc.push(k); 
         } else if(d == 'Safe & No Synergy') {
@@ -93,6 +173,8 @@ router.get('/factsheet/:name', function(req, res) {
             safety.deadly.push(k);
         } else if(d == 'Unsafe') {
             safety.unsafe.push(k);
+        } else if(d == 'Serotonin Syndrome') {
+            safety.ss.push(k);
         }
       }); 
     }
@@ -100,9 +182,6 @@ router.get('/factsheet/:name', function(req, res) {
     // This is a little bit grea-hea-heasy, but y'know.
     if((drug.formatted_duration && drug.formatted_onset && drug.formatted_aftereffects) &&
       (_.size(drug.formatted_duration) > 1 || _.size(drug.formatted_onset) > 1 || _.size(drug.formatted_aftereffects) > 1)) {
-
-
-
       var roas = [];
       _.each(['onset', 'duration', 'aftereffects'], function(a, c) {
         var s = drug['formatted_'+a];
@@ -110,7 +189,6 @@ router.get('/factsheet/:name', function(req, res) {
         roas = _.union(roas, _.without(_.keys(s), '_unit', 'value'));
       });
 
-      console.log(roas);
 
       _.each(['onset', 'duration', 'aftereffects'], function(a, c) {
         var s = drug['formatted_'+a];
@@ -125,8 +203,28 @@ router.get('/factsheet/:name', function(req, res) {
       });
     }
 
-
-      res.render('factsheet', { title: 'TripSit Factsheets - ' + drug.pretty_name, 'drug': drug, 'order': order, 'glossary': glossary, 'interactions': safety });
+    if(_.has(wikiCache, drug.name)) {
+      var wiki = wikiCache[drug.name];
+      res.render('factsheet', { title: 'TripSit Factsheets - ' + drug.pretty_name, 'drug': drug, 'order': order, 'glossary': glossary, 'interactions': safety, 'wiki': wiki });
+    } else {
+      var wiki = null;
+      request.get('http://wiki.tripsit.me/api.php', {
+        'qs': {
+          'action': 'opensearch',
+          'search': drug.name,
+          'limit': 1,
+          'namespace': 0,
+          'format': 'json'
+        },
+        'json': true
+      }, function(err, resp, body) {
+        if(!err && body[1].length !== 0) {
+          wiki = 'https://wiki.tripsit.me/wiki/'+body[1][0].replace(/\s/g, '_');
+        }
+        wikiCache[drug.name] = wiki;
+        res.render('factsheet', { title: 'TripSit Factsheets - ' + drug.pretty_name, 'drug': drug, 'order': order, 'glossary': glossary, 'interactions': safety, 'wiki': wiki });
+      });
+    }
   });
 });
 

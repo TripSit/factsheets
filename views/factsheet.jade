@@ -13,10 +13,12 @@ block content
           li.divider(role='presentation', style="background-color:#aaa;display:block;height:5px;")
           li.active
             a(href='#basic') Basic Information
-          li
-            a(href='#interact') Interactions
-          li
-            a(href='#sources') External Links
+          if interactions
+            li
+              a(href='#interact') Interactions
+          if wiki
+            li
+              a(href=wiki) Read more on TripSit Wiki
   .main
     a(name='basic')
     h1#drug.page-header #{drug.pretty_name}
@@ -60,11 +62,15 @@ block content
                 td.tlefttext(style='width:25%;vertical-align: top;') 
                   b Effects
                 td.ttext(style='width:75%')
+                  ul
                   -each i in drug.formatted_effects
-                    -if(glossary[i])
-                      button.btn.btn-default(data-toggle="tooltip" data-placement="top" title="#{glossary[i]}" style="padding:5px;margin:5px;") #{i}
-                    -else
-                      button.btn.btn-default(style="padding:5px;margin:5px;") #{i}
+                    -if(i.split(' ').length > 5)
+                      li #{i}
+                    -else if(i.length != 0)
+                      -if(glossary[i])
+                        button.btn.btn-default(data-toggle="tooltip" data-placement="top" title="#{glossary[i]}" style="padding:5px;margin:5px;") #{i}
+                      -else
+                        button.btn.btn-default(style="padding:5px;margin:5px;") #{i}
             - else if(pName == 'duration' && drug.hasOwnProperty('formatted_duration'))
               tr
                 td.tlefttext(style='width:25%;vertical-align: top;') 
@@ -158,7 +164,9 @@ block content
                       .bs-callout.bs-callout-dissociative
                         h4 
                           a(href='/category/dissociative') Dissociative
-                        p #{drug.pretty_name} is a dissociative. That means it's awesome.
+                        p #{drug.pretty_name} is a dissociative. Mostly 
+                          span.glossary(data-toggle="tooltip" title=glossary['nmda']) NMDA
+                          &nbsp;receptor antagonists, these substances are hallucinogenic but different than psychedelics. As per the name, these substances create a distance between the user and reality. 
                         a(href='https://wiki.tripsit.me/wiki/Dissociatives') Read more about dissociatives...
                     -else if(i == 'benzodiazepine')
                       .bs-callout.bs-callout-benzo
@@ -197,29 +205,51 @@ block content
                     -}
     a(name='interact')
     h2.sub-header Interactions
-    .bs-callout.bs-callout-danger
-      h3 Deadly
-      ul
-        -each d in interactions.deadly
-          li
-            a(href='/factsheet/'+d) #{d}
-    .bs-callout.bs-callout-unsafe
-      h3 Unsafe
-      ul
-        -each d in interactions.unsafe
-          li
-            a(href='/factsheet/'+d) #{d}
-    .bs-callout.bs-callout-safeinc
-      h3 Low risk & Increased Effects
-      ul
-        -each d in interactions.safeinc
-          li
-            a(href='/factsheet/'+d) #{d}
-    .bs-callout.bs-callout-safedec
-      h3 Low risk & Decreased Effects
-      ul
-        -each d in interactions.safedec
-          li
-            a(href='/factsheet/'+d) #{d}
-    a(name='sources')
-    h2.sub-header External Links
+    if interactions
+      .bs-callout.bs-callout-danger
+        h3 Deadly
+        ul
+          -each d in interactions.deadly
+            li
+              if d.wiki
+                a(href=d.wiki) #{d.pname}
+              else 
+                a(href='/factsheet/'+d.name) #{d.pname}
+      .bs-callout.bs-callout-ss
+        h3 Serotonin Syndrome
+        ul
+          -each d in interactions.ss
+            li
+              if d.wiki
+                a(href=d.wiki) #{d.pname}
+              else 
+                a(href='/factsheet/'+d.name) #{d.pname}
+      .bs-callout.bs-callout-unsafe
+        h3 Unsafe
+        ul
+          -each d in interactions.unsafe
+            li
+              if d.wiki
+                a(href=d.wiki) #{d.pname}
+              else 
+                a(href='/factsheet/'+d.name) #{d.pname}
+      .bs-callout.bs-callout-safeinc
+        h3 Low risk & Increased Effects
+        ul
+          -each d in interactions.safeinc
+            li
+              if d.wiki
+                a(href=d.wiki) #{d.pname}
+              else 
+                a(href='/factsheet/'+d.name) #{d.pname}
+      .bs-callout.bs-callout-safedec
+        h3 Low risk & Decreased Effects
+        ul
+          -each d in interactions.safedec
+            li
+              if d.wiki
+                a(href=d.wiki) #{d.pname}
+              else 
+                a(href='/factsheet/'+d.name) #{d.pname}
+    else
+      p No interaction information for #{drug.pretty_name}

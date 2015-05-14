@@ -29,5 +29,13 @@
     "hypnotic": "Induces sleep. It may be difficult to stay awake under the influence of this drug.",
     "sedative": "Induces sleep or promotes calmness in the user.",
     "muscle relaxant": "Substance that reduces muscle contractability by blocking the transmission of nerve impulses.",
-    "amnesia": "A partial or total loss of memory. The user may not be aware of their actions in this state, or remember them afterwards."
+    "amnesia": "A partial or total loss of memory. The user may not be aware of their actions in this state, or remember them afterwards.",
+    "potency": "A measure of drug activity expressed in terms of the amount required to produce an effect of given intensity.",
+    "anaesthetic": "A substance which causes reversible loss of consciousness, usually for a medical procedure.",
+    "dri": "DRIs inhibit the transporter-mediated reuptake of dopamine from the synapse into the pre-synaptic neuron, leading to an increase in the extracellular concentrations of the neurotransmitter. Causes stimulant effects.",
+    "blotter": "Blotting paper that is dipped into a drug/water/alcohol solution for uncomplicated dosing of potent substances.",
+    "receptor": "A protein molecule that receives and responds to a neurotransmitter.",
+    "psychoactive": "Substances that changes brain function and results in alterations in perception, mood, or consciousness.",
+    "arylcyclohexylamine": "A class of dissociatives which includes many popular drugs, such as Ketamine and MXE.",
+    "cns": "Central Nervous System. The part of the body responsible for processing signals from the rest of the body and sensory input."
 }

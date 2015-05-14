@@ -23,6 +23,11 @@ word-wrap: break-word;
  * Global add-ons
  */
 
+.glossary {
+  border-bottom: 1px #50007F dotted;
+  color: #50007F;
+}
+
 .navbar-right {
   margin-top: 20px;
   margin-right: 5px;
@@ -143,6 +148,10 @@ background-color:#eeeeee;
   background-color: #fff;
 }
  
+.bs-callout-safedec {
+  background-color: #E1FFE1;
+  border-color: #C0D9AF;
+}
 /* Themes for different contexts */
 .bs-callout-danger {
   background-color: #FFE1FF;
@@ -156,7 +165,7 @@ background-color:#eeeeee;
   background-color: #fcf2f2;
   border-color: #dFb5b4;
 }
-.bs-callout-safedec {
+.bs-callout-ss {
   background-color: #f0f7fd;
   border-color: #d0e3f0;
 }
