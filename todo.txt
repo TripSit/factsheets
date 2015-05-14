@@ -8,3 +8,5 @@ x cat list
 - add links external
 - wiki link
 - fix duration globbing
+- expand underscore and hyphoen to space in roa
+X fix glossary
