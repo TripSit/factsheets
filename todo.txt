@@ -3,10 +3,10 @@ x warnings for research chemical, habit forming
 - link to scales
 x effects list
 x cat list
-- pass js data http://stackoverflow.com/questions/7681821/passing-objects-to-client-in-node-express-jade
+X pass js data http://stackoverflow.com/questions/7681821/passing-objects-to-client-in-node-express-jade
 - graceful degrade
 - add links external
-- wiki link
-- fix duration globbing
+X wiki link
+X fix duration globbing
 - expand underscore and hyphoen to space in roa
 X fix glossary

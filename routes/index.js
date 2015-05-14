@@ -180,23 +180,21 @@ router.get('/factsheet/:name', function(req, res) {
     }
 
     // This is a little bit grea-hea-heasy, but y'know.
-    if((drug.formatted_duration && drug.formatted_onset && drug.formatted_aftereffects) &&
+    if((drug.formatted_duration || drug.formatted_onset || drug.formatted_aftereffects) &&
       (_.size(drug.formatted_duration) > 1 || _.size(drug.formatted_onset) > 1 || _.size(drug.formatted_aftereffects) > 1)) {
       var roas = [];
       _.each(['onset', 'duration', 'aftereffects'], function(a, c) {
         var s = drug['formatted_'+a];
-      console.log(s);
-        roas = _.union(roas, _.without(_.keys(s), '_unit', 'value'));
+        if(s) {
+          roas = _.union(roas, _.without(_.keys(s), '_unit', 'value'));
+        }
       });
 
 
       _.each(['onset', 'duration', 'aftereffects'], function(a, c) {
         var s = drug['formatted_'+a];
-        console.log('now processing ' + a);
-        console.log(s);
         _.each(roas, function(roa) {
-          if(!_.has(s, roa)) {
-          console.log('adding ' + s.value + ' to ' + a + ' as ' + roa);
+          if(s && !_.has(s, roa)) {
             s[roa] = s.value;
           }
         });
