@@ -40,7 +40,7 @@ block content
         .bs-callout.bs-callout-dissociative.catcallout
           h4 
             a(href='/category/dissociative') Dissociative
-          span(style='font:14px;') Dissociative: That means it's awesome.
+          span(style='font:14px;') Dissociatives are mostly NMDA receptor antagonists, these substances are hallucinogenic but different than psychedelics. As per the name, these substances create a distance between the user and reality. 
           br
           br
           a(href='https://wiki.tripsit.me/wiki/Dissociatives') Read more about dissociatives...
@@ -56,7 +56,7 @@ block content
         .bs-callout.bs-callout-depressant.catcallout
           h4 
             a(href='/category/depressant') Depressant
-          span(style='font:14px;') Depressants are drugs which slow shit down.
+          span(style='font:14px;') Depressants are drugs which reduce arousal and stimulation in the user, characterised by a depressing of mental and physical functions.
           br
           br
           a(href='https://wiki.tripsit.me/wiki/Depressants') Read more about depressants...
@@ -64,7 +64,7 @@ block content
         .bs-callout.bs-callout-psychedelic.catcallout
           h4 
             a(href='/category/psychedelic') Psychedelic
-          span(style='font:14px;') Psychedelics are drugs which make things shiny.
+          span(style='font:14px;') Psychedelics are drugs which alter the perception, causing a number of mental effects which manifest in many forms including altered states of consciousness, visual or tactile effects. 
           br
           br
           a(href='https://wiki.tripsit.me/wiki/Psychedelics') Read more about psychedelics...
@@ -87,7 +87,7 @@ block content
             -each drug in drugs
               tr
                 td.ttext(style='width: 30%;') 
-                  a.boxed2(href='/factsheet/'+drug.name) 
+                  a.boxed2(href='/'+drug.name) 
                     | #{drug.pretty_name}
                 td(style='width:20%')
                   if drug.categories 

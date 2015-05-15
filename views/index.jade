@@ -3,6 +3,12 @@ extends layout
 block content
   .container-fluid(style="margin-top:2%;")
     .jumbotron
+      .bs-callout.bs-callout-ss
+        p(style='font:14px;') Welcome to TripSit Factsheets Beta.
+        span(style='font:14px;') Click on drugs, categories. Mouseover technical terms. Send us 
+          a(href='http://tripsit.me/contact-us') feedback
+          span .
+
       .table-responsive
         table.table.table-striped(data-toggle="table",data-url="x",data-search="true")
           thead
@@ -17,7 +23,7 @@ block content
             -each drug in drugs
               tr
                 td.ttext(style='width: 30%;') 
-                  a.boxed2(href='/factsheet/'+drug.name) 
+                  a.boxed2(href='/'+drug.name) 
                     | #{drug.pretty_name}
                 td(style='width:20%')
                   if drug.categories 

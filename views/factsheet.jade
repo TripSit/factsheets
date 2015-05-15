@@ -179,13 +179,13 @@ block content
                       .bs-callout.bs-callout-depressant
                         h4 
                           a(href='/category/depressant') Depressant
-                        p #{drug.pretty_name} is a depressant. These are drugs which slow shit down.
+                        p #{drug.pretty_name} is a depressant. Depressants are drugs which reduce arousal and stimulation in the user, characterised by a depressing of mental and physical functions.
                         a(href='https://wiki.tripsit.me/wiki/Depressants') Read more about depressants...
                     -else if(i == 'psychedelic')
                       .bs-callout.bs-callout-psychedelic
                         h4 
                           a(href='/category/psychedelic') Psychedelic
-                        p #{drug.pretty_name} is a psychedelic. These are drugs which make things shiny.
+                        p #{drug.pretty_name} is a psychedelic. These are a class of drug which alter perception, causing a number of mental effects which manifest in many forms including altered states of consciousness, visual or tactile effects. 
                         a(href='https://wiki.tripsit.me/wiki/Psychedelics') Read more about psychedelics...
                     -else if(i == 'tentative')
                       .bs-callout.bs-callout-tentative
@@ -215,7 +215,7 @@ block content
               if d.wiki
                 a(href=d.wiki) #{d.pname}
               else 
-                a(href='/factsheet/'+d.name) #{d.pname}
+                a(href='/'+d.name) #{d.pname}
       .bs-callout.bs-callout-ss
         h3 Serotonin Syndrome
         ul
@@ -224,7 +224,7 @@ block content
               if d.wiki
                 a(href=d.wiki) #{d.pname}
               else 
-                a(href='/factsheet/'+d.name) #{d.pname}
+                a(href='/'+d.name) #{d.pname}
       .bs-callout.bs-callout-unsafe
         h3 Unsafe
         ul
@@ -233,7 +233,7 @@ block content
               if d.wiki
                 a(href=d.wiki) #{d.pname}
               else 
-                a(href='/factsheet/'+d.name) #{d.pname}
+                a(href='/'+d.name) #{d.pname}
       .bs-callout.bs-callout-safeinc
         h3 Low risk & Increased Effects
         ul
@@ -242,7 +242,7 @@ block content
               if d.wiki
                 a(href=d.wiki) #{d.pname}
               else 
-                a(href='/factsheet/'+d.name) #{d.pname}
+                a(href='/'+d.name) #{d.pname}
       .bs-callout.bs-callout-safedec
         h3 Low risk & Decreased Effects
         ul
@@ -251,6 +251,6 @@ block content
               if d.wiki
                 a(href=d.wiki) #{d.pname}
               else 
-                a(href='/factsheet/'+d.name) #{d.pname}
+                a(href='/'+d.name) #{d.pname}
     else
       p No interaction information for #{drug.pretty_name}

@@ -15,9 +15,11 @@ window.onload = function () {
 
       levelTwo = [];
       $.each(levels, function(level, amt) {
-      amt = amt.split('-');
+        amt = amt.split('-');
         if(amt.length > 1) {
           levelTwo.push({y: parseInt(amt[1])-parseInt(amt[0]), 'label': level});
+        } else {
+          levelTwo.push({y: 0, 'label': level});
         }
       });
 
