@@ -2,16 +2,28 @@ window.onload = function () {
   if(drug.formatted_dose) {
     $.each(drug.formatted_dose, function(roa, levels) {
       var dataPoints = [];
-      var a = 1;
+
+      var levelOne = [];
+      var u = '';
       $.each(levels, function(level, amt) {
+        var m = amt.match('(mg|g|ug)');
+        if(m) u = m[1];
+
         amt = amt.replace(/mg/i,'').replace(/g/i,'').replace(/ug/i,'');
-        dataPoints.push({y: a, x: parseInt(amt)});
-        a++;
+        levelOne.push({y: parseInt(amt), 'label': level});
       });
 
-      var title = "Dosage response curve for " + roa + " " + drug.pretty_name;
+      levelTwo = [];
+      $.each(levels, function(level, amt) {
+      amt = amt.split('-');
+        if(amt.length > 1) {
+          levelTwo.push({y: parseInt(amt[1])-parseInt(amt[0]), 'label': level});
+        }
+      });
+
+      var title = "Dosage chart for " + roa + " " + drug.pretty_name;
       if(roa == 'none') {
-        title = "Dosage response curve for " + drug.pretty_name;
+        title = "Dosage chart for " + drug.pretty_name;
       } 
 
       var chart = new CanvasJS.Chart(roa+'Chart', {
@@ -21,177 +33,181 @@ window.onload = function () {
           },
           'animationEnabled': true,
           axisX: {
-            title: 'Dosage'
-          },
-          axisY:{
             title: 'Level'
           },
+          axisY:{
+            title: 'Dosage ('+u+')'
+          },
           data: [
-              {        
-                type: "spline",
-                //lineThickness: 3,        
-                dataPoints: dataPoints
-              }
+                {
+                  'type': 'stackedColumn', 
+                  'dataPoints': levelOne
+                }, {
+                  'type': 'stackedColumn', 
+                  'dataPoints': levelTwo
+                }
           ]
       });
       chart.render();
     });
   }
   
-  var data = [];
-  if(drug.formatted_duration.value && drug.formatted_onset.value && drug.formatted_aftereffects.value) {
-    var onset = parseInt(drug.formatted_onset.value);
-    if(drug.formatted_onset._unit == 'minutes') {
-      onset = onset / 60;
-    }
-    onset = [{'y': onset, 'label': 'All ROAs'}];
-    
-    var duration = parseInt(drug.formatted_duration.value);
-    if(drug.formatted_duration._unit == 'minutes') {
-      duration = duration / 60;
-    }
-    duration = [{'y': duration, 'label': 'All ROAs'}];
-
-    var after = parseInt(drug.formatted_aftereffects.value);
-    if(drug.formatted_aftereffects._unit == 'minutes') {
-      after = after / 60;
-    }
-    after = [{'y': after, 'label': 'All ROAs'}];
-
-    data.push({     
-      type: "stackedBar",
-      showInLegend: true,
-      name: "Onset",
-      axisYType: "secondary",
-      color: "#7E8F74",
-      dataPoints: onset
-    });
-    data.push({     
-        type: "stackedBar",
-        showInLegend: true,
-        name: "Duration",
-        axisYType: "secondary",
-        color: "#F0E6A7",
-        dataPoints: duration
-    }); 
-    data.push({     
-        type: "stackedBar",
-        showInLegend: true,
-        name: "After effects",
-        axisYType: "secondary",
-        color: "#ADD8E6",
-        dataPoints: after
-    });
-  } else {
-    var roas = []; 
-
-    // TODO : can actually loop this
-    // Onset
-    var dp = {
-      'onset': [],
-      'duration': [],
-      'aftereffects': []
-    };
-
-    $.each(drug.formatted_onset, function(roa, value) {
-      if(roa == '_unit' || roa == 'value') return;
-      if($.inArray(roa, roas) == -1) roas.push(roa);
-
-      var val = parseInt(value);
+  if(drug.formatted_duration && drug.formatted_onset && drug.formatted_aftereffects) {
+    var data = [];
+    if(drug.formatted_duration.value && drug.formatted_onset.value && drug.formatted_aftereffects.value) {
+      var onset = parseInt(drug.formatted_onset.value);
       if(drug.formatted_onset._unit == 'minutes') {
-        val = val / 60;
+        onset = onset / 60;
       }
-      dp.onset.push({'y': val, 'label': roa}) 
-    });
-    
-    // Duration
-    $.each(drug.formatted_duration, function(roa, value) {
-      if(roa == '_unit' || roa == 'value') return;
-      if($.inArray(roa, roas) == -1) roas.push(roa);
-
-      var val = parseInt(value);
+      onset = [{'y': onset, 'label': 'All ROAs'}];
+      
+      var duration = parseInt(drug.formatted_duration.value);
       if(drug.formatted_duration._unit == 'minutes') {
-        val = val / 60;
+        duration = duration / 60;
       }
-      dp.duration.push({'y': val, 'label': roa}) 
-    });
+      duration = [{'y': duration, 'label': 'All ROAs'}];
 
-    // After effects
-    $.each(drug.formatted_aftereffects, function(roa, value) {
-      if(roa == '_unit' || roa == 'value') return;
-      if($.inArray(roa, roas) == -1) roas.push(roa);
-
-      var val = parseInt(value);
+      var after = parseInt(drug.formatted_aftereffects.value);
       if(drug.formatted_aftereffects._unit == 'minutes') {
-        val = val / 60;
+        after = after / 60;
       }
-      dp.aftereffects.push({'y': val, 'label': roa}) 
-    });
+      after = [{'y': after, 'label': 'All ROAs'}];
 
-    /*$.each(['onset','duration','aftereffects'], function(a, c) {
-      var s = drug['formatted_'+c];
-      if(s.value) {
-        var val = parseInt(s.value);
-        if(s._unit == 'minutes') {
+      data.push({     
+        type: "stackedBar",
+        showInLegend: true,
+        name: "Onset",
+        axisYType: "secondary",
+        color: "#7E8F74",
+        dataPoints: onset
+      });
+      data.push({     
+          type: "stackedBar",
+          showInLegend: true,
+          name: "Duration",
+          axisYType: "secondary",
+          color: "#F0E6A7",
+          dataPoints: duration
+      }); 
+      data.push({     
+          type: "stackedBar",
+          showInLegend: true,
+          name: "After effects",
+          axisYType: "secondary",
+          color: "#ADD8E6",
+          dataPoints: after
+      });
+    } else {
+      var roas = []; 
+
+      // TODO : can actually loop this
+      // Onset
+      var dp = {
+        'onset': [],
+        'duration': [],
+        'aftereffects': []
+      };
+
+      $.each(drug.formatted_onset, function(roa, value) {
+        if(roa == '_unit' || roa == 'value') return;
+        if($.inArray(roa, roas) == -1) roas.push(roa);
+
+        var val = parseInt(value);
+        if(drug.formatted_onset._unit == 'minutes') {
           val = val / 60;
         }
-        for(var i=0;i<roas.length;i++) {
-          dp[c].push({'y': val, 'label':roas[i]});  
+        dp.onset.push({'y': val, 'label': roa}) 
+      });
+      
+      // Duration
+      $.each(drug.formatted_duration, function(roa, value) {
+        if(roa == '_unit' || roa == 'value') return;
+        if($.inArray(roa, roas) == -1) roas.push(roa);
+
+        var val = parseInt(value);
+        if(drug.formatted_duration._unit == 'minutes') {
+          val = val / 60;
         }
-      }
-    });*/
+        dp.duration.push({'y': val, 'label': roa}) 
+      });
 
-    data.push({     
-      type: "stackedBar",
-      showInLegend: true,
-      name: "Onset",
-      axisYType: "secondary",
-      color: "#7E8F74",
-      dataPoints: dp.onset
-    });
-    data.push({     
+      // After effects
+      $.each(drug.formatted_aftereffects, function(roa, value) {
+        if(roa == '_unit' || roa == 'value') return;
+        if($.inArray(roa, roas) == -1) roas.push(roa);
+
+        var val = parseInt(value);
+        if(drug.formatted_aftereffects._unit == 'minutes') {
+          val = val / 60;
+        }
+        dp.aftereffects.push({'y': val, 'label': roa}) 
+      });
+
+      /*$.each(['onset','duration','aftereffects'], function(a, c) {
+        var s = drug['formatted_'+c];
+        if(s.value) {
+          var val = parseInt(s.value);
+          if(s._unit == 'minutes') {
+            val = val / 60;
+          }
+          for(var i=0;i<roas.length;i++) {
+            dp[c].push({'y': val, 'label':roas[i]});  
+          }
+        }
+      });*/
+
+      data.push({     
         type: "stackedBar",
         showInLegend: true,
-        name: "Duration",
+        name: "Onset",
         axisYType: "secondary",
-        color: "#F0E6A7",
-        dataPoints: dp.duration
-    }); 
-    data.push({     
-        type: "stackedBar",
-        showInLegend: true,
-        name: "After effects",
-        axisYType: "secondary",
-        color: "#ADD8E6",
-        dataPoints: dp.aftereffects
-    });
+        color: "#7E8F74",
+        dataPoints: dp.onset
+      });
+      data.push({     
+          type: "stackedBar",
+          showInLegend: true,
+          name: "Duration",
+          axisYType: "secondary",
+          color: "#F0E6A7",
+          dataPoints: dp.duration
+      }); 
+      data.push({     
+          type: "stackedBar",
+          showInLegend: true,
+          name: "After effects",
+          axisYType: "secondary",
+          color: "#ADD8E6",
+          dataPoints: dp.aftereffects
+      });
+    }
+    var chart = new CanvasJS.Chart("durationChart", {
+              title:{
+                      text:drug.name + " duration"
+              },
+              animationEnabled: true,
+              axisX:{
+                      interval: 1,
+                      labelFontSize: 10,
+                      lineThickness: 0
+              },
+              axisY2:{
+                      valueFormatString: "0 hours",
+                      lineThickness: 0                                
+              },
+              toolTip: {
+                      shared: true
+              },
+              legend:{
+                      verticalAlign: "top",
+                      horizontalAlign: "center"
+              },
+
+              data: data 
+      });
+      chart.render();
   }
-  var chart = new CanvasJS.Chart("durationChart", {
-            title:{
-                    text:name + " duration"
-            },
-            animationEnabled: true,
-            axisX:{
-                    interval: 1,
-                    labelFontSize: 10,
-                    lineThickness: 0
-            },
-            axisY2:{
-                    valueFormatString: "0 hours",
-                    lineThickness: 0                                
-            },
-            toolTip: {
-                    shared: true
-            },
-            legend:{
-                    verticalAlign: "top",
-                    horizontalAlign: "center"
-            },
-
-            data: data 
-    });
-    chart.render();
-
+  
 var bt = $('.sidebar').position().top;
 
 $(window).scroll(function() {

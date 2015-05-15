@@ -9,22 +9,19 @@ html
     link(rel='stylesheet', href='/stylesheets/bootstrap-theme.min.css')
     link(rel='stylesheet', href='/stylesheets/jquery-ui.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/jquery.tagsinput.css')
     script(src='/javascripts/jquery-2.1.3.min.js')
-    script(src='/javascripts/jquery.tagsinput.js')
     script(src='/javascripts/bootstrap.min.js')
     script(src='/javascripts/bootstrap-table.min.js')
-    script(src='/javascripts/jquery.dataTables.min.js')
-    script(src='/javascripts/jquery-ui.min.js')
     script(src='/javascripts/canvasjs.min.js')
     script(src='/javascripts/charts.js')
-    script(src='/javascripts/factsheets.js')
   body
     .navbar.navbar-inverse.navbar-static-top(role='navigation',style="padding:0;margin:0")
       center
         a(href='/')
-          img.img-responsive(width='100%', src='/images/logo.png',style="padding:0;margin:0")
+          img.img-responsive(width='100%', src='/images/logo_beta.png',style="padding:0;margin:0")
       ul.nav.navbar-nav.navbar-right.top-nav(style="padding:0;margin:0")
+        li
+          a(href='http://tripsit.me/about') TripSit
         li
           a(href='http://tripsit.me/about') About
         li
@@ -33,4 +30,8 @@ html
           a(href='https://play.google.com/store/apps/details?id=me.tripsit.tripmobile') Mobile App
         li
           a(href='http://tripsit.me/chat-overview/') Chat Overview
+        li
+         a(href='http://tripsit.me/donate/') Donate
+        li
+         a(href='http://wiki.tripsit.me/') Wiki
     block content

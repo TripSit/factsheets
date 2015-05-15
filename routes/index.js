@@ -116,10 +116,11 @@ router.get('/factsheet/:name', function(req, res) {
     }
     var drug = body.data[0];
     _.each(_.keys(drugCache), function(item) {
-      drug.properties.summary = drug.properties.summary.replace(new RegExp(' '+item+' ', 'gi'), ' <a href="/factsheet/'+item+'">'+drugCache[item].pretty_name+'</a> ');
+      var pattern = new RegExp('\\b' + item + '\\b', 'gi');
+      drug.properties.summary = drug.properties.summary.replace(pattern, '<a href="/factsheet/'+item+'">'+drugCache[item].pretty_name+'</a>');
     });
     _.each(_.keys(glossary), function(item) {
-      drug.properties.summary = drug.properties.summary.replace(new RegExp('('+item+')', 'gi'), '[$1]');
+      drug.properties.summary = drug.properties.summary.replace(new RegExp('\\b('+item+')\\b', 'gi'), '[$1]');
     });
     var terms = /\[([^\]]+)\]/gi;
     var item = terms.exec(drug.properties.summary);
@@ -141,6 +142,8 @@ router.get('/factsheet/:name', function(req, res) {
       safetyKey = '5-meo-xxt';
     } else if(_.include(drug.categories, 'benzodiazepine')) {
       safetyKey = 'benzodiazepines';
+    } else if(_.include(drug.categories, 'opioid')) {
+      safetyKey = 'opioids';
     }
 
     if(safetyKey) {

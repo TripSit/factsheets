@@ -1,4 +1,5 @@
 x display name
+- don't show the thing if chart is no info
 x warnings for research chemical, habit forming
 - link to scales
 x effects list
