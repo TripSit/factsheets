@@ -6,7 +6,7 @@ window.onload = function () {
       var levelOne = [];
       var u = '';
       $.each(levels, function(level, amt) {
-        var m = amt.match('(mg|g|ug)');
+        var m = amt.match('(mg|g|ug|µg)');
         if(m) u = m[1];
 
         amt = amt.replace(/mg/i,'').replace(/g/i,'').replace(/ug/i,'');
@@ -188,6 +188,23 @@ window.onload = function () {
                       text:drug.name + " duration"
               },
               animationEnabled: true,
+              toolTip: {
+                content: function(e) {
+                  var e = e.entries[0];
+                  var map = {'After effects':'aftereffects', 'Duration':'duration', 'Onset': 'onset'}; // eugh
+                  
+                  var item = e.dataSeries.name;
+                  var value = e.dataPoint.y;
+                  var unit = drug['formatted_'+map[item]]._unit;
+
+                  if(unit == 'minutes') {
+                    value = value * 60;
+                  }
+
+                  return value + ' ' + unit;
+                },
+                shared: false
+              },
               axisX:{
                       interval: 1,
                       labelFontSize: 10,
@@ -196,9 +213,6 @@ window.onload = function () {
               axisY2:{
                       valueFormatString: "0 hours",
                       lineThickness: 0                                
-              },
-              toolTip: {
-                      shared: true
               },
               legend:{
                       verticalAlign: "top",

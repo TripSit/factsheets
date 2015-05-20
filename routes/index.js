@@ -5,6 +5,7 @@ var router = express.Router();
 var fs = require('fs');
 var glossary = JSON.parse(fs.readFileSync('glossary.json', 'utf-8'));
 var drugCache = {};
+var aliasCache = {};
 var combos = {};
 var pCats = { 
   "dox": {
@@ -59,6 +60,12 @@ var updateCache = function() {
     'json': true
   }, function(request, response, body) {
     drugCache = body.data[0];
+    aliasCache = {};
+    _.each(drugCache, function(d) {
+      _.each(d.aliases, function(a) {
+        aliasCache[a] = d.name; 
+      }); 
+    });
   });
 };
 setInterval(updateCache, 60000);
@@ -80,7 +87,6 @@ router.get('/status', function(req, res) {
     drugs = _.sortBy(drugCache, 'name');
 
     var brokenDose = _.filter(drugs, function(drug) { return !_.has(drug, 'formatted_dose'); });
-
     var brokenOnset = _.filter(drugs, function(drug) { return !_.has(drug, 'formatted_onset'); });
     var brokenDuration = _.filter(drugs, function(drug) { return !_.has(drug, 'formatted_duration'); });
     var brokenAfter = _.filter(drugs, function(drug) { return !_.has(drug, 'formatted_aftereffects'); });
@@ -97,12 +103,20 @@ router.get('/category/:name', function(req, res) {
   res.render('category', { title: 'TripSit Factsheets', 'category': req.params.name, 'drugs': drugs });
 });
 
+router.get('/factsheet/:name', function(req, res) {
+    res.redirect('/' + req.params.name);
+});
+
 router.get('/:name', function(req, res) {
   if(!_.has(drugCache, req.params.name.toLowerCase())) {
+    if(_.has(aliasCache, req.params.name)) {
+      return res.redirect('/'+aliasCache[req.params.name]);
+    } else {
       return res.render('error', {
           message: 'no such drug',
           'status': 404
       });
+    }
   }
   var drug = _.clone(drugCache[req.params.name.toLowerCase()]);
       drug.properties = _.clone(drug.properties);
@@ -184,7 +198,6 @@ router.get('/:name', function(req, res) {
         roas = _.union(roas, _.without(_.keys(s), '_unit', 'value'));
       }
     });
-
 
     _.each(['onset', 'duration', 'aftereffects'], function(a, c) {
       var s = drug['formatted_'+a];
