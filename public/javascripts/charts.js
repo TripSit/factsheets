@@ -40,11 +40,26 @@ window.onload = function () {
           axisY:{
             title: 'Dosage ('+u+')'
           },
+          toolTip: {
+                content: function(e) {
+                  e = e.entries;
+                  var out = e[0].dataPoint.label + ': ';
+                  var r = [];
+                  r.push(e[0].dataPoint.y);
+                  if(e[1].dataPoint.y != 0) r.push(e[0].dataPoint.y + e[1].dataPoint.y);
+                  out += r.join('-') + u;
+                  return out;
+                },
+                shared: true
+              },
+
           data: [
                 {
+                  'name': 'lower',
                   'type': 'stackedColumn', 
                   'dataPoints': levelOne
                 }, {
+                  'name': 'upper',
                   'type': 'stackedColumn', 
                   'dataPoints': levelTwo
                 }
@@ -194,6 +209,7 @@ window.onload = function () {
                   var map = {'After effects':'aftereffects', 'Duration':'duration', 'Onset': 'onset'}; // eugh
                   
                   var item = e.dataSeries.name;
+                  var roa = e.dataPoint.label;
                   var value = e.dataPoint.y;
                   var unit = drug['formatted_'+map[item]]._unit;
 
@@ -201,7 +217,7 @@ window.onload = function () {
                     value = value * 60;
                   }
 
-                  return value + ' ' + unit;
+                  return roa + ' ' + item + ': ' + value + ' ' + unit;
                 },
                 shared: false
               },
