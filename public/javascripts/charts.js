@@ -69,7 +69,7 @@ window.onload = function () {
     });
   }
   
-  if(drug.formatted_duration && drug.formatted_onset && drug.formatted_aftereffects) {
+  if(drug.formatted_duration || drug.formatted_onset || drug.formatted_aftereffects) {
     var data = [];
     if(drug.formatted_duration.value && drug.formatted_onset.value && drug.formatted_aftereffects.value) {
       var onset = parseInt(drug.formatted_onset.value);
@@ -125,53 +125,45 @@ window.onload = function () {
         'aftereffects': []
       };
 
-      $.each(drug.formatted_onset, function(roa, value) {
-        if(roa == '_unit' || roa == 'value') return;
-        if($.inArray(roa, roas) == -1) roas.push(roa);
+      if(drug.formatted_onset) {
+        $.each(drug.formatted_onset, function(roa, value) {
+          if(roa == '_unit' || roa == 'value') return;
+          if($.inArray(roa, roas) == -1) roas.push(roa);
 
-        var val = parseInt(value);
-        if(drug.formatted_onset._unit == 'minutes') {
-          val = val / 60;
-        }
-        dp.onset.push({'y': val, 'label': roa}) 
-      });
-      
-      // Duration
-      $.each(drug.formatted_duration, function(roa, value) {
-        if(roa == '_unit' || roa == 'value') return;
-        if($.inArray(roa, roas) == -1) roas.push(roa);
-
-        var val = parseInt(value);
-        if(drug.formatted_duration._unit == 'minutes') {
-          val = val / 60;
-        }
-        dp.duration.push({'y': val, 'label': roa}) 
-      });
-
-      // After effects
-      $.each(drug.formatted_aftereffects, function(roa, value) {
-        if(roa == '_unit' || roa == 'value') return;
-        if($.inArray(roa, roas) == -1) roas.push(roa);
-
-        var val = parseInt(value);
-        if(drug.formatted_aftereffects._unit == 'minutes') {
-          val = val / 60;
-        }
-        dp.aftereffects.push({'y': val, 'label': roa}) 
-      });
-
-      /*$.each(['onset','duration','aftereffects'], function(a, c) {
-        var s = drug['formatted_'+c];
-        if(s.value) {
-          var val = parseInt(s.value);
-          if(s._unit == 'minutes') {
+          var val = parseInt(value);
+          if(drug.formatted_onset._unit == 'minutes') {
             val = val / 60;
           }
-          for(var i=0;i<roas.length;i++) {
-            dp[c].push({'y': val, 'label':roas[i]});  
+          dp.onset.push({'y': val, 'label': roa}) 
+        });
+      }
+      
+      if(drug.formatted_duration) {
+        $.each(drug.formatted_duration, function(roa, value) {
+          if(roa == '_unit' || roa == 'value') return;
+          if($.inArray(roa, roas) == -1) roas.push(roa);
+
+          var val = parseInt(value);
+          if(drug.formatted_duration._unit == 'minutes') {
+            val = val / 60;
           }
-        }
-      });*/
+          dp.duration.push({'y': val, 'label': roa}) 
+        });
+      }
+
+      // After effects
+      if(drug.formatted_aftereffects) {
+        $.each(drug.formatted_aftereffects, function(roa, value) {
+          if(roa == '_unit' || roa == 'value') return;
+          if($.inArray(roa, roas) == -1) roas.push(roa);
+
+          var val = parseInt(value);
+          if(drug.formatted_aftereffects._unit == 'minutes') {
+            val = val / 60;
+          }
+          dp.aftereffects.push({'y': val, 'label': roa}) 
+        });
+      }
 
       data.push({     
         type: "stackedBar",
