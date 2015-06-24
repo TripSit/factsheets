@@ -56,17 +56,21 @@ var pCats = {
 var wikiCache = {};
 
 var updateCache = function() {
-  request.get('http://tripbot.tripsit.me/api/tripsit/getAllDrugs', {
-    'json': true
-  }, function(request, response, body) {
-    drugCache = body.data[0];
-    aliasCache = {};
-    _.each(drugCache, function(d) {
-      _.each(d.aliases, function(a) {
-        aliasCache[a] = d.name; 
-      }); 
+  try {
+    request.get('http://tripbot.tripsit.me/api/tripsit/getAllDrugs', {
+      'json': true
+    }, function(request, response, body) {
+      try {
+        drugCache = body.data[0];
+        aliasCache = {};
+        _.each(drugCache, function(d) {
+          _.each(d.aliases, function(a) {
+            aliasCache[a] = d.name; 
+          }); 
+        });
+      } catch(err) {}
     });
-  });
+  } catch(err) {}
 };
 setInterval(updateCache, 60000);
 updateCache();
