@@ -1,5 +1,6 @@
 window.onload = function () {
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tooltip"]').tooltip();
+  $('.fixed-table-loading').hide();
 
   if(drug && drug.formatted_dose) {
     $.each(drug.formatted_dose, function(roa, levels) {
