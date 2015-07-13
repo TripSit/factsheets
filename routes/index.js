@@ -62,6 +62,30 @@ var updateCache = function() {
     }, function(request, response, body) {
       try {
         drugCache = body.data[0];
+
+        // Annotate
+        _.each(drugCache, function(drug) {
+        _.each(_.keys(drugCache), function(item) {
+          var pattern = new RegExp('\\b' + item + '\\b', 'gi');
+          if(_.has(drug.properties, 'summary')) {
+            drug.properties.summary = drug.properties.summary.replace(pattern, '<a href="/'+item+'">'+drugCache[item].pretty_name+'</a>');
+          }
+        });
+
+        _.each(_.keys(glossary), function(item) {
+          if(_.has(drug.properties, 'summary')) {
+            drug.properties.summary = drug.properties.summary.replace(new RegExp('\\b('+item+')\\b', 'gi'), '[$1]');
+          }
+        });
+
+        var terms = /\[([^\]]+)\]/gi;
+        var item = terms.exec(drug.properties.summary);
+        while(item != null) {
+          drug.properties.summary = drug.properties.summary.replace(item[0], '<span class="glossary" data-toggle="tooltip" title="'+glossary[item[1].toLowerCase()]+'">'+item[1]+'</span>');
+          item = terms.exec(drug.properties.summary);
+        }
+      });
+
         aliasCache = {};
         _.each(drugCache, function(d) {
           _.each(d.aliases, function(a) {
@@ -84,30 +108,7 @@ request.get('http://tripsit.me/combo_beta.json', {
 /* GET home page. */
 router.get('/', function(req, res) {
     drugs = _.sortBy(drugCache, 'name');
-    
-    _.each(drugs, function(drug) {
-      if(drug.properties.summary && drug.properties.summary.match(/a href/)) return;
-      _.each(_.keys(drugCache), function(item) {
-        var pattern = new RegExp('\\b' + item + '\\b', 'gi');
-        if(_.has(drug.properties, 'summary')) {
-          drug.properties.summary = drug.properties.summary.replace(pattern, '<a href="/'+item+'">'+drugCache[item].pretty_name+'</a>');
-        }
-      });
-
-      _.each(_.keys(glossary), function(item) {
-        if(_.has(drug.properties, 'summary')) {
-          drug.properties.summary = drug.properties.summary.replace(new RegExp('\\b('+item+')\\b', 'gi'), '[$1]');
-        }
-      });
-
-      var terms = /\[([^\]]+)\]/gi;
-      var item = terms.exec(drug.properties.summary);
-      while(item != null) {
-        drug.properties.summary = drug.properties.summary.replace(item[0], '<span class="glossary" data-toggle="tooltip" title="'+glossary[item[1].toLowerCase()]+'">'+item[1]+'</span>');
-        item = terms.exec(drug.properties.summary);
-      }
-    });
-
+     
     res.render('index', { title: 'TripSit Factsheets', 'drugs': drugs });
 });
 
@@ -147,21 +148,6 @@ router.get('/:name', function(req, res) {
     }
   }
   var drug = _.clone(drugCache[req.params.name.toLowerCase()]);
-      drug.properties = _.clone(drug.properties);
-
-  _.each(_.keys(drugCache), function(item) {
-    var pattern = new RegExp('\\b' + item + '\\b', 'gi');
-    drug.properties.summary = drug.properties.summary.replace(pattern, '<a href="/'+item+'">'+drugCache[item].pretty_name+'</a>');
-  });
-  _.each(_.keys(glossary), function(item) {
-    drug.properties.summary = drug.properties.summary.replace(new RegExp('\\b('+item+')\\b', 'gi'), '[$1]');
-  });
-  var terms = /\[([^\]]+)\]/gi;
-  var item = terms.exec(drug.properties.summary);
-  while(item != null) {
-      drug.properties.summary = drug.properties.summary.replace(item[0], '<span class="glossary" data-toggle="tooltip" title="'+glossary[item[1].toLowerCase()]+'">'+item[1]+'</span>');
-      item = terms.exec(drug.properties.summary);
-  }
   var order = _.union(['summary', 'categories', 'dose', 'onset', 'duration', 'after-effects', 'effects'], _.keys(drug.properties));
 
   var safetyKey = null,
