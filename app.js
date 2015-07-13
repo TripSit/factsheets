@@ -43,6 +43,7 @@ if (app.get('env') === 'development') {
             message: err,
             error: err
         });
+        console.log(err.stack);
     });
 }
 

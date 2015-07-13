@@ -1,4 +1,6 @@
 window.onload = function () {
+  $('[data-toggle="tooltip"]').tooltip()
+
   if(drug.formatted_dose) {
     $.each(drug.formatted_dose, function(roa, levels) {
       var dataPoints = [];
@@ -242,5 +244,4 @@ $(window).scroll(function() {
     $('.sidebar').css({position: 'absolute', top: bt+'px' })
 });
 
-  $('[data-toggle="tooltip"]').tooltip()
 };
