@@ -61,8 +61,8 @@ var updateCache = function() {
       'json': true
     }, function(request, response, body) {
       try {
-        drugCache = body.data[0];
-
+        drugCache = _.sortBy(body.data[0], 'name');
+     
         // Annotate
         _.each(drugCache, function(drug) {
         _.each(_.keys(drugCache), function(item) {
@@ -107,9 +107,7 @@ request.get('http://tripsit.me/combo_beta.json', {
 
 /* GET home page. */
 router.get('/', function(req, res) {
-    drugs = _.sortBy(drugCache, 'name');
-     
-    res.render('index', { title: 'TripSit Factsheets', 'drugs': drugs });
+    res.render('index', { title: 'TripSit Factsheets', 'drugs': drugCache });
 });
 
 router.get('/status', function(req, res) {

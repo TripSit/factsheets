@@ -1,7 +1,7 @@
 window.onload = function () {
   $('[data-toggle="tooltip"]').tooltip()
 
-  if(drug.formatted_dose) {
+  if(drug && drug.formatted_dose) {
     $.each(drug.formatted_dose, function(roa, levels) {
       var dataPoints = [];
 
@@ -71,7 +71,7 @@ window.onload = function () {
     });
   }
   
-  if(drug.formatted_duration || drug.formatted_onset || drug.formatted_aftereffects) {
+  if(drug && drug.formatted_duration || drug.formatted_onset || drug.formatted_aftereffects) {
     var data = [];
     if(drug.formatted_duration.value && drug.formatted_onset.value && drug.formatted_aftereffects.value) {
       var onset = parseInt(drug.formatted_onset.value);
