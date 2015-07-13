@@ -148,26 +148,32 @@ background-color:#eeeeee;
   background-color: #fff;
 }
  
-.bs-callout-safedec {
-  background-color: #E1FFE1;
-  border-color: #C0D9AF;
+.bs-callout-caution {
+  background-color: #fffacb;
+  border-color: #827700;
+}
+
+/* Themes for different contexts */
+.bs-callout-lowdec {
+  background-color: #d8effe;
+  border-color: #00426c;
 }
 /* Themes for different contexts */
 .bs-callout-danger {
-  background-color: #FFE1FF;
-  border-color: #eaadea;
+  background-color: #fdc9cc;
+  border-color: #7f0006;
 }
 .bs-callout-unsafe {
-  background-color: #fefbed;
-  border-color: #f1e7bc;
+  background-color: #ffe6cb;
+  border-color: #874600;
 }
-.bs-callout-safeinc {
-  background-color: #fcf2f2;
-  border-color: #dFb5b4;
+.bs-callout-lowinc {
+  background-color: #cbf0d1;
+  border-color: #077c1b;
 }
 .bs-callout-ss {
-  background-color: #f0f7fd;
-  border-color: #d0e3f0;
+  background-color: #dfd3ec;
+  border-color: #3d166c;
 }
 .bs-callout-psychedelic {
  /* background-color: #CCFFCC;*/

@@ -75,7 +75,7 @@ var updateCache = function() {
 setInterval(updateCache, 60000);
 updateCache();
 
-request.get('http://tripsit.me/combo.json', {
+request.get('http://tripsit.me/combo_beta.json', {
   'json': true
 }, function(request, response, body) {
   combos = body;
@@ -154,21 +154,25 @@ router.get('/:name', function(req, res) {
     safetyKey = 'benzodiazepines';
   } else if(_.include(drug.categories, 'opioid')) {
     safetyKey = 'opioids';
+  } else if(_.include(drug.categories, 'stimulant')) {
+    safetyKey = 'amphetamines';
   }
 
   if(safetyKey) {
     safety = {
-      'deadly': [],
+      'dangerous': [],
+      'caution': [],
       'unsafe': [],
-      'safeinc': [],
+      'lowinc': [],
       'ss': [],
-      'safedec': []
+      'lowdec': []
     };
 
     _.each(combos[safetyKey], function(d,k) {
       k = {
         'pname': k,
-        'name': k
+        'name': k,
+        'note': d.note
       };
       if(_.has(drugCache, k.name)) {
         k.pname = drugCache[k.name].pretty_name;
@@ -178,15 +182,17 @@ router.get('/:name', function(req, res) {
         k.wiki = pCats[k.name].wiki;
       }
 
-      if(d == 'Safe & Synergy') {
-          safety.safeinc.push(k); 
-      } else if(d == 'Safe & No Synergy') {
-          safety.safedec.push(k);
-      } else if(d == 'Deadly') {
-          safety.deadly.push(k);
-      } else if(d == 'Unsafe') {
+      if(d.status == 'Low Risk & Synergy') {
+          safety.lowinc.push(k); 
+      } else if(d.status == 'Low Risk & No Synergy') {
+          safety.lowdec.push(k);
+      } else if(d.status == 'Dangerous') {
+          safety.dangerous.push(k);
+      } else if(d.status == 'Caution') {
+          safety.caution.push(k);
+      } else if(d.status == 'Unsafe') {
           safety.unsafe.push(k);
-      } else if(d == 'Serotonin Syndrome') {
+      } else if(d.status == 'Serotonin Syndrome') {
           safety.ss.push(k);
       }
     }); 

@@ -210,14 +210,20 @@ block content
     h2.sub-header Interactions
     if interactions
       .bs-callout.bs-callout-danger
-        h3 Extreme Caution
+        h3 Dangerous
         ul
-          -each d in interactions.deadly
+          -each d in interactions.dangerous
             li
               if d.wiki
                 a(href=d.wiki) #{d.pname}
+                -if(d.note)
+                 ul
+                  li #{d.note}
               else 
                 a(href='/'+d.name) #{d.pname}
+                -if(d.note)
+                 ul
+                  li #{d.note}
       .bs-callout.bs-callout-ss
         h3 Serotonin Syndrome
         ul
@@ -225,8 +231,14 @@ block content
             li
               if d.wiki
                 a(href=d.wiki) #{d.pname}
+                -if(d.note)
+                 ul
+                  li #{d.note}
               else 
                 a(href='/'+d.name) #{d.pname}
+                -if(d.note)
+                 ul
+                  li #{d.note}
       .bs-callout.bs-callout-unsafe
         h3 Unsafe
         ul
@@ -234,25 +246,59 @@ block content
             li
               if d.wiki
                 a(href=d.wiki) #{d.pname}
+                -if(d.note)
+                 ul
+                  li #{d.note}
               else 
                 a(href='/'+d.name) #{d.pname}
-      .bs-callout.bs-callout-safeinc
+                -if(d.note)
+                 ul
+                  li #{d.note}
+      .bs-callout.bs-callout-caution
+        h3 Caution
+        ul
+          -each d in interactions.caution
+            li
+              if d.wiki
+                a(href=d.wiki) #{d.pname}
+                -if(d.note)
+                 ul
+                  li #{d.note}
+              else 
+                a(href='/'+d.name) #{d.pname}
+                -if(d.note)
+                 ul
+                  li #{d.note}
+
+      .bs-callout.bs-callout-lowinc
         h3 Low risk & Increased Effects
         ul
-          -each d in interactions.safeinc
+          -each d in interactions.lowinc
             li
               if d.wiki
                 a(href=d.wiki) #{d.pname}
+                -if(d.note)
+                 ul
+                  li #{d.note}
               else 
                 a(href='/'+d.name) #{d.pname}
-      .bs-callout.bs-callout-safedec
+                -if(d.note)
+                 ul
+                  li #{d.note}
+      .bs-callout.bs-callout-lowdec
         h3 Low risk & Decreased Effects
         ul
-          -each d in interactions.safedec
+          -each d in interactions.lowdec
             li
               if d.wiki
                 a(href=d.wiki) #{d.pname}
+                -if(d.note)
+                 ul
+                  li #{d.note}
               else 
                 a(href='/'+d.name) #{d.pname}
+                -if(d.note)
+                 ul
+                  li #{d.note}
     else
       p No interaction information for #{drug.pretty_name}
