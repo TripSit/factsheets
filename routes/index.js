@@ -61,30 +61,32 @@ var updateCache = function() {
       'json': true
     }, function(request, response, body) {
       try {
-        drugCache = _.sortBy(body.data[0], 'name');
+        drugCache = body.data[0];
      
         // Annotate
         _.each(drugCache, function(drug) {
-        _.each(_.keys(drugCache), function(item) {
-          var pattern = new RegExp('\\b' + item + '\\b', 'gi');
-          if(_.has(drug.properties, 'summary')) {
-            drug.properties.summary = drug.properties.summary.replace(pattern, '<a href="/'+item+'">'+drugCache[item].pretty_name+'</a>');
+          if(drug.properties.summary && drug.properties.summary.match(/a href/)) return; // sorry jesus
+
+          _.each(_.keys(drugCache), function(item) {
+            var pattern = new RegExp('\\b' + item + '\\b', 'gi');
+            if(_.has(drug.properties, 'summary')) {
+              drug.properties.summary = drug.properties.summary.replace(pattern, '<a href="/'+item+'">'+drugCache[item].pretty_name+'</a>');
+            }
+          });
+
+          _.each(_.keys(glossary), function(item) {
+            if(_.has(drug.properties, 'summary')) {
+              drug.properties.summary = drug.properties.summary.replace(new RegExp('\\b('+item+')\\b', 'gi'), '[$1]');
+            }
+          });
+
+          var terms = /\[([^\]]+)\]/gi;
+          var item = terms.exec(drug.properties.summary);
+          while(item != null) {
+            drug.properties.summary = drug.properties.summary.replace(item[0], '<span class="glossary" data-toggle="tooltip" title="'+glossary[item[1].toLowerCase()]+'">'+item[1]+'</span>');
+            item = terms.exec(drug.properties.summary);
           }
         });
-
-        _.each(_.keys(glossary), function(item) {
-          if(_.has(drug.properties, 'summary')) {
-            drug.properties.summary = drug.properties.summary.replace(new RegExp('\\b('+item+')\\b', 'gi'), '[$1]');
-          }
-        });
-
-        var terms = /\[([^\]]+)\]/gi;
-        var item = terms.exec(drug.properties.summary);
-        while(item != null) {
-          drug.properties.summary = drug.properties.summary.replace(item[0], '<span class="glossary" data-toggle="tooltip" title="'+glossary[item[1].toLowerCase()]+'">'+item[1]+'</span>');
-          item = terms.exec(drug.properties.summary);
-        }
-      });
 
         aliasCache = {};
         _.each(drugCache, function(d) {
@@ -107,7 +109,8 @@ request.get('http://tripsit.me/combo_beta.json', {
 
 /* GET home page. */
 router.get('/', function(req, res) {
-    res.render('index', { title: 'TripSit Factsheets', 'drugs': drugCache });
+  var drugs = _.sortBy(drugCache, 'name');
+    res.render('index', { title: 'TripSit Factsheets', 'drugs': drugs });
 });
 
 router.get('/status', function(req, res) {
