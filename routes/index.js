@@ -195,7 +195,7 @@ router.get('/:name', function(req, res) {
 
       if(d.status == 'Low Risk & Synergy') {
           safety.lowinc.push(k); 
-      } else if(d.status == 'Low Risk & No Synergy') {
+      } else if(d.status == 'Low Risk & Decrease') {
           safety.lowdec.push(k);
       } else if(d.status == 'Dangerous') {
           safety.dangerous.push(k);

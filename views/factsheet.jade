@@ -25,7 +25,7 @@ block content
     h1#drug.page-header #{drug.pretty_name}
     div#drugname(style='display:none;') #{drug.name}
     h2.sub-header Basic Information
-    table.table
+    table.table(style="width:99%")
       tbody.tbody1
         for pName in order
           if drug.properties[pName]
