@@ -3,77 +3,15 @@ extends layout
 block content
   .container-fluid(style="margin-top:2%;")
     .jumbotron
-
-      -if(category == 'research-chemical')
-        .bs-callout.bs-callout-research.catcallout
-          h4 
-            a(href='/category/research-chemical') Research Chemicals
-          span(style='font:14px;') Research chemicals are drugs with relatively little history of human use, and thus particular care should be taken if choosing to ingest them. 
-          br
-          br
-          a(href='https://wiki.tripsit.me/wiki/Research_Chemicals') Read more about research chemicals...
-      -else if(category == 'habit-forming')
-        .bs-callout.bs-callout-habit.catcallout
-          h4 
-            a(href='/category/habit-forming') Habit Forming Drugs
-          span(style='font:14px;') These drugs pose a higher risk of causing habit forming behaviour, take particular care with the amount and frequency they are taken.
-          br
-          br
-          a(href='https://wiki.tripsit.me/wiki/Addiction') Read more about addiction...
-      -else if(category == 'opioid')
-        .bs-callout.bs-callout-opioid.catcallout
-          h4 
-            a(href='/category/opioid') Opioid
-          span(style='font:14px;') Opioids are pain-killing depressants which may also cause euphoria.
-          br
-          br
-          a(href='https://wiki.tripsit.me/wiki/Opioids') Read more about opioids...
-      -else if(category == 'stimulant')
-        .bs-callout.bs-callout-stimulant.catcallout
-          h4 
-            a(href='/category/stimulant') Stimulant
-          span(style='font:14px;') Stimulants excite the nervous system and increase physiological function.
-          br
-          br
-          a(href='https://wiki.tripsit.me/wiki/Stimulants') Read more about stimulants...
-      -else if(category == 'dissociative')
-        .bs-callout.bs-callout-dissociative.catcallout
-          h4 
-            a(href='/category/dissociative') Dissociative
-          span(style='font:14px;') Dissociatives are mostly NMDA receptor antagonists, these substances are hallucinogenic but different than psychedelics. As per the name, these substances create a distance between the user and reality. 
-          br
-          br
-          a(href='https://wiki.tripsit.me/wiki/Dissociatives') Read more about dissociatives...
-      -else if(category == 'benzodiazepine')
-        .bs-callout.bs-callout-benzo.catcallout
-          h4 
-            a(href='/category/benzodiazepine') Benzodiazepine
-          span(style='font:14px;') Benzodiazepines are generally hypnotic or anxiolytic depressant drugs.
-          br
-          br
-          a(href='https://wiki.tripsit.me/wiki/Benzodiazepines') Read more about benzodiazepines...
-      -else if(category == 'depressant')
-        .bs-callout.bs-callout-depressant.catcallout
-          h4 
-            a(href='/category/depressant') Depressant
-          span(style='font:14px;') Depressants are drugs which reduce arousal and stimulation in the user, characterised by a depressing of mental and physical functions.
-          br
-          br
-          a(href='https://wiki.tripsit.me/wiki/Depressants') Read more about depressants...
-      -else if(category == 'psychedelic')
-        .bs-callout.bs-callout-psychedelic.catcallout
-          h4 
-            a(href='/category/psychedelic') Psychedelic
-          span(style='font:14px;') Psychedelics are drugs which alter the perception, causing a number of mental effects which manifest in many forms including altered states of consciousness, visual or tactile effects. 
-          br
-          br
-          a(href='https://wiki.tripsit.me/wiki/Psychedelics') Read more about psychedelics...
-      -else if(category == 'tentative')
-        .bs-callout.bs-callout-tentative.catcallout
-          h4 
-            a(href='/category/tentative') Tentative
-          span(style='font:14px;') Drugs marked as tentative are those our team wasn't able to find much reliable information about. This is often because the drug is very new. Information listed under these drugs should not be entirely trusted.
-
+      .bs-callout.catcallout(class='bs-callout-#{category.name}')
+        - if(!category.pretty_name) category.pretty_name = category.name.charAt(0).toUpperCase() + category.name.slice(1);
+        h4
+          a(href='/category/#{category.name}') #{category.pretty_name}
+        span(style='font:14px;') #{category.description}
+        br
+        br
+        - if(category.wiki)
+        a(href='#{category.wiki}') Read more on TripSit Wiki...
       table.table.table-striped(data-toggle="table",data-url="x",data-search="true")
           thead
               tr

@@ -54,7 +54,7 @@ block content
                         td(style="margin-left:25px;")
                           div(id=roa+'Chart', style="height:200px;width:500px;margin-left:100px;")
                   -if(drug.hasOwnProperty('dose_note'))
-                    .bs-callout.bs-callout-benzo
+                    .bs-callout.bs-callout-benzodiazepine
                       h4 
                       p #{drug.dose_note}
 
@@ -107,7 +107,7 @@ block content
                                     th(colspan='2') #{roa}
                                  if(drug.formatted_onset)
                                    tr 
-                                    td(style='width:20%') Onset
+                                    
                                     if(drug.formatted_onset[roa])
                                       td #{drug.formatted_onset[roa]} #{drug.formatted_onset._unit}
                                     else 
@@ -136,75 +136,27 @@ block content
                   b Summary
                 td.ttext(style='width:75%')
                   p !{drug.properties.summary}
-                  if(drug.properties.categories)
-                    -each i in drug.properties.categories
-                      -if(i == 'research-chemical')
-                        .bs-callout.bs-callout-research
-                          h4 
-                            a(href='/category/research-chemical') Research Chemical
-                          p #{drug.pretty_name} is a research chemical. This means it has relatively little history of human use, and thus particular care should be taken if choosing to ingest this drug. 
-                          a(href='https://wiki.tripsit.me/wiki/Research_Chemicals') Read more about research chemicals...
-                      -else if(i == 'habit-forming')
-                        .bs-callout.bs-callout-habit
-                          h4 
-                            a(href='/category/habit-forming') Habit Forming
-                          p #{drug.pretty_name} poses a higher risk of causing habit forming behaviour, take particular care with the amount and frequency you take this drug. 
-                          a(href='https://wiki.tripsit.me/wiki/Addiction') Read more about addiction...
-                      -else if(i == 'opioid')
-                        .bs-callout.bs-callout-opioid
-                          h4 
-                            a(href='/category/opioid') Opioid
-                          p #{drug.pretty_name} is an opioid. Opioids are pain-killing depressants which may also cause euphoria.
-                          a(href='https://wiki.tripsit.me/wiki/Opioids') Read more about opioids...
-                      -else if(i == 'stimulant')
-                        .bs-callout.bs-callout-stimulant
-                          h4 
-                            a(href='/category/stimulant') Stimulant
-                          p #{drug.pretty_name} is a stimulant. Stimulants excite the nervous system and increase physiological function.
-                          a(href='https://wiki.tripsit.me/wiki/Stimulants') Read more about stimulants...
-                      -else if(i == 'dissociative')
-                        .bs-callout.bs-callout-dissociative
-                          h4 
-                            a(href='/category/dissociative') Dissociative
-                          p #{drug.pretty_name} is a dissociative. Mostly 
-                            span.glossary(data-toggle="tooltip" title=glossary['nmda']) NMDA
-                            &nbsp;receptor antagonists, these substances are hallucinogenic but different than psychedelics. As per the name, these substances create a distance between the user and reality. 
-                          a(href='https://wiki.tripsit.me/wiki/Dissociatives') Read more about dissociatives...
-                      -else if(i == 'benzodiazepine')
-                        .bs-callout.bs-callout-benzo
-                          h4 
-                            a(href='/category/benzodiazepine') Benzodiazepine
-                          p #{drug.pretty_name} is a benzodiazepine. These are generally hypnotic or anxiolytic depressant drugs.
-                          a(href='https://wiki.tripsit.me/wiki/Benzodiazepines') Read more about benzodiazepines...
-                      -else if(i == 'depressant')
-                        .bs-callout.bs-callout-depressant
-                          h4 
-                            a(href='/category/depressant') Depressant
-                          p #{drug.pretty_name} is a depressant. Depressants are drugs which reduce arousal and stimulation in the user, characterised by a depressing of mental and physical functions.
-                          a(href='https://wiki.tripsit.me/wiki/Depressants') Read more about depressants...
-                      -else if(i == 'psychedelic')
-                        .bs-callout.bs-callout-psychedelic
-                          h4 
-                            a(href='/category/psychedelic') Psychedelic
-                          p #{drug.pretty_name} is a psychedelic. These are a class of drug which alter perception, causing a number of mental effects which manifest in many forms including altered states of consciousness, visual or tactile effects. 
-                          a(href='https://wiki.tripsit.me/wiki/Psychedelics') Read more about psychedelics...
-                      -else if(i == 'tentative')
-                        .bs-callout.bs-callout-tentative
-                          h4 
-                            a(href='/category/tentative') Tentative
-                          p The information given for #{drug.pretty_name} is tentative, which usually means it is very new or that there isn't much reliable information about it. Be careful with this drug.
+                    - each i in drug.properties.categories
+                      - var category = categories[i]
+                      - if(!category.pretty_name) category.pretty_name = category.name.charAt(0).toUpperCase() + category.name.slice(1);
+                      .bs-callout(class='bs-callout-#{category.name}')
+                        h4
+                          a(href='/category/#{category.name}') #{category.pretty_name}
+                        p #{category.description}
+                        -if(category.wiki)
+                          a(href='#{category.wiki}') Read more on TripSit Wiki...
             - else
-                tr
-                  td.tlefttext(style='width: 25%;') 
-                    b #{name}
-                  td.ttext(style='width: 75%;')
-                    - if (typeof(property) === 'string'){
-                      | !{property}
-                    -} else {
-                      -each line in property
-                        | #{line}
-                        br
-                    -}
+              tr
+                td.tlefttext(style='width: 25%;') 
+                  b #{name}
+                td.ttext(style='width: 75%;')
+                  - if (typeof(property) === 'string'){
+                    | !{property}
+                  -} else {
+                    -each line in property
+                      | #{line}
+                      br
+                  -}
     a(name='interact')
     a(style='float:right;font:10px;' href='http://combo.tripsit.me/') See TripSit Wiki for more information about drug interactions
     h2.sub-header Interactions
