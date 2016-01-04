@@ -11,9 +11,13 @@ a {
 td {
 word-wrap: break-word;
 }
-
+.choice{font-family: Arial,sans-serif;font:white;}
 .choice:hover {
 background-color: #7900C2;
+transition: color 0.25s ease,background-color 0.25s ease;
+}
+.navbar-nav {
+color:white;
 }
 .navbar {
 background-color: #000;
@@ -145,7 +149,7 @@ color: white;
   margin: 20px 0;
   padding: 15px 15px 15px 15px;
 padding-top:5px;
-  border-left: 5px solid #eee;
+  border-left: 5px solid #aaa;
 background-color:#eeeeee;
 }
 .bs-callout h4 {

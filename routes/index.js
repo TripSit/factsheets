@@ -7,6 +7,7 @@ var glossary = JSON.parse(fs.readFileSync('glossary.json', 'utf-8'));
 var drugCache = {};
 var catCache = {};
 var aliasCache = {};
+var erowidCache = {};
 var combos = {};
 var pCats = { 
   "dox": {
@@ -109,8 +110,26 @@ var updateCache = function() {
     });
   } catch(err) {}
 };
+var updateErowidCache = function() {
+  try {
+    request.get('https://api.erowid.org/0.1/_index.json?depth=3', {
+      'json': true
+    }, function(request, response, body) {
+      try {
+        _.each(body, function(c) {
+          _.each(c, function(a) {
+            erowidCache[a.id] = a;
+          });
+        });
+      } catch(err) {}
+    });
+  } catch(err) {}
+}
+
 setInterval(updateCache, 60000);
 updateCache();
+setInterval(updateErowidCache, 3600000);
+updateErowidCache();
 
 request.get('http://tripsit.me/combo_beta.json', {
   'json': true
@@ -153,8 +172,8 @@ router.get('/:name', function(req, res) {
     if(_.has(aliasCache, req.params.name)) {
       return res.redirect('/'+aliasCache[req.params.name]);
     } else {
-      return res.render('error', {
-          message: 'no such drug',
+      return res.status(404).render('error', {
+          message: 'Drug not found.',
           'status': 404
       });
     }
@@ -187,6 +206,7 @@ router.get('/:name', function(req, res) {
       'unsafe': [],
       'lowinc': [],
       'ss': [],
+      'lowno': [],
       'lowdec': []
     };
 
@@ -208,6 +228,8 @@ router.get('/:name', function(req, res) {
           safety.lowinc.push(k); 
       } else if(d.status == 'Low Risk & Decrease') {
           safety.lowdec.push(k);
+      } else if(d.status == 'Low Risk & No Synergy') {
+          safety.lowno.push(k);
       } else if(d.status == 'Dangerous') {
           safety.dangerous.push(k);
       } else if(d.status == 'Caution') {
@@ -241,28 +263,44 @@ router.get('/:name', function(req, res) {
     });
   }
 
-  if(_.has(wikiCache, drug.name)) {
-    var wiki = wikiCache[drug.name];
-    res.render('factsheet', { title: 'TripSit Factsheets - ' + drug.pretty_name, 'drug': drug, 'order': order, 'glossary': glossary, 'interactions': safety, 'wiki': wiki, 'categories': catCache });
-  } else {
-    var wiki = null;
-    request.get('http://wiki.tripsit.me/api.php', {
-      'qs': {
-        'action': 'opensearch',
-        'search': drug.name,
-        'limit': 1,
-        'namespace': 0,
-        'format': 'json'
-      },
-      'json': true
-    }, function(err, resp, body) {
-      if(!err && body[1].length !== 0) {
-        wiki = 'https://wiki.tripsit.me/wiki/'+body[1][0].replace(/\s/g, '_');
-      }
-      wikiCache[drug.name] = wiki;
-      res.render('factsheet', { title: 'TripSit Factsheets - ' + drug.pretty_name, 'drug': drug, 'order': order, 'glossary': glossary, 'interactions': safety, 'wiki': wiki, 'categories': catCache});
-    });
+  var getWiki = function(name, callback) {
+    if(_.has(wikiCache, name)) {
+      callback(wikiCache[name]);
+    } else {
+      var wiki = null;
+      request.get('http://wiki.tripsit.me/api.php', {
+        'qs': {
+          'action': 'opensearch',
+          'search': name,
+          'limit': 1,
+          'namespace': 0,
+          'format': 'json'
+        },
+        'json': true
+      }, function(err, resp, body) {
+        if(!err && body[1].length !== 0) {
+          wiki = 'https://wiki.tripsit.me/wiki/'+body[1][0].replace(/\s/g, '_');
+        }
+        wikiCache[name] = wiki;
+        callback(wiki);
+      });
+    }
   }
+
+  var getErowid = function(name, callback) {
+    name = name.replace(/\-/g,'');
+    if(_.has(erowidCache, name)) {
+      callback(erowidCache[name]);
+    } else {
+      callback(null);
+    }
+  };
+
+  getWiki(drug.name, function(wiki) {
+    getErowid(drug.name, function(erowid) {
+      res.render('factsheet', { title: 'TripSit Factsheets - ' + drug.pretty_name, 'drug': drug, 'order': order, 'glossary': glossary, 'interactions': safety, 'wiki': wiki, 'categories': catCache, 'erowid': erowid });
+    });
+  });
 });
 
 router.get('/raw/:name', function(req, res) {
