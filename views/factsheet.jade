@@ -22,6 +22,9 @@ block content
           - if(erowid && erowid.subtopics && erowid.subtopics.htmlMAIN)
             li 
               a(href='https://erowid.org#{erowid.subtopics.htmlMAIN}') Read more on Erowid
+          - if(drug.links && drug.links.experiences)
+            li
+              a(href=drug.links.experiences) Erowid Experience Reports
   .main
     a(name='basic')
     a(href='http://tripsit.me/contact-us/' style='font:10px;float:right') Notice something wrong with this page? Let us know!

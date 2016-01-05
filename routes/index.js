@@ -70,10 +70,12 @@ var updateCache = function() {
         _.each(drugCache, function(drug) {
           if(drug.properties.summary && drug.properties.summary.match(/a href/)) return; // sorry jesus
 
+          var alreadyReplaced = [];
           _.each(_.keys(drugCache), function(item) {
             var pattern = new RegExp('\\b' + item + '\\b', 'gi');
-            if(_.has(drug.properties, 'summary')) {
+            if(_.has(drug.properties, 'summary') && !_.any(alreadyReplaced, function(i) { return i.match(item); })) {
               drug.properties.summary = drug.properties.summary.replace(pattern, '<a href="/'+item+'">'+drugCache[item].pretty_name+'</a>');
+              alreadyReplaced.push(item);
             }
           });
 
