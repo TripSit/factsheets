@@ -70,13 +70,32 @@ var updateCache = function() {
         _.each(drugCache, function(drug) {
           if(drug.properties.summary && drug.properties.summary.match(/a href/)) return; // sorry jesus
 
-          var alreadyReplaced = [];
+          var matches = [];
           _.each(_.keys(drugCache), function(item) {
             var pattern = new RegExp('\\b' + item + '\\b', 'gi');
-            if(_.has(drug.properties, 'summary') && !_.any(alreadyReplaced, function(i) { return i.match(item); })) {
-              drug.properties.summary = drug.properties.summary.replace(pattern, '<a href="/'+item+'">'+drugCache[item].pretty_name+'</a>');
-              alreadyReplaced.push(item);
+            if(_.has(drug.properties, 'summary')) {
+              if(drug.properties.summary.match(pattern)) {
+                matches.push(item);
+              }
             }
+          });
+
+          var goodMatches = _.clone(matches);
+          for(var i=0;i<matches.length;i++) {
+            for(var y=i+1;y<matches.length;y++) {
+              if(matches[i].match(matches[y]) || matches[y].match(matches[i])) {
+                if(matches[i].length > matches[y].length) {
+                  goodMatches = _.without(goodMatches, matches[y]);
+                } else {
+                  goodMatches = _.without(goodMatches, matches[i]);
+                }
+              }
+            }
+          }
+
+          _.each(goodMatches, function(item) {
+            var pattern = new RegExp('\\b' + item + '\\b', 'gi');
+            drug.properties.summary = drug.properties.summary.replace(pattern, '<a href="/'+item+'">'+drugCache[item].pretty_name+'</a>');
           });
 
           _.each(_.keys(glossary), function(item) {
