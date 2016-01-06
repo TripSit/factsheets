@@ -141,7 +141,9 @@ block content
                 td.tlefttext(style='width:25%;vertical-align: top;') 
                   b Summary
                 td.ttext(style='width:75%')
-                  p !{drug.properties.summary}
+                  -if(drug.properties.summary)
+                    p !{drug.properties.summary}
+                  -if(drug.properties.categories)
                     - each i in drug.properties.categories
                       - var category = categories[i]
                       - if(!category.pretty_name) category.pretty_name = category.name.charAt(0).toUpperCase() + category.name.slice(1);
