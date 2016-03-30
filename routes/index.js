@@ -311,7 +311,7 @@ router.get('/:name', function(req, res) {
         },
         'json': true
       }, function(err, resp, body) {
-        if(!err && body[1].length !== 0) {
+        if(!err && body && body[1].length !== 0) {
           wiki = 'https://wiki.tripsit.me/wiki/'+body[1][0].replace(/\s/g, '_');
         }
         wikiCache[name] = wiki;
