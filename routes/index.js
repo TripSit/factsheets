@@ -64,9 +64,9 @@ var updateCache = function() {
       'json': true
     }, function(request, response, body) {
       try {
-        drugCache = body.data[0];
+        drugCache = body.data[0]; // update the cache of drugs
      
-        // Annotate
+        // Here we annotate the data with links to other drugs etc. There is likely a better way to do this.
         _.each(drugCache, function(drug) {
           if(drug.properties.summary && drug.properties.summary.match(/a href/)) return; // sorry jesus
 
@@ -80,6 +80,7 @@ var updateCache = function() {
             }
           });
 
+          // Remove duplicates
           var goodMatches = _.clone(matches);
           for(var i=0;i<matches.length;i++) {
             for(var y=i+1;y<matches.length;y++) {
@@ -93,11 +94,13 @@ var updateCache = function() {
             }
           }
 
+          // Add drug links
           _.each(goodMatches, function(item) {
             var pattern = new RegExp('\\b' + item + '\\b', 'gi');
             drug.properties.summary = drug.properties.summary.replace(pattern, '<a href="/'+item+'">'+drugCache[item].pretty_name+'</a>');
           });
 
+          // Add glossary links
           _.each(_.keys(glossary), function(item) {
             if(_.has(drug.properties, 'summary')) {
               drug.properties.summary = drug.properties.summary.replace(new RegExp('\\b('+item+')\\b', 'gi'), '[$1]');
@@ -112,6 +115,7 @@ var updateCache = function() {
           }
         });
 
+        // update alias cache
         aliasCache = {};
         _.each(drugCache, function(d) {
           _.each(d.aliases, function(a) {
@@ -121,7 +125,7 @@ var updateCache = function() {
       } catch(err) {}
     });
     
-    // Get the categories
+    // Update category cache
     request.get('http://tripbot.tripsit.me/api/tripsit/getAllCategories', {
       'json': true
     }, function(request, response, body) {
@@ -131,6 +135,8 @@ var updateCache = function() {
     });
   } catch(err) {}
 };
+
+// Update cache from erowid
 var updateErowidCache = function() {
   try {
     request.get('https://api.erowid.org/0.1/_index.json?depth=3', {
@@ -147,11 +153,13 @@ var updateErowidCache = function() {
   } catch(err) {}
 }
 
+// Update from our cache every minute, update from erowid's api every 60 minutes
 setInterval(updateCache, 60000);
 updateCache();
 setInterval(updateErowidCache, 3600000);
 updateErowidCache();
 
+// Grab the combos (note: this is not auto updated)
 request.get('http://tripsit.me/combo_beta.json', {
   'json': true
 }, function(request, response, body) {
@@ -164,6 +172,7 @@ router.get('/', function(req, res) {
     res.render('index', { title: 'TripSit Factsheets', 'drugs': drugs });
 });
 
+/* Get status page */
 router.get('/status', function(req, res) {
     drugs = _.sortBy(drugCache, 'name');
 
@@ -175,6 +184,7 @@ router.get('/status', function(req, res) {
     res.render('status', { title: 'TripSit Factsheets', 'brokenDose': brokenDose, 'brokenOnset': brokenOnset, 'brokenDuration': brokenDuration, 'brokenAfter': brokenAfter });
 });
 
+/* Category index */
 router.get('/category/:name', function(req, res) {
   var drugs = _.filter(drugCache, function(drug) {
     return _.include(drug.categories, req.params.name.toLowerCase());
@@ -188,6 +198,7 @@ router.get('/factsheet/:name', function(req, res) {
     res.redirect('/' + req.params.name);
 });
 
+/* Load a drug factsheet */
 router.get('/:name', function(req, res) {
   if(!_.has(drugCache, req.params.name.toLowerCase())) {
     if(_.has(aliasCache, req.params.name)) {
@@ -202,6 +213,7 @@ router.get('/:name', function(req, res) {
   var drug = _.clone(drugCache[req.params.name.toLowerCase()]);
   var order = _.union(['summary', 'categories', 'dose', 'onset', 'duration', 'after-effects', 'effects'], _.keys(drug.properties));
 
+  // TODO: This should be on the API side
   var safetyKey = null,
       safety = null;
   if(_.has(combos, drug.name)) {
@@ -263,7 +275,7 @@ router.get('/:name', function(req, res) {
     }); 
   }
 
-  // This is a little bit grea-hea-heasy, but y'know.
+  // This is a little bit grea-hea-heasy, but y'know. Another thing that can be fixed on the side of the ah api
   if((drug.formatted_duration || drug.formatted_onset || drug.formatted_aftereffects) &&
     (_.size(drug.formatted_duration) > 1 || _.size(drug.formatted_onset) > 1 || _.size(drug.formatted_aftereffects) > 1)) {
     var roas = [];
@@ -319,7 +331,16 @@ router.get('/:name', function(req, res) {
 
   getWiki(drug.name, function(wiki) {
     getErowid(drug.name, function(erowid) {
-      res.render('factsheet', { title: 'TripSit Factsheets - ' + drug.pretty_name, 'drug': drug, 'order': order, 'glossary': glossary, 'interactions': safety, 'wiki': wiki, 'categories': catCache, 'erowid': erowid });
+      res.render('factsheet', { 
+        'title': 'TripSit Factsheets - ' + drug.pretty_name, 
+        'drug': drug, 
+        'order': order, 
+        'glossary': glossary, 
+        'interactions': safety, 
+        'wiki': wiki, 
+        'categories': catCache, 
+        'erowid': erowid 
+      });
     });
   });
 });
