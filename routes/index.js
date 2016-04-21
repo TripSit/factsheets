@@ -274,6 +274,18 @@ router.get('/:name', function(req, res) {
       }
     }); 
   }
+  
+  // urlify sources
+  if(_.has(drug, 'sources')) {
+    var newSources = {};
+    _.each(drug.sources, function(refs, prop) {
+      newSources[prop] = [];
+      _.each(refs, function(ref) {
+        newSources[prop].push(urlify(ref));
+      });
+    });
+    drug.sources = newSources;
+  }
 
   // This is a little bit grea-hea-heasy, but y'know. Another thing that can be fixed on the side of the ah api
   if((drug.formatted_duration || drug.formatted_onset || drug.formatted_aftereffects) &&
@@ -357,4 +369,10 @@ module.exports = router;
 
 function escapeRegExp(string){
   return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+
+// from http://stackoverflow.com/questions/1500260/detect-urls-in-text-with-javascript
+function urlify(text) {
+  var urlRegex = /(https?:\/\/[^\s]+)/g;
+  return text.replace(urlRegex, '<a href="$1">$1</a>')
 }

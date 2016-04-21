@@ -16,6 +16,9 @@ block content
           if interactions
             li
               a(href='#interact') Interactions
+          if(drug.sources)
+            li
+              a(href='#references') References
           if wiki
             li
               a(href=wiki) Read more on TripSit Wiki
@@ -291,3 +294,14 @@ block content
 
     else
       p No interaction information for #{drug.pretty_name}
+
+    -if(drug.sources)
+      h2.sub-header#references References
+      -each p,i in drug.sources
+        - i = i.replace('_', '');
+        - i = i.charAt(0).toUpperCase() + i.slice(1)
+        h3.sub-header #{i}
+        ul
+          -each r in p
+            li !{r}
+
