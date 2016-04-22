@@ -184,6 +184,25 @@ router.get('/status', function(req, res) {
     res.render('status', { title: 'TripSit Factsheets', 'brokenDose': brokenDose, 'brokenOnset': brokenOnset, 'brokenDuration': brokenDuration, 'brokenAfter': brokenAfter });
 });
 
+// common drugs withsout 
+router.get('/cdwr', function(req, res) {
+  var drugs = _.filter(drugCache, function(drug) { 
+    return _.include(drug.categories, 'common') && (!_.has(drug, 'sources') || (_.has(drug, 'sources') && _.difference(['dose', 'duration', 'effects', '_general'], _.keys(drug.sources)).length > 0)); 
+  });
+  _.each(drugs, function(drug) {
+    console.log(drug.sources);
+    if(!drug.sources) {
+      drug.sources = {};
+    }
+    drug.missingSources = _.difference(['dose', 'duration', 'effects', '_general'], _.keys(drug.sources));
+    if(_.include(drug.missingSources, '_general')) {
+      drug.missingSources.splice(drug.missingSources.indexOf('_general'), 1, 'general');
+    }
+  });
+
+  res.render('cdwr', { title: 'TripSit Factsheets', 'drugs': drugs });
+});
+
 /* Category index */
 router.get('/category/:name', function(req, res) {
   var drugs = _.filter(drugCache, function(drug) {
