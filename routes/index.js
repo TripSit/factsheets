@@ -8,6 +8,7 @@ var drugCache = {};
 var catCache = {};
 var aliasCache = {};
 var erowidCache = {};
+var pwCache = {};
 var combos = {};
 var pCats = { 
   "dox": {
@@ -327,6 +328,32 @@ router.get('/:name', function(req, res) {
     });
   }
 
+  // muh code repetition
+  var getPWiki = function(name, callback) {
+    if(_.has(pwCache, name)) {
+      callback(pwCache[name]);
+    } else {
+      var wiki = null;
+      request.get('http://psychonautwiki.org/w/api.php', {
+        'qs': {
+          'action': 'opensearch',
+          'search': name,
+          'limit': 1,
+          'namespace': 0,
+          'format': 'json'
+        },
+        'json': true
+      }, function(err, resp, body) {
+        if(!err && body && body[1].length !== 0) {
+          wiki = 'https://psychonautwiki.org/wiki/'+body[1][0].replace(/\s/g, '_');
+        }
+        pwCache[name] = wiki;
+        callback(wiki);
+      });
+
+    }
+  };
+
   var getWiki = function(name, callback) {
     if(_.has(wikiCache, name)) {
       callback(wikiCache[name]);
@@ -362,15 +389,18 @@ router.get('/:name', function(req, res) {
 
   getWiki(drug.name, function(wiki) {
     getErowid(drug.name, function(erowid) {
-      res.render('factsheet', { 
-        'title': 'TripSit Factsheets - ' + drug.pretty_name, 
-        'drug': drug, 
-        'order': order, 
-        'glossary': glossary, 
-        'interactions': safety, 
-        'wiki': wiki, 
-        'categories': catCache, 
-        'erowid': erowid 
+      getPWiki(drug.name, function(pw) {
+        res.render('factsheet', { 
+          'title': 'TripSit Factsheets - ' + drug.pretty_name, 
+          'drug': drug, 
+          'order': order, 
+          'glossary': glossary, 
+          'interactions': safety, 
+          'wiki': wiki, 
+          'categories': catCache, 
+          'erowid': erowid,
+          'pw': pw
+        });
       });
     });
   });

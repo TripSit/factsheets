@@ -22,16 +22,19 @@ block content
           if wiki
             li
               a(href=wiki) Read more on TripSit Wiki
-          - if(drug.links && drug.links.tihkal)
+          if(drug.links && drug.links.tihkal)
             li
               a(href=drug.links.tihkal) TiHKAL Entry
-          - if(drug.links && drug.links.pihkal)
+          if(drug.links && drug.links.pihkal)
             li
               a(href=drug.links.pihkal) PiHKAL Entry
-          - if(erowid && erowid.subtopics && erowid.subtopics.htmlMAIN)
+          if(pw)
+            li 
+              a(href=pw) Read more on PsychonautWiki
+          if(erowid && erowid.subtopics && erowid.subtopics.htmlMAIN)
             li 
               a(href='https://erowid.org#{erowid.subtopics.htmlMAIN}') Read more on Erowid
-          - if(drug.links && drug.links.experiences)
+          if(drug.links && drug.links.experiences)
             li
               a(href=drug.links.experiences) Erowid Experience Reports
   .main
