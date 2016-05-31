@@ -1,0 +1,55 @@
+extends layout
+
+block content
+  .container-fluid(style="margin-top:2%;")
+    .jumbotron
+      h2 Common Drugs Missing References
+
+      .table-responsive
+        table.table.table-striped(data-toggle="table",data-url="x",data-search="true")
+          thead
+              tr
+                th.theader(style='width: 30%;')
+                  | Name
+                th.theader(style='width: 30%;')
+                  | Categories
+                th.theader(style='width: 70%;')
+                  | Missing
+          tbody.tbody1
+            -each drug in drugs
+              tr
+                td.ttext(style='width: 30%;') 
+                  a.boxed2(href='/factsheet/'+drug.name) 
+                    | #{drug.pretty_name}
+                td(style='width:20%')
+                  if drug.categories 
+                    each kw in drug.categories
+                          if kw == 'psychedelic'
+                            a.label.label-psychedelic(href='/category/'+kw style='float:left;padding:3px;margin:5px;' data-placement="right") #{kw}
+                          else if kw == 'benzodiazepine'
+                            a.label.label-default(href='/category/'+kw style='background-color:#000;color:#FF0000;float:left;padding:3px;margin:5px;' data-placement="right") benzo
+                          else if kw == 'stimulant'
+                            a.label.label-info(href='/category/'+kw style='float:left;padding:3px;margin:5px;' data-placement="right") stimulant
+                          else if kw == 'dissociative'
+                            a.label.label-disso(href='/category/'+kw style='float:left;padding:3px;margin:5px;' data-placement="right") dissociative
+                          else if kw == 'opioid'
+                            a.label.label-success(href='/category/'+kw style='float:left;padding:3px;margin:5px;' data-placement="right") opioid
+                          else if kw == 'depressant'
+                            a.label.label-danger(href='/category/'+kw style='float:left;padding:3px;margin:5px;' data-placement="right") depressant 
+                          else if kw == 'habit-forming'
+                            a.label.label-habit(href='/category/'+kw style='float:left;padding:3px;margin:5px;' data-placement="right") habit forming
+                          else if kw == 'research-chemical'
+                            a.label.label-warning(href='/category/'+kw style='float:left;padding:3px;margin:5px;' data-placement="right") research chemical
+                          else if kw == 'tentative'
+                            a.label.label-tentative(href='/category/'+kw style='float:left;padding:3px;margin:5px;' data-placement="right") tentative
+                          else if kw == 'empathogen'
+                            a.label.label-empathogen(href='/category/'+kw style='float:left;padding:3px;margin:5px;' data-placement="right") empathogen
+                          else
+                            a.label.label-default(href='/category/'+kw style='float:left;padding:3px;margin:5px;' data-placement="right") #{kw}
+                      else
+                        span.label.label-default(href='/category/'+kw style='float:left;padding:3px;margin:5px;' data-placement="right") other
+                td.ttext(style='width: 70%;')
+                  | Missing references for: #{drug.missingSources.join(', ')}
+
+
+

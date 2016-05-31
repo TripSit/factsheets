@@ -7,6 +7,8 @@ var glossary = JSON.parse(fs.readFileSync('glossary.json', 'utf-8'));
 var drugCache = {};
 var catCache = {};
 var aliasCache = {};
+var erowidCache = {};
+var pwCache = {};
 var combos = {};
 var pCats = { 
   "dox": {
@@ -63,19 +65,43 @@ var updateCache = function() {
       'json': true
     }, function(request, response, body) {
       try {
-        drugCache = body.data[0];
+        drugCache = body.data[0]; // update the cache of drugs
      
-        // Annotate
+        // Here we annotate the data with links to other drugs etc. There is likely a better way to do this.
         _.each(drugCache, function(drug) {
           if(drug.properties.summary && drug.properties.summary.match(/a href/)) return; // sorry jesus
 
+          var matches = [];
           _.each(_.keys(drugCache), function(item) {
             var pattern = new RegExp('\\b' + item + '\\b', 'gi');
             if(_.has(drug.properties, 'summary')) {
-              drug.properties.summary = drug.properties.summary.replace(pattern, '<a href="/'+item+'">'+drugCache[item].pretty_name+'</a>');
+              if(drug.properties.summary.match(pattern)) {
+                matches.push(item);
+              }
             }
           });
 
+          // Remove duplicates
+          var goodMatches = _.clone(matches);
+          for(var i=0;i<matches.length;i++) {
+            for(var y=i+1;y<matches.length;y++) {
+              if(matches[i].match(matches[y]) || matches[y].match(matches[i])) {
+                if(matches[i].length > matches[y].length) {
+                  goodMatches = _.without(goodMatches, matches[y]);
+                } else {
+                  goodMatches = _.without(goodMatches, matches[i]);
+                }
+              }
+            }
+          }
+
+          // Add drug links
+          _.each(goodMatches, function(item) {
+            var pattern = new RegExp('\\b' + item + '\\b', 'gi');
+            drug.properties.summary = drug.properties.summary.replace(pattern, '<a href="/'+item+'">'+drugCache[item].pretty_name+'</a>');
+          });
+
+          // Add glossary links
           _.each(_.keys(glossary), function(item) {
             if(_.has(drug.properties, 'summary')) {
               drug.properties.summary = drug.properties.summary.replace(new RegExp('\\b('+item+')\\b', 'gi'), '[$1]');
@@ -90,6 +116,7 @@ var updateCache = function() {
           }
         });
 
+        // update alias cache
         aliasCache = {};
         _.each(drugCache, function(d) {
           _.each(d.aliases, function(a) {
@@ -99,7 +126,11 @@ var updateCache = function() {
       } catch(err) {}
     });
     
+<<<<<<< HEAD
     // Get the categories
+=======
+    // Update category cache
+>>>>>>> c777618659e12937795e75811a8527ee98ac1973
     request.get('http://tripbot.tripsit.me/api/tripsit/getAllCategories', {
       'json': true
     }, function(request, response, body) {
@@ -109,9 +140,31 @@ var updateCache = function() {
     });
   } catch(err) {}
 };
+
+// Update cache from erowid
+var updateErowidCache = function() {
+  try {
+    request.get('https://api.erowid.org/0.1/_index.json?depth=3', {
+      'json': true
+    }, function(request, response, body) {
+      try {
+        _.each(body, function(c) {
+          _.each(c, function(a) {
+            erowidCache[a.id] = a;
+          });
+        });
+      } catch(err) {}
+    });
+  } catch(err) {}
+}
+
+// Update from our cache every minute, update from erowid's api every 60 minutes
 setInterval(updateCache, 60000);
 updateCache();
+setInterval(updateErowidCache, 3600000);
+updateErowidCache();
 
+// Grab the combos (note: this is not auto updated)
 request.get('http://tripsit.me/combo_beta.json', {
   'json': true
 }, function(request, response, body) {
@@ -124,6 +177,7 @@ router.get('/', function(req, res) {
     res.render('index', { title: 'TripSit Factsheets', 'drugs': drugs });
 });
 
+/* Get status page */
 router.get('/status', function(req, res) {
     drugs = _.sortBy(drugCache, 'name');
 
@@ -135,6 +189,26 @@ router.get('/status', function(req, res) {
     res.render('status', { title: 'TripSit Factsheets', 'brokenDose': brokenDose, 'brokenOnset': brokenOnset, 'brokenDuration': brokenDuration, 'brokenAfter': brokenAfter });
 });
 
+// common drugs withsout 
+router.get('/cdwr', function(req, res) {
+  var drugs = _.filter(drugCache, function(drug) { 
+    return _.include(drug.categories, 'common') && (!_.has(drug, 'sources') || (_.has(drug, 'sources') && _.difference(['dose', 'duration', 'effects', '_general'], _.keys(drug.sources)).length > 0)); 
+  });
+  _.each(drugs, function(drug) {
+    console.log(drug.sources);
+    if(!drug.sources) {
+      drug.sources = {};
+    }
+    drug.missingSources = _.difference(['dose', 'duration', 'effects', '_general'], _.keys(drug.sources));
+    if(_.include(drug.missingSources, '_general')) {
+      drug.missingSources.splice(drug.missingSources.indexOf('_general'), 1, 'general');
+    }
+  });
+
+  res.render('cdwr', { title: 'TripSit Factsheets', 'drugs': drugs });
+});
+
+/* Category index */
 router.get('/category/:name', function(req, res) {
   var drugs = _.filter(drugCache, function(drug) {
     return _.include(drug.categories, req.params.name.toLowerCase());
@@ -148,13 +222,14 @@ router.get('/factsheet/:name', function(req, res) {
     res.redirect('/' + req.params.name);
 });
 
+/* Load a drug factsheet */
 router.get('/:name', function(req, res) {
   if(!_.has(drugCache, req.params.name.toLowerCase())) {
     if(_.has(aliasCache, req.params.name)) {
       return res.redirect('/'+aliasCache[req.params.name]);
     } else {
-      return res.render('error', {
-          message: 'no such drug',
+      return res.status(404).render('error', {
+          message: 'Drug not found.',
           'status': 404
       });
     }
@@ -162,6 +237,7 @@ router.get('/:name', function(req, res) {
   var drug = _.clone(drugCache[req.params.name.toLowerCase()]);
   var order = _.union(['summary', 'categories', 'dose', 'onset', 'duration', 'after-effects', 'effects'], _.keys(drug.properties));
 
+  // TODO: This should be on the API side
   var safetyKey = null,
       safety = null;
   if(_.has(combos, drug.name)) {
@@ -187,6 +263,7 @@ router.get('/:name', function(req, res) {
       'unsafe': [],
       'lowinc': [],
       'ss': [],
+      'lowno': [],
       'lowdec': []
     };
 
@@ -208,6 +285,8 @@ router.get('/:name', function(req, res) {
           safety.lowinc.push(k); 
       } else if(d.status == 'Low Risk & Decrease') {
           safety.lowdec.push(k);
+      } else if(d.status == 'Low Risk & No Synergy') {
+          safety.lowno.push(k);
       } else if(d.status == 'Dangerous') {
           safety.dangerous.push(k);
       } else if(d.status == 'Caution') {
@@ -219,8 +298,20 @@ router.get('/:name', function(req, res) {
       }
     }); 
   }
+  
+  // urlify sources
+  if(_.has(drug, 'sources')) {
+    var newSources = {};
+    _.each(drug.sources, function(refs, prop) {
+      newSources[prop] = [];
+      _.each(refs, function(ref) {
+        newSources[prop].push(urlify(ref));
+      });
+    });
+    drug.sources = newSources;
+  }
 
-  // This is a little bit grea-hea-heasy, but y'know.
+  // This is a little bit grea-hea-heasy, but y'know. Another thing that can be fixed on the side of the ah api
   if((drug.formatted_duration || drug.formatted_onset || drug.formatted_aftereffects) &&
     (_.size(drug.formatted_duration) > 1 || _.size(drug.formatted_onset) > 1 || _.size(drug.formatted_aftereffects) > 1)) {
     var roas = [];
@@ -241,6 +332,7 @@ router.get('/:name', function(req, res) {
     });
   }
 
+<<<<<<< HEAD
   if(_.has(wikiCache, drug.name)) {
     var wiki = wikiCache[drug.name];
     res.render('factsheet', { title: 'TripSit Factsheets - ' + drug.pretty_name, 'drug': drug, 'order': order, 'glossary': glossary, 'interactions': safety, 'wiki': wiki, 'categories': catCache });
@@ -263,7 +355,84 @@ router.get('/:name', function(req, res) {
       console.log(_.keys(drug.properties));
       res.render('factsheet', { title: 'TripSit Factsheets - ' + drug.pretty_name, 'drug': drug, 'order': order, 'glossary': glossary, 'interactions': safety, 'wiki': wiki, 'categories': catCache});
     });
+=======
+  // muh code repetition
+  var getPWiki = function(name, callback) {
+    if(_.has(pwCache, name)) {
+      callback(pwCache[name]);
+    } else {
+      var wiki = null;
+      request.get('http://psychonautwiki.org/w/api.php', {
+        'qs': {
+          'action': 'opensearch',
+          'search': name,
+          'limit': 1,
+          'namespace': 0,
+          'format': 'json'
+        },
+        'json': true
+      }, function(err, resp, body) {
+        if(!err && body && body[1].length !== 0) {
+          wiki = 'https://psychonautwiki.org/wiki/'+body[1][0].replace(/\s/g, '_');
+        }
+        pwCache[name] = wiki;
+        callback(wiki);
+      });
+
+    }
+  };
+
+  var getWiki = function(name, callback) {
+    if(_.has(wikiCache, name)) {
+      callback(wikiCache[name]);
+    } else {
+      var wiki = null;
+      request.get('http://wiki.tripsit.me/api.php', {
+        'qs': {
+          'action': 'opensearch',
+          'search': name,
+          'limit': 1,
+          'namespace': 0,
+          'format': 'json'
+        },
+        'json': true
+      }, function(err, resp, body) {
+        if(!err && body && body[1].length !== 0) {
+          wiki = 'https://wiki.tripsit.me/wiki/'+body[1][0].replace(/\s/g, '_');
+        }
+        wikiCache[name] = wiki;
+        callback(wiki);
+      });
+    }
+>>>>>>> c777618659e12937795e75811a8527ee98ac1973
   }
+
+  var getErowid = function(name, callback) {
+    name = name.replace(/\-/g,'');
+    if(_.has(erowidCache, name)) {
+      callback(erowidCache[name]);
+    } else {
+      callback(null);
+    }
+  };
+
+  getWiki(drug.name, function(wiki) {
+    getErowid(drug.name, function(erowid) {
+      getPWiki(drug.name, function(pw) {
+        res.render('factsheet', { 
+          'title': 'TripSit Factsheets - ' + drug.pretty_name, 
+          'drug': drug, 
+          'order': order, 
+          'glossary': glossary, 
+          'interactions': safety, 
+          'wiki': wiki, 
+          'categories': catCache, 
+          'erowid': erowid,
+          'pw': pw
+        });
+      });
+    });
+  });
 });
 
 router.get('/raw/:name', function(req, res) {
@@ -278,4 +447,10 @@ module.exports = router;
 
 function escapeRegExp(string){
   return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+
+// from http://stackoverflow.com/questions/1500260/detect-urls-in-text-with-javascript
+function urlify(text) {
+  var urlRegex = /(https?:\/\/[^\s]+)/g;
+  return text.replace(urlRegex, '<a href="$1">$1</a>')
 }

@@ -16,9 +16,27 @@ block content
           if interactions
             li
               a(href='#interact') Interactions
+          if(drug.sources)
+            li
+              a(href='#references') References & Notes
           if wiki
             li
               a(href=wiki) Read more on TripSit Wiki
+          if(drug.links && drug.links.tihkal)
+            li
+              a(href=drug.links.tihkal) TiHKAL Entry
+          if(drug.links && drug.links.pihkal)
+            li
+              a(href=drug.links.pihkal) PiHKAL Entry
+          if(pw)
+            li 
+              a(href=pw) Read more on PsychonautWiki
+          if(erowid && erowid.subtopics && erowid.subtopics.htmlMAIN)
+            li 
+              a(href='https://erowid.org#{erowid.subtopics.htmlMAIN}') Read more on Erowid
+          if(drug.links && drug.links.experiences)
+            li
+              a(href=drug.links.experiences) Erowid Experience Reports
   .main
     a(name='basic')
     a(href='http://tripsit.me/contact-us/' style='font:10px;float:right') Notice something wrong with this page? Let us know!
@@ -48,13 +66,13 @@ block content
                                   -else
                                     th(colspan='2') #{roa}
                               -each i,t in item
-                               tr 
-                                td(style='width:20%') #{t}
-                                td #{i}
+                                tr 
+                                 td(style='width:20%') #{t}
+                                 td #{i}
                         td(style="margin-left:25px;")
                           div(id=roa+'Chart', style="height:200px;width:500px;margin-left:100px;")
                   -if(drug.hasOwnProperty('dose_note'))
-                    .bs-callout.bs-callout-benzo
+                    .bs-callout.bs-callout-benzodiazepine
                       h4 
                       p #{drug.dose_note}
 
@@ -130,6 +148,26 @@ block content
               span 
             - else if(pName == 'summary')
               tr
+<<<<<<< HEAD
+=======
+                td.tlefttext(style='width:25%;vertical-align: top;') 
+                  b Summary
+                td.ttext(style='width:75%')
+                  -if(drug.properties.summary)
+                    p !{drug.properties.summary}
+                  -if(drug.properties.categories)
+                    - each i in drug.properties.categories
+                      - var category = categories[i]
+                      - if(!category.pretty_name) category.pretty_name = category.name.charAt(0).toUpperCase() + category.name.slice(1);
+                      .bs-callout(class='bs-callout-#{category.name}')
+                        h4
+                          a(href='/category/#{category.name}') #{category.pretty_name}
+                        p #{category.description}
+                        -if(category.wiki)
+                          a(href='#{category.wiki}') Read more on TripSit Wiki...
+            - else
+              tr
+>>>>>>> c777618659e12937795e75811a8527ee98ac1973
                 td.tlefttext(style='width: 25%;') 
                   b #{name}
                 td.ttext(style='width: 75%;')
@@ -143,97 +181,131 @@ block content
     a(name='interact')
     a(style='float:right;font:10px;' href='http://combo.tripsit.me/') See TripSit Wiki for more information about drug interactions
     h2.sub-header Interactions
+    // this can clearly be iterated TODO
     if interactions
-      .bs-callout.bs-callout-danger
-        h3 Dangerous
-        ul
-          -each d in interactions.dangerous
-            li
-              if d.wiki
-                a(href=d.wiki) #{d.pname}
-                -if(d.note)
-                 ul
-                  li #{d.note}
-              else 
-                a(href='/'+d.name) #{d.pname}
-                -if(d.note)
-                 ul
-                  li #{d.note}
-      .bs-callout.bs-callout-ss
-        h3 Serotonin Syndrome
-        ul
-          -each d in interactions.ss
-            li
-              if d.wiki
-                a(href=d.wiki) #{d.pname}
-                -if(d.note)
-                 ul
-                  li #{d.note}
-              else 
-                a(href='/'+d.name) #{d.pname}
-                -if(d.note)
-                 ul
-                  li #{d.note}
-      .bs-callout.bs-callout-unsafe
-        h3 Unsafe
-        ul
-          -each d in interactions.unsafe
-            li
-              if d.wiki
-                a(href=d.wiki) #{d.pname}
-                -if(d.note)
-                 ul
-                  li #{d.note}
-              else 
-                a(href='/'+d.name) #{d.pname}
-                -if(d.note)
-                 ul
-                  li #{d.note}
-      .bs-callout.bs-callout-caution
-        h3 Caution
-        ul
-          -each d in interactions.caution
-            li
-              if d.wiki
-                a(href=d.wiki) #{d.pname}
-                -if(d.note)
-                 ul
-                  li #{d.note}
-              else 
-                a(href='/'+d.name) #{d.pname}
-                -if(d.note)
-                 ul
-                  li #{d.note}
+      -if(interactions.dangerous.length > 0)
+        .bs-callout.bs-callout-danger
+          h3 Dangerous
+          ul
+            -each d in interactions.dangerous
+              li
+                if d.wiki
+                  a(href=d.wiki) #{d.pname}
+                  -if(d.note)
+                   ul
+                    li #{d.note}
+                else 
+                  a(href='/'+d.name) #{d.pname}
+                  -if(d.note)
+                   ul
+                    li #{d.note}
+      -if(interactions.ss.length > 0)
+        .bs-callout.bs-callout-ss
+          h3 Serotonin Syndrome
+          ul
+            -each d in interactions.ss
+              li
+                if d.wiki
+                  a(href=d.wiki) #{d.pname}
+                  -if(d.note)
+                   ul
+                    li #{d.note}
+                else 
+                  a(href='/'+d.name) #{d.pname}
+                  -if(d.note)
+                   ul
+                    li #{d.note}
+      -if(interactions.unsafe.length > 0)
+        .bs-callout.bs-callout-unsafe
+          h3 Unsafe
+          ul
+            -each d in interactions.unsafe
+              li
+                if d.wiki
+                  a(href=d.wiki) #{d.pname}
+                  -if(d.note)
+                   ul
+                    li #{d.note}
+                else 
+                  a(href='/'+d.name) #{d.pname}
+                  -if(d.note)
+                   ul
+                    li #{d.note}
+      -if(interactions.caution.length > 0)
+        .bs-callout.bs-callout-caution
+          h3 Caution
+          ul
+            -each d in interactions.caution
+              li
+                if d.wiki
+                  a(href=d.wiki) #{d.pname}
+                  -if(d.note)
+                   ul
+                    li #{d.note}
+                else 
+                  a(href='/'+d.name) #{d.pname}
+                  -if(d.note)
+                   ul
+                    li #{d.note}
+      -if(interactions.lowinc.length > 0)
+        .bs-callout.bs-callout-lowinc
+          h3 Low risk & Increased Effects
+          ul
+            -each d in interactions.lowinc
+              li
+                if d.wiki
+                  a(href=d.wiki) #{d.pname}
+                  -if(d.note)
+                   ul
+                    li #{d.note}
+                else 
+                  a(href='/'+d.name) #{d.pname}
+                  -if(d.note)
+                   ul
+                    li #{d.note}
+      -if(interactions.lowdec.length > 0)
+        .bs-callout.bs-callout-lowdec
+          h3 Low risk & Decreased Effects
+          ul
+            -each d in interactions.lowdec
+              li
+                if d.wiki
+                  a(href=d.wiki) #{d.pname}
+                  -if(d.note)
+                   ul
+                    li #{d.note}
+                else 
+                  a(href='/'+d.name) #{d.pname}
+                  -if(d.note)
+                   ul
+                    li #{d.note}
+      -if(interactions.lowno.length > 0)
+        .bs-callout.bs-callout-default
+          h3 Low risk & No Synergy
+          ul
+            -each d in interactions.lowno
+              li
+                if d.wiki
+                  a(href=d.wiki) #{d.pname}
+                  -if(d.note)
+                   ul
+                    li #{d.note}
+                else 
+                  a(href='/'+d.name) #{d.pname}
+                  -if(d.note)
+                   ul
+                    li #{d.note}
 
-      .bs-callout.bs-callout-lowinc
-        h3 Low risk & Increased Effects
-        ul
-          -each d in interactions.lowinc
-            li
-              if d.wiki
-                a(href=d.wiki) #{d.pname}
-                -if(d.note)
-                 ul
-                  li #{d.note}
-              else 
-                a(href='/'+d.name) #{d.pname}
-                -if(d.note)
-                 ul
-                  li #{d.note}
-      .bs-callout.bs-callout-lowdec
-        h3 Low risk & Decreased Effects
-        ul
-          -each d in interactions.lowdec
-            li
-              if d.wiki
-                a(href=d.wiki) #{d.pname}
-                -if(d.note)
-                 ul
-                  li #{d.note}
-              else 
-                a(href='/'+d.name) #{d.pname}
-                -if(d.note)
-                 ul
-                  li #{d.note}
     else
       p No interaction information for #{drug.pretty_name}
+
+    -if(drug.sources)
+      h2.sub-header#references References & Notes
+      -each p,i in drug.sources
+        - i = i.replace('_', '');
+        - i = i.charAt(0).toUpperCase() + i.slice(1)
+        h3.sub-header #{i}
+        ul
+          -each r in p
+            li !{r}
+
