@@ -5,6 +5,7 @@ var router = express.Router();
 var fs = require('fs');
 var glossary = JSON.parse(fs.readFileSync('glossary.json', 'utf-8'));
 var drugCache = {};
+var catCache = {};
 var aliasCache = {};
 var combos = {};
 var pCats = { 
@@ -57,6 +58,7 @@ var wikiCache = {};
 
 var updateCache = function() {
   try {
+    // Get the drugs
     request.get('http://tripbot.tripsit.me/api/tripsit/getAllDrugs', {
       'json': true
     }, function(request, response, body) {
@@ -96,6 +98,15 @@ var updateCache = function() {
         });
       } catch(err) {}
     });
+    
+    // Get the categories
+    request.get('http://tripbot.tripsit.me/api/tripsit/getAllCategories', {
+      'json': true
+    }, function(request, response, body) {
+      try {
+        catCache = body.data[0];
+      } catch(err) {}
+    });
   } catch(err) {}
 };
 setInterval(updateCache, 60000);
@@ -130,7 +141,7 @@ router.get('/category/:name', function(req, res) {
   });
   drugs = _.sortBy(drugs, 'name');
 
-  res.render('category', { title: 'TripSit Factsheets', 'category': req.params.name, 'drugs': drugs });
+  res.render('category', { title: 'TripSit Factsheets', 'category': catCache[req.params.name.toLowerCase()], 'drugs': drugs });
 });
 
 router.get('/factsheet/:name', function(req, res) {
@@ -232,7 +243,7 @@ router.get('/:name', function(req, res) {
 
   if(_.has(wikiCache, drug.name)) {
     var wiki = wikiCache[drug.name];
-    res.render('factsheet', { title: 'TripSit Factsheets - ' + drug.pretty_name, 'drug': drug, 'order': order, 'glossary': glossary, 'interactions': safety, 'wiki': wiki });
+    res.render('factsheet', { title: 'TripSit Factsheets - ' + drug.pretty_name, 'drug': drug, 'order': order, 'glossary': glossary, 'interactions': safety, 'wiki': wiki, 'categories': catCache });
   } else {
     var wiki = null;
     request.get('http://wiki.tripsit.me/api.php', {
@@ -245,11 +256,12 @@ router.get('/:name', function(req, res) {
       },
       'json': true
     }, function(err, resp, body) {
-      if(!err && body[1].length !== 0) {
+      if(!err && body && body[1].length !== 0) {
         wiki = 'https://wiki.tripsit.me/wiki/'+body[1][0].replace(/\s/g, '_');
       }
       wikiCache[drug.name] = wiki;
-      res.render('factsheet', { title: 'TripSit Factsheets - ' + drug.pretty_name, 'drug': drug, 'order': order, 'glossary': glossary, 'interactions': safety, 'wiki': wiki });
+      console.log(_.keys(drug.properties));
+      res.render('factsheet', { title: 'TripSit Factsheets - ' + drug.pretty_name, 'drug': drug, 'order': order, 'glossary': glossary, 'interactions': safety, 'wiki': wiki, 'categories': catCache});
     });
   }
 });

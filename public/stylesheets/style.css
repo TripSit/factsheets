@@ -12,6 +12,17 @@ td {
 word-wrap: break-word;
 }
 
+.choice:hover {
+background-color: #7900C2;
+}
+.navbar {
+background-color: #000;
+}
+.navbar-inverse {
+background-image:none;
+color: white;
+}
+
 /*
  * Base structure
  */
@@ -191,13 +202,13 @@ background-color:#eeeeee;
 /*background-color:#B23609;*/
 border-color:#9b59b6;
 }
-.bs-callout-benzo {
+.bs-callout-benzodiazepine {
 border-color:#000;
 }
-.bs-callout-research {
+.bs-callout-research-chemical {
 border-color:#EC971F;
 }
-.bs-callout-habit {
+.bs-callout-habit-forming{
 border-color:#e67e22;
 }
 .bs-callout-depressant {
