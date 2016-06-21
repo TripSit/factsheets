@@ -9,6 +9,7 @@ var catCache = {};
 var aliasCache = {};
 var erowidCache = {};
 var pwCache = {};
+var pwEffects = {};
 var combos = {};
 var pCats = { 
   "dox": {
@@ -126,11 +127,7 @@ var updateCache = function() {
       } catch(err) {}
     });
     
-<<<<<<< HEAD
-    // Get the categories
-=======
     // Update category cache
->>>>>>> c777618659e12937795e75811a8527ee98ac1973
     request.get('http://tripbot.tripsit.me/api/tripsit/getAllCategories', {
       'json': true
     }, function(request, response, body) {
@@ -235,7 +232,7 @@ router.get('/:name', function(req, res) {
     }
   }
   var drug = _.clone(drugCache[req.params.name.toLowerCase()]);
-  var order = _.union(['summary', 'categories', 'dose', 'onset', 'duration', 'after-effects', 'effects'], _.keys(drug.properties));
+  var order = _.union(['summary', 'categories', 'dose', 'onset', 'duration', 'pweffects', 'after-effects' ], _.keys(drug.properties));
 
   // TODO: This should be on the API side
   var safetyKey = null,
@@ -332,31 +329,6 @@ router.get('/:name', function(req, res) {
     });
   }
 
-<<<<<<< HEAD
-  if(_.has(wikiCache, drug.name)) {
-    var wiki = wikiCache[drug.name];
-    res.render('factsheet', { title: 'TripSit Factsheets - ' + drug.pretty_name, 'drug': drug, 'order': order, 'glossary': glossary, 'interactions': safety, 'wiki': wiki, 'categories': catCache });
-  } else {
-    var wiki = null;
-    request.get('http://wiki.tripsit.me/api.php', {
-      'qs': {
-        'action': 'opensearch',
-        'search': drug.name,
-        'limit': 1,
-        'namespace': 0,
-        'format': 'json'
-      },
-      'json': true
-    }, function(err, resp, body) {
-      if(!err && body && body[1].length !== 0) {
-        wiki = 'https://wiki.tripsit.me/wiki/'+body[1][0].replace(/\s/g, '_');
-      }
-      wikiCache[drug.name] = wiki;
-      console.log(_.keys(drug.properties));
-      res.render('factsheet', { title: 'TripSit Factsheets - ' + drug.pretty_name, 'drug': drug, 'order': order, 'glossary': glossary, 'interactions': safety, 'wiki': wiki, 'categories': catCache});
-    });
-=======
-  // muh code repetition
   var getPWiki = function(name, callback) {
     if(_.has(pwCache, name)) {
       callback(pwCache[name]);
@@ -382,6 +354,33 @@ router.get('/:name', function(req, res) {
     }
   };
 
+  getPWEffects = function(drug, callback) {
+    if(_.has(pwEffects, drug.name)) {
+      drug.properties.pweffects = pwEffects[drug.name];
+      callback(true);
+    } else {
+      var effects = null;
+      request.get('https://psychonautwiki.org/w/api.php', {
+        'qs': {
+          'action': 'ask',
+          'query': '[[-Effect::'+drug.pretty_name+']]',
+          'format': 'json'
+        },
+        'json': true
+      }, function(err, res, body) {
+        if(!err) {
+          var effects = {};
+          _.each(body.query.results, function(effect, name) {
+            effects[name] = effect.fullurl;
+          });
+          pwEffects[drug.name] = effects;
+          drug.properties.pweffects = effects;
+          return callback(true);
+        }
+      });
+    }
+  };
+
   var getWiki = function(name, callback) {
     if(_.has(wikiCache, name)) {
       callback(wikiCache[name]);
@@ -404,7 +403,6 @@ router.get('/:name', function(req, res) {
         callback(wiki);
       });
     }
->>>>>>> c777618659e12937795e75811a8527ee98ac1973
   }
 
   var getErowid = function(name, callback) {
@@ -419,16 +417,19 @@ router.get('/:name', function(req, res) {
   getWiki(drug.name, function(wiki) {
     getErowid(drug.name, function(erowid) {
       getPWiki(drug.name, function(pw) {
-        res.render('factsheet', { 
-          'title': 'TripSit Factsheets - ' + drug.pretty_name, 
-          'drug': drug, 
-          'order': order, 
-          'glossary': glossary, 
-          'interactions': safety, 
-          'wiki': wiki, 
-          'categories': catCache, 
-          'erowid': erowid,
-          'pw': pw
+        getPWEffects(drug, function() {
+        console.log(drug.properties);
+          res.render('factsheet', { 
+            'title': 'TripSit Factsheets - ' + drug.pretty_name, 
+            'drug': drug, 
+            'order': order, 
+            'glossary': glossary, 
+            'interactions': safety, 
+            'wiki': wiki, 
+            'categories': catCache, 
+            'erowid': erowid,
+            'pw': pw
+          });
         });
       });
     });

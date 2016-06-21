@@ -76,18 +76,19 @@ block content
                       h4 
                       p #{drug.dose_note}
 
-            - else if(pName == 'effects')
+            - else if(pName == 'pweffects')
               tr
                 td.tlefttext(style='width:25%;vertical-align: top;') 
                   b Effects
                 td.ttext(style='width:75%')
                   ul
-                  -if(drug.pweffects)
-                    -each i,y in drug.pweffects
+                  -if(drug.properties.pweffects)
+                    -each i,y in drug.properties.pweffects
                      a(href=i) 
                       button.btn.btn-default(style="padding:5px;margin:5px;") #{y}
                     p Effects lovingly provided by 
                      a(href='http://psychonautwiki.org/') PsychonautWiki
+
             - else if(pName == 'duration' && drug['formatted_duration'])
               tr
                 td.tlefttext(style='width:25%;vertical-align: top;') 
@@ -148,8 +149,6 @@ block content
               span 
             - else if(pName == 'summary')
               tr
-<<<<<<< HEAD
-=======
                 td.tlefttext(style='width:25%;vertical-align: top;') 
                   b Summary
                 td.ttext(style='width:75%')
@@ -167,7 +166,6 @@ block content
                           a(href='#{category.wiki}') Read more on TripSit Wiki...
             - else
               tr
->>>>>>> c777618659e12937795e75811a8527ee98ac1973
                 td.tlefttext(style='width: 25%;') 
                   b #{name}
                 td.ttext(style='width: 75%;')
