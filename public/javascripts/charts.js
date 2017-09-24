@@ -6,69 +6,47 @@ window.onload = function () {
     $.each(drug.formatted_dose, function(roa, levels) {
       var dataPoints = [];
 
-      var levelOne = [];
       var u = '';
+      var y = [];
+      var errors = [];
       $.each(levels, function(level, amt) {
         var m = amt.match('(mg|g|ug|µg)');
         if(m) u = m[1];
-
         amt = amt.replace(/mg/i,'').replace(/g/i,'').replace(/ug/i,'');
-        levelOne.push({y: parseInt(amt), 'label': level});
-      });
-
-      levelTwo = [];
-      $.each(levels, function(level, amt) {
         amt = amt.split('-');
+        amt[0] = parseInt(amt[0]);
+
+        var error = 0;
         if(amt.length > 1) {
-          levelTwo.push({y: parseInt(amt[1])-parseInt(amt[0]), 'label': level});
+          amt[1] = parseInt(amt[1]);
+          var midPoint = amt[0] + ((amt[1] - parseInt(amt[0])) / 2)
+          y.push(midPoint);
+          errors.push(parseInt(amt[1]) - midPoint);
         } else {
-          levelTwo.push({y: 0, 'label': level});
+          y.push(amt[0]);
         }
       });
 
-      var title = "Dosage chart for " + roa + " " + drug.pretty_name;
-      if(roa == 'none') {
-        title = "Dosage chart for " + drug.pretty_name;
-      } 
+      var trace1 = {
+        x: Object.keys(levels),
+        y: y,
+        name: 'Control',
+        error_y: {
+          type: 'data',
+          array: errors,
+          visible: true
+        },
+        type: 'bar'
+      };
 
-      var chart = new CanvasJS.Chart(roa+'Chart', {
-          'theme': "theme2",
-          'title': { 
-            'text': title
-          },
-          'animationEnabled': true,
-          axisX: {
-            title: 'Level'
-          },
-          axisY:{
-            title: 'Dosage ('+u+')'
-          },
-          toolTip: {
-                content: function(e) {
-                  e = e.entries;
-                  var out = e[0].dataPoint.label + ': ';
-                  var r = [];
-                  r.push(e[0].dataPoint.y);
-                  if(e[1].dataPoint.y != 0) r.push(e[0].dataPoint.y + e[1].dataPoint.y);
-                  out += r.join('-') + u;
-                  return out;
-                },
-                shared: true
-              },
-
-          data: [
-                {
-                  'name': 'lower',
-                  'type': 'stackedColumn', 
-                  'dataPoints': levelOne
-                }, {
-                  'name': 'upper',
-                  'type': 'stackedColumn', 
-                  'dataPoints': levelTwo
-                }
-          ]
-      });
-      chart.render();
+      var data = [trace1];
+      var layout = {
+        barmode: 'group', 
+        title: 'Dosage chart for ' + roa + ' ' + drug.pretty_name,
+        yaxis: { title: 'Dose ('+u+')'},
+        xaxis: { title: 'Experience Level' }
+      };
+      Plotly.newPlot(roa+'Chart', data, layout);
     });
   }
   

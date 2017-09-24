@@ -74,6 +74,9 @@ var updateCache = function() {
 
           var matches = [];
           _.each(_.keys(drugCache), function(item) {
+            if(item == 'phenethylamine') {
+              return;
+            }
             var pattern = new RegExp('\\b' + item + '\\b', 'gi');
             if(_.has(drug.properties, 'summary')) {
               if(drug.properties.summary.match(pattern)) {
