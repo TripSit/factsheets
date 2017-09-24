@@ -23,7 +23,7 @@ block content
             -each drug in drugs
               tr
                 td.ttext(style='width: 30%;') 
-                  a.boxed2(href='/'+drug.name) 
+                  a.boxed2(href='/'+encodeURIComponent(drug.name)) 
                     | #{drug.pretty_name}
                 td(style='width:20%')
                   if drug.categories 
