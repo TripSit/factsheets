@@ -10,9 +10,9 @@ window.onload = function () {
       var y = [];
       var errors = [];
       $.each(levels, function(level, amt) {
-        var m = amt.match('(mg|g|ug|µg)');
+        var m = amt.match('(mg|g|ug|µg|ml)');
         if(m) u = m[1];
-        amt = amt.replace(/mg/i,'').replace(/g/i,'').replace(/ug/i,'');
+        amt = amt.replace(/mg/i,'').replace(/g/i,'').replace(/ug/i,'').replace(/ml/i,'');
         amt = amt.split('-');
         amt[0] = parseInt(amt[0]);
 
@@ -39,10 +39,14 @@ window.onload = function () {
         type: 'bar'
       };
 
+      var title = 'Dosage chart for ' + roa + ' ' + drug.pretty_name;
+      if(roa == 'none') {
+        title = 'Dosage chart for ' + drug.pretty_name;
+      } 
       var data = [trace1];
       var layout = {
         barmode: 'group', 
-        title: 'Dosage chart for ' + roa + ' ' + drug.pretty_name,
+        title: title,
         yaxis: { title: 'Dose ('+u+')'},
         xaxis: { title: 'Experience Level' }
       };
