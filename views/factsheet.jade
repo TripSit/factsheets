@@ -82,7 +82,7 @@ block content
                   b Effects
                 td.ttext(style='width:75%')
                   ul
-                  -if(drug.properties.pweffects)
+                  -if(drug.properties.pweffects && drug.properties.pweffects.length > 0)
                     -each i,y in drug.properties.pweffects
                      a(href=i) 
                       button.btn.btn-default(style="padding:5px;margin:5px;") #{y}
