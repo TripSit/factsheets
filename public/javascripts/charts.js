@@ -217,14 +217,5 @@ window.onload = function () {
       chart.render();
   }
   
-var bt = $('.sidebar').position().top;
-
-$(window).scroll(function() {
-    var wst = $(window).scrollTop();
-
-    (wst >= bt) ?
-    $('.sidebar').css({position: 'fixed', top: 15+'px' }) :  
-    $('.sidebar').css({position: 'absolute', top: bt+'px' })
-});
 
 };
