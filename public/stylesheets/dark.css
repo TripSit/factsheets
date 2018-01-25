@@ -1,0 +1,616 @@
+/* Dark theme basic css
+main background color: #1f2127
+secondary background color:  #1F1F1F;
+font color: #cccccc;
+color: #cccccc;
+text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+glossary color and border: #02b396
+*/
+
+body {
+  padding-bottom: 20px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  line-height: 120%;
+  background-color: #1f2127;
+  color: #cccccc;
+}
+/* place holder while the theme is applied in the background */
+.loader {
+   width: 100%;
+   height: 100%;
+   margin: 0;
+   position: fixed;
+   display: block;
+   opacity: 1.0;
+   background-color: #1f2127;
+   z-index: 99;
+   text-align: center;
+}
+.jumbotron{
+  background-color: #1f2127;
+  border: 0px !important;
+}
+
+a {
+  color: #00B7FF;
+}
+
+td {
+  word-wrap: break-word;
+}
+
+.choice {
+  font-family: Arial, sans-serif;
+  font: white;
+}
+
+.choice:hover {
+  background-color: #7900C2;
+  transition: color 0.25s ease, background-color 0.25s ease;
+}
+
+.navbar-nav {
+  color: white;
+}
+
+.navbar {
+  background-color: #000;
+}
+
+.navbar-inverse {
+  background-image: none;
+  color: white;
+}
+
+.choice:hover {
+  background-color: #7900C2 !important;
+}
+
+.navbar {
+  background-color: #000;
+}
+
+.navbar-inverse {
+  background-image: none;
+  color: white;
+}
+
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+
+/*
+ * Global add-ons
+ */
+
+.glossary {
+  border-bottom: 1px #02b396 dotted;
+  color: #02b396;
+}
+
+.navbar-right {
+  margin-right: 5px;
+}
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+
+.navbar-fixed-top {
+  border: 0;
+}
+/* Switch that toggles theme */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+
+}
+#switchText {
+  color: #3a8bcc;
+  text-align: center;
+  font-size: 10px;
+  padding-top: 8px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #2e3338;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #3a8bcc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2e3338;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2e3338;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.slider {
+  border-radius: 34px;
+}
+
+.slider:before {
+  border-radius: 50%;
+}
+/* text style and padding for switch */
+.switchpadding{
+  padding-top: 10px;
+}
+.nav-text{
+  padding-top: 17px;
+  padding-right: 10px;
+  padding-left: 7px;
+  box-shadow:none !important;
+  color: #cccccc;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+}
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.placeholders h4 {
+  margin-bottom: 0;
+}
+
+.placeholder {
+  margin-bottom: 20px;
+}
+
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+/* Base styles (regardless of theme) */
+
+.bs-callout {
+  margin: 20px 0;
+  padding: 15px 15px 15px 15px;
+  padding-top: 5px;
+  border-left: 5px solid #aaa;
+  background-color: #454545;
+}
+
+.bs-callout h4 {
+  margin-top: 0;
+}
+
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+
+.bs-callout code, .bs-callout .highlight {
+  background-color: #fff;
+}
+
+.bs-callout-caution {
+  background-color: #7d4c02;
+  border-color: #827700;
+}
+
+/* Themes for different contexts */
+
+.bs-callout-lowdec {
+  background-color: #626e75;
+  border-color: #00426c;
+}
+
+/* Themes for different contexts */
+
+.bs-callout-danger {
+  background-color: #520502;
+  border-color: #7f0006;
+}
+
+.bs-callout-unsafe {
+  background-color: #713900;
+  border-color: #a05406;
+}
+
+.bs-callout-lowinc {
+  background-color: #0c4a16;
+  border-color: #077c1b;
+}
+
+.bs-callout-ss {
+  background-color: #353a41;
+  border-color: #00a388;
+}
+
+.bs-callout-psychedelic {
+  /* background-color: #CCFFCC;*/
+  border-color: #00A388;
+}
+
+.bs-callout-opioid {
+  /* background-color: #CCFFCC;*/
+  border-color: #C0D9AF;
+}
+
+.bs-callout-stimulant {
+  /*background-color: #BFEFFF;*/
+  border-color: #31B0D5;
+}
+
+.bs-callout-dissociative {
+  /*background-color:#B23609;*/
+  border-color: #9b59b6;
+}
+
+.bs-callout-benzodiazepine {
+  border-color: #000;
+}
+
+.bs-callout-research-chemical {
+  border-color: #EC971F;
+}
+
+.bs-callout-habit-forming {
+  border-color: #e67e22;
+}
+
+.bs-callout-depressant {
+  border-color: #C9302C;
+}
+
+.bs-callout-tentative {
+  border-color: #FFFF9D;
+}
+
+.catcallout {
+  background-color: #242424;
+}
+
+.phaedra-colors .label {
+  color: #001713;
+}
+
+.phaedra-colors .label-default {
+  background-color: #5680ab !important;
+}
+.label-default {
+  background-color: #5680ab !important;
+}
+.label {
+  color: #1c2227 !important;
+}
+
+.phaedra-colors .label-default[href]:hover, .phaedra-colors .label-default[href]:focus {
+  background-color: #7f8c8d;
+}
+
+.label-psychedelic {
+  background-color: #00A388;
+}
+
+.phaedra-colors .label-primary[href]:hover, .phaedra-colors .label-primary[href]:focus {
+  background-color: #007D68;
+}
+
+.label-empathogen {
+  background-color: #79BD8F;
+}
+
+.phaedra-colors .label-success[href]:hover, .phaedra-colors .label-success[href]:focus {
+  background-color: #659E78;
+}
+
+.phaedra-colors .label-info {
+  background-color: #BEEB9F;
+}
+
+.phaedra-colors .label-info[href]:hover, .phaedra-colors .label-info[href]:focus {
+  background-color: #A5CC8A;
+}
+
+.label-tentative {
+  background-color: #FFFF9D;
+  color: #001713;
+}
+
+.phaedra-colors .label-warning[href]:hover, .phaedra-colors .label-warning[href]:focus {
+  background-color: #D1D181;
+}
+
+.phaedra-colors .label-danger {
+  background-color: #FF6138;
+}
+
+.phaedra-colors .label-danger[href]:hover, .phaedra-colors .label-danger[href]:focus {
+  background-color: #D6512F;
+}
+
+.label-disso {
+  background-color: #9b59b6;
+}
+
+.label-habit {
+  background-color: #e67e22;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Sidebar navigation */
+
+.nav-sidebar {
+  margin-bottom: 20px;
+}
+
+.nav-sidebar>li>a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.nav-sidebar>.active>a, .nav-sidebar> a:hover {
+  background-color: #1F1F1F;
+}
+
+.nav-sidebar>.active>a, .nav-sidebar>.active>a:hover, .nav-sidebar>.active>a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+.divider {
+  background-color: #2f2e2e !important;
+}
+/* Top Grid setup layout */
+
+#grid {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+}
+
+#grid>.sidebar>ul {
+  grid-column: 1;
+  margin: 4px;
+  border-radius: 7pt;
+  background: #ccccff;
+  order: 0;
+  margin-right: 15px;
+  margin-left: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+  min-height: 100vh;
+  background-color: #2e3338;
+  border-right: 1px solid #1d1d1d;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 20px;
+}
+
+/* Flex layout  */
+
+.flexDose {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flexDuration {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flexEffects {
+  display: flex;
+}
+
+/*  Main content */
+
+.main {
+  padding: 20px 20px 20px 0px;
+}
+
+.main .page-header {
+  margin-top: 0;
+}
+
+.mainText {
+  padding-bottom: 20px;
+  font: 14px;
+  line-height: 120%;
+}
+
+.textFormat {
+  line-height: 1.42857143;
+}
+
+.subtitles {
+  padding: 8px;
+  line-height: 1.42857143;
+  border-top: 1px solid #ddd;
+}
+
+.doseChart {
+  height:380px;
+  margin:0px;
+}
+input {
+  background-color: #353a41 !important;
+  border-color: #2a2e33 !important;
+  color: #c8c8c8 !important;
+}
+select, .form-control input-sm {
+  background-color: #353a41 !important;
+  color: #c8c8c8 !important;
+}
+input, textarea {
+    color: #c8c8c8 !important;
+}
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before{
+  border: 0px !important;
+}
+/* Mobile layout */
+
+@media all and (max-width: 640px) {
+  #grid, #page {
+    grid: none;
+    display: flex;
+    flex-flow: row;
+    flex-direction: column-reverse;
+    align-self: center;
+  }
+  #grid>.sidebar>ul {
+    min-height: 50px;
+    max-height: 50px;
+    margin: 0px;
+    border-radius: 0px;
+  }
+  #grid>.sidebar {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    min-height: 50px;
+    max-height: 50px;
+    max-width: 100%;
+    text-align: center;
+  }
+  #grid>.main {
+    margin: auto;
+    padding: 5px;
+  }
+  h1 {
+    padding-top: 20px;
+    text-align: center;
+  }
+  h2 {
+    text-align: center;
+  }
+  h3 {
+    text-align: center;
+  }
+  a {
+    text-align: center;
+  }
+  .flexDose {
+    flex-direction: column;
+    margin: 0px;
+  }
+  .flexDuration {
+    flex-direction: column;
+    margin: 0px;
+  }
+  .flexEffects {
+    flex-direction: column;
+    margin: 0px;
+  }
+  .chartContainer {
+    width: 100%;
+  }
+  .layoutPosition {
+    margin-left: 0;
+    text-align: center;
+  }
+  #durationChart {
+    height: 250px;
+    width: 90%;
+    margin-bottom: 20px;
+  }
+  .doseChart {
+    height:300px;
+  }
+  /*center nav switch */
+  .nav-text{
+    text-align: center;
+  }
+  .switchpadding{
+    text-align: center;
+  }
+}
+
+/* Laptop sized layout */
+
+@media (min-width: 768px) {
+  .main {
+    padding-right: 70px;
+  }
+  .textFormat {
+    margin-top: 75px;
+    width: 300px;
+    padding-right: 50px;
+  }
+  .chartContainer {
+    width: 450px;
+  }
+  #durationChart {
+    height: 250px;
+    width: 450px;
+  }
+  .layoutPosition {
+    margin-left: 20%;
+  }
+  .effectsLeft {
+    width: 20%;
+  }
+  .effectsRight{
+    width: 80%;
+  }
+}
+
+/* Desktop sized layout */
+
+@media (min-width: 1300px) {
+  .layoutPosition {
+    margin-left: 25%;
+  }
+  .textFormat {
+    padding-right: 100px;
+    width: 400px;
+  }
+  #durationChart {
+    height: 300px;
+    width: 500px;
+  }
+  .chartContainer {
+    width: 500px;
+  }
+  .effectsLeft {
+    width: 25%;
+  }
+  .effectsRight{
+    width: 75%;
+  }
+}

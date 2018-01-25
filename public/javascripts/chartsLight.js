@@ -1,4 +1,4 @@
-window.onload = function () {
+var drawchartsLight = function drawChartLight() {
   $('[data-toggle="tooltip"]').tooltip();
   $('.fixed-table-loading').hide();
 
