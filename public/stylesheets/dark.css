@@ -10,6 +10,7 @@ glossary color and border: #02b396
 body {
   background-color: #1f2127;
   color: #cccccc;
+  line-height: 120%;
 }
 /* place holder while the theme is applied in the background */
 
@@ -17,6 +18,10 @@ body {
 .jumbotron{
   background-color: #1f2127;
   border: 0px !important;
+}
+
+a {
+  color: #00B7FF;
 }
 
 
@@ -98,6 +103,8 @@ input:checked + .slider:before {
 .slider:before {
   border-radius: 50%;
 }
+
+
 /* text style and padding for switch */
 .nav-text{
   color: #cccccc;
@@ -199,6 +206,11 @@ input, textarea {
 }
 table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before{
   border: 0px !important;
+}
+
+.nav-sidebar>.active>a, .nav-sidebar>.active>a:hover, .nav-sidebar>.active>a:focus {
+  color: #fff;
+  background-color: #428bca;
 }
 
 #grid>.sidebar>ul {

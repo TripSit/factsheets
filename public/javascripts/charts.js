@@ -43,7 +43,7 @@ var drawCharts = function (colour) {
       if(roa == 'none') {
         title = 'Dosage chart for ' + drug.pretty_name;
       } 
-      var data = [trace1];
+      
       var layout = {
         barmode: 'group', 
         title: title,
@@ -54,7 +54,10 @@ var drawCharts = function (colour) {
         layout.plot_bgcolor = "#1f2127";
         layout.paper_bgcolor = "#1f2127";
         layout.font = { color: "#D9D9D9" };
+        layout.yaxis = { gridcolor: "#adadad" };
+        trace1.error_y.color = "#D9D9D9";
       }
+      var data = [trace1];
       Plotly.newPlot(roa+'Chart', data, layout);
     });
   }
@@ -180,6 +183,9 @@ var drawCharts = function (colour) {
           dataPoints: dp.aftereffects
       });
     }
+    var title = {
+      text: drug.name + " duration",
+    }
     var aX = {
       interval: 1,
       labelFontSize: 10,
@@ -194,15 +200,19 @@ var drawCharts = function (colour) {
       horizontalAlign: "center"
     }
     var bg = undefined;
+    
     if(colour == 'dark') {
+      title.fontColor = "#D9D9D9";
       aX.labelFontColor = "#D9D9D9";
       aY2.labelFontColor = "#D9D9D9";
       leg.labelFontColor = "#D9D9D9";
+      leg.fontColor = "#D9D9D9";
       bg = "#1f2127";
+      //fontColor: "#D9D9D9";
     }
     var chart = new CanvasJS.Chart("durationChart", {
               title:{
-                      text:drug.name + " duration"
+                      
               },
               animationEnabled: true,
               toolTip: {
@@ -223,6 +233,7 @@ var drawCharts = function (colour) {
                 },
                 shared: false
               },
+              title: title,
               axisX: aX,
               axisY2: aY2,
               legend: leg,

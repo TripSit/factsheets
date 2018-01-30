@@ -6,7 +6,7 @@ function changeCss() {
 		localStorage.setItem("loadout", "dark")
 		localStorage.setItem("bootstrap", "dark")
 
-        $('head').append('<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap-dark.min.css">')
+        document.getElementById("bootstrap-theme").href = "/stylesheets/bootstrap-dark.min.css";
         $('head').append('<link rel="stylesheet" type="text/css" href="/stylesheets/dark.css">')
 
 		drawCharts('dark');
@@ -16,7 +16,7 @@ function changeCss() {
 		localStorage.setItem("bootstrap", "light")
 
         $('link[rel=stylesheet][href*="dark.css"]').remove();
-        $('head').append('<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap-light.min.css">')
+        document.getElementById("bootstrap-theme").href = "/stylesheets/bootstrap-light.min.css";
 		drawCharts('light');
 	}
 }
@@ -27,28 +27,23 @@ function loadStyle() {
 	var stylePreference = localStorage.getItem("loadout");
 	if(stylePreference) {
 		if(stylePreference === "dark") {
-
-            $('head').append('<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap-dark.min.css">')
+            document.getElementById("bootstrap-theme").href = "/stylesheets/bootstrap-dark.min.css";
             $('head').append('<link rel="stylesheet" type="text/css" href="/stylesheets/dark.css">')
-
-			drawCharts('dark');
-
 			//Check the switch button is set correctly
 			$( "#switch" ).prop( "checked", true );
-
 			//Draws the dark graphs
+			drawCharts('dark');
 		}
 		else {
 			//Check the switch button is set correctly
 			$("#switch").prop( "checked", false );
-			//Draws the light graphs
-            $('head').append('<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap-light.min.css">')
+            document.getElementById("bootstrap-theme").href = "/stylesheets/bootstrap-light.min.css";
             $('head').append('<link rel="stylesheet" type="text/css" href="/stylesheets/light.css">')
+			//Draws the light graphs
 			drawCharts('light');
 		}
 	//Incase there's no localStorage draws the light graph	
 	} else {
-        $('head').append('<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap-light.min.css">')
         $('head').append('<link rel="stylesheet" type="text/css" href="/stylesheets/light.css">')
 		drawCharts('light');
 	}
@@ -57,5 +52,5 @@ function loadStyle() {
 //loads a screen to cover the changing of themes and accidental blinding
 $(window).on('load', function () {
 	$("#coverScreen").hide();
-    loadStyle();
+	loadStyle();
 });

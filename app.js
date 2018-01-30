@@ -61,3 +61,7 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+
+app.listen(process.env.PORT, process.env.IP, function(){
+    console.log("Yelp Camp Server has Started!");
+});
