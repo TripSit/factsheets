@@ -195,7 +195,6 @@ router.get('/cdwr', function(req, res) {
     return _.include(drug.categories, 'common') && (!_.has(drug, 'sources') || (_.has(drug, 'sources') && _.difference(['dose', 'duration', 'effects', '_general'], _.keys(drug.sources)).length > 0)); 
   });
   _.each(drugs, function(drug) {
-    console.log(drug.sources);
     if(!drug.sources) {
       drug.sources = {};
     }
@@ -421,7 +420,6 @@ router.get('/:name', function(req, res) {
     getErowid(drug.name, function(erowid) {
       getPWiki(drug.name, function(pw) {
         getPWEffects(drug, function() {
-        console.log(drug.properties);
           res.render('factsheet', { 
             'title': 'TripSit Factsheets - ' + drug.pretty_name, 
             'drug': drug, 
