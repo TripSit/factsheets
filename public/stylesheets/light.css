@@ -92,13 +92,15 @@ td {
 .navbar-fixed-top {
   border: 0;
 }
-/* Switch that toggles theme */
+
+/*dark-mode on/off toggle*/
 
 .switch {
   position: relative;
   display: inline-block;
   width: 60px;
   height: 34px;
+  margin: 10px 0px 0px 0px;
 }
 
 .switch input {display:none;}
@@ -157,6 +159,7 @@ input:checked + .slider:before {
 /* text style and padding for switch */
 .switchpadding{
   padding-top: 10px;
+  display: inline;
 }
 .nav-text{
   padding-top: 17px;
