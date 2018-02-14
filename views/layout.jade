@@ -12,7 +12,6 @@ html
     link(rel="stylesheet" type="text/css" href="/stylesheets/light.css")
     script(src='/javascripts/jquery-3.2.1.min.js')
     script(src='/javascripts/bootstrap.min.js')
-    script(src='/javascripts/bootstrap.min.js')
     script(src='/javascripts/bootstrap-table.min.js')
     script(src='/DataTables/datatables.min.js')
     script(src='/javascripts/dataTable.js')
@@ -38,20 +37,20 @@ html
      nav.navbar.navbar-inverse.navbar-static-top(style="padding:0;margin:0;")
        .container-fluid
         .navbar-header
-           button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target=".bs-navbar-collapse", aria-expanded="false")
+           
+           button.navbar-toggle.collapsed#collapse-right(type="button", data-toggle="collapse", data-target=".bs-navbar-collapse", aria-expanded="false")
             span.sr-only Toggle navigation
             span.icon-bar
             span.icon-bar
             span.icon-bar
-        .collapse.navbar-collapse.bs-navbar-collapse
-         ul.nav.navbar-nav.navbar-left
-            li
-             p.nav-text Darkmode
-            li.switchpadding
+           a.navbar-brand(href="#") Dark-mode
+           a
+            .switchpadding
              label.switch
               input(type="checkbox", onClick="changeCss()", id="switch", value="Style") 
               span.slider 
                p#switchText ON       OFF
+        .collapse.navbar-collapse.bs-navbar-collapse       
           ul.nav.navbar-nav.navbar-right
             li.choice
               a(href='http://tripsit.me/about') About TripSit
@@ -69,5 +68,5 @@ html
              a(href='http://tripsit.me/donate/') Donate
           
 
-      .loader#coverScreen
+       .loader#coverScreen
     block content
