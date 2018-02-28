@@ -361,8 +361,9 @@ router.get('/:name', function(req, res) {
       drug.properties.pweffects = pwEffects[drug.name];
       callback(true);
     } else {
+    callback(true);
       var effects = null;
-      request.get('https://psychonautwiki.org/w/api.php', {
+/*      request.get('https://psychonautwiki.org/w/api.php', {
         'qs': {
           'action': 'ask',
           'query': '[[-Effect::'+drug.pretty_name+']]',
@@ -379,7 +380,7 @@ router.get('/:name', function(req, res) {
           drug.properties.pweffects = effects;
           return callback(true);
         }
-      });
+      });*/
     }
   };
 
