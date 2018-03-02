@@ -92,8 +92,9 @@ td {
 .navbar-fixed-top {
   border: 0;
 }
+/* Switch that toggles theme */
 
-/*dark-mode on/off toggle*/
+/* Switch that toggles theme */
 
 .switch {
   position: relative;
