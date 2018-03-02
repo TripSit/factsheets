@@ -50,10 +50,9 @@ html
               input(type="checkbox", onClick="changeCss()", id="switch", value="Style") 
               span.slider 
                p#switchText ON       OFF
-        .collapse.navbar-collapse.bs-navbar-collapse       
-          ul.nav.navbar-nav.navbar-right
+        ul.nav.navbar-nav.navbar-right
             li.choice
-              a(href='http://tripsit.me/about') About TripSit
+              a(href='http://tripsit.me/about') About
             li.choice
               a(href='http://tripsit.me/contact-us') Contact Us
             li.choice
@@ -63,7 +62,25 @@ html
             li.choice
               a(href='https://play.google.com/store/apps/details?id=me.tripsit.tripmobile') Mobile App
             li.choice
-              a(href='http://tripsit.me/chat-overview/') Chat Overview
+              a(href='http://chat.tripsit.me') Chat
+            li.choice.dropdown
+             a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false") Tools
+              span.caret
+             ul.dropdown-menu
+              li.choice
+               a(href="http://benzos.tripsit.me/") Benzodiazepine Converter
+               a(href="http://dxm.tripsit.me/") DXM Calculator
+               a(href="http://volume.tripsit.me/") Volumetric Dosing
+            li.choice.dropdown
+             a.dropdown-toggle(href="#", data-toggle="dropdown", role="button", aria-haspopup="true", aria-expanded="false") Social Media
+              span.caret
+             ul.dropdown-menu
+              li.choice
+               a(href="https://www.facebook.com/tripsitme/") Facebook
+              li.choice
+               a(href="http://reddit.com/r/tripsit/") Reddit
+              li.choice
+               a(href="https://twitter.com/teamtripsit") Twitter
             li.choice
              a(href='http://tripsit.me/donate/') Donate
           
