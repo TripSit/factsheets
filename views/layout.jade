@@ -33,12 +33,12 @@ html
      
      center
       a(href='/')
-       img.img-responsive(width='100%', src='/images/logo_beta.png',style="padding:0;margin:0")
+       img.img-responsive(width='100%', src='/images/chat-banner.png',style="padding:0;margin:0")
      nav.navbar.navbar-inverse.navbar-static-top(style="padding:0;margin:0;")
        .container-fluid
         .navbar-header
            
-           button.navbar-toggle.collapsed#collapse-right(type="button", data-toggle="collapse", data-target=".bs-navbar-collapse", aria-expanded="false")
+           button.navbar-toggle.collapsed#collapse-right(type="button", data-toggle="collapse", data-target="#bs-navbar-collapse", aria-expanded="false")
             span.sr-only Toggle navigation
             span.icon-bar
             span.icon-bar
@@ -50,7 +50,8 @@ html
               input(type="checkbox", onClick="changeCss()", id="switch", value="Style") 
               span.slider 
                p#switchText ON       OFF
-        ul.nav.navbar-nav.navbar-right
+        .collapse.navbar-collapse#bs-navbar-collapse
+         ul.nav.navbar-nav.navbar-right
             li.choice
               a(href='http://tripsit.me/about') About
             li.choice
