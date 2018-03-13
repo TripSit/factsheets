@@ -65,6 +65,10 @@ var updateCache = function() {
     request.get('http://tripbot.tripsit.me/api/tripsit/getAllDrugs', {
       'json': true
     }, function(request, response, body) {
+      if(!_.includes([200, 201], response.statusCode) || !_.isObject(body)) {
+        return;
+      }
+
       try {
         drugCache = body.data[0]; // update the cache of drugs
      
