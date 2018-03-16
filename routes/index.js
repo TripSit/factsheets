@@ -138,6 +138,9 @@ var updateCache = function() {
     request.get('http://tripbot.tripsit.me/api/tripsit/getAllCategories', {
       'json': true
     }, function(request, response, body) {
+      if(!_.includes([200, 201], response.statusCode) || !_.isObject(body)) {
+        return;
+      }
       try {
         catCache = body.data[0];
       } catch(err) {}
