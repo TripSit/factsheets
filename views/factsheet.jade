@@ -11,6 +11,14 @@ block content
           li.divider(role='presentation', style="background-color:#aaa;height:5px;")
           li.active
             a(href='#basic') Basic Information
+          li
+            a(href='#summary') Summary
+          li
+            a(href='#dose') Dose
+          li
+            a(href='#duration') Duration
+          li
+            a(href='#effects') Effects
           if interactions
             li
               a(href='#interact') Interactions
@@ -57,7 +65,7 @@ block content
               - if(pName == 'dose')
                 -if(drug.hasOwnProperty('formatted_dose'))
                     p.tlefttext.subtitles
-                      b Dose
+                      b#dose Dose
                     .flexDose.layoutPosition
                       -each item,roa in drug.formatted_dose
                             .textFormat(width="30%")
@@ -91,7 +99,7 @@ block content
                        a(href='http://psychonautwiki.org/') PsychonautWiki
               - else if(pName == 'duration' && drug['formatted_duration'])
                   p.tlefttext.subtitles(style='vertical-align: top;') 
-                    b Duration
+                    b#duration Duration
                   .flexDuration.layoutPosition
                       .textFormat(width="30%")
                               - if((!drug.formatted_duration || (drug.formatted_duration && drug.formatted_duration.value)) && (!drug.formatted_onset || (drug.formatted_onset && drug.formatted_onset.value)) && (!drug.formatted_aftereffects || (drug.formatted_aftereffects && drug.formatted_aftereffects.value)))
@@ -147,7 +155,7 @@ block content
               - else if(pName == 'summary')
                 tr
                   p.tlefttext(style='width:25%;vertical-align: top;padding: 8px;') 
-                    b Summary
+                    b#summary Summary
                   td.ttext(style='width:75%')
                     -if(drug.properties.summary)
                       p.layoutPosition !{drug.properties.summary}
@@ -162,7 +170,7 @@ block content
                           -if(category.wiki)
                             a(href='#{category.wiki}') Read more on TripSit Wiki...
               - else
-                    .flexEffects.subtitles
+                    .flexEffects.subtitles#effects
                       p.tlefttext.effectsLeft
                         b #{name}
                       p.ttext.effectsRight
