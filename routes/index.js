@@ -172,7 +172,7 @@ setInterval(updateErowidCache, 3600000);
 updateErowidCache();
 
 // Grab the combos (note: this is not auto updated)
-request.get('https://tripsit.me/combo_beta.json', {
+request.get('http://tripsit.me/combo_beta.json', {
   'json': true
 }, function(request, response, body) {
   combos = body;

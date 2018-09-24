@@ -192,7 +192,7 @@ var drawCharts = function (colour) {
       lineThickness: 0
     }
     var aY2 = {
-        valueFormatString: "0 hours",
+        valueFormatString: "0.# hours",
         lineThickness: 0                                
     }
     var leg = {
