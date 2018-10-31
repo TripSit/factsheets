@@ -12,10 +12,11 @@ body {
   color: #cccccc;
   line-height: 120%;
 }
+
 /* place holder while the theme is applied in the background */
 
 
-.jumbotron{
+.jumbotron {
   background-color: #1f2127;
   border: 0px !important;
 }
@@ -44,9 +45,10 @@ a {
   color: white;
 }
 
-.navbar-default .navbar-nav>li>a, .navbar-inverse .navbar-nav>li>a {
-   border-right: 0px;
-   border-left: 0px;
+.navbar-default .navbar-nav>li>a,
+.navbar-inverse .navbar-nav>li>a {
+  border-right: 0px;
+  border-left: 0px;
 }
 
 /*
@@ -70,51 +72,6 @@ a {
   border-bottom: 1px solid #eee;
 }
 
-/*
- * Top navigation
- * Hide default border to remove 1px line.
- */
-
-/* Switch that toggles theme */
-
-#switchText {
-  color: #3a8bcc;
-  text-align: center;
-  font-size: 10px;
-  padding-top: 8px;
-}
-
-
-
-.slider:before {
-  background-color: #3a8bcc;
-}
-
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2e3338;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-.slider {
-  border-radius: 34px;
-}
-
-.slider:before {
-  border-radius: 50%;
-}
-
-
-/* text style and padding for switch */
-.nav-text{
-  color: #cccccc;
-}
-/* Base styles (regardless of theme) */
 
 .bs-callout {
   background-color: #454545;
@@ -155,36 +112,31 @@ input:checked + .slider:before {
   border-color: #00a388;
 }
 
-
-
-
-
-
-
-
-
 .catcallout {
   background-color: #242424;
 }
 
-
-
 .phaedra-colors .label-default {
   background-color: #5680ab !important;
 }
+
 .label-default {
   background-color: #5680ab !important;
 }
+
 .label {
   color: #1c2227 !important;
 }
 
 
-.nav-sidebar>.active>a, .nav-sidebar> a:hover {
+/* .nav-sidebar>.active>a,
+.nav-sidebar>a:hover {
   background-color: #1F1F1F;
-}
+} */
 
-.nav-sidebar>.active>a, .nav-sidebar>.active>a:hover, .nav-sidebar>.active>a:focus {
+.nav-sidebar>.active>a,
+.nav-sidebar>.active>a:hover,
+.nav-sidebar>.active>a:focus {
   color: #fff;
   background-color: #428bca;
 }
@@ -193,33 +145,37 @@ input:checked + .slider:before {
 .divider {
   background-color: #2f2e2e !important;
 }
-/* Top Grid setup layout */
-
-
 
 input {
   background-color: #353a41 !important;
   border-color: #2a2e33 !important;
   color: #c8c8c8 !important;
 }
-select, .form-control input-sm {
+
+select,
+.form-control input-sm {
   background-color: #353a41 !important;
   color: #c8c8c8 !important;
 }
-input, textarea {
-    color: #c8c8c8 !important;
+
+input,
+textarea {
+  color: #c8c8c8 !important;
 }
-table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before{
+
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before,
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before {
   border: 0px !important;
 }
 
-.nav-sidebar>.active>a, .nav-sidebar>.active>a:hover, .nav-sidebar>.active>a:focus {
+.nav-sidebar>.active>a,
+.nav-sidebar>.active>a:hover,
+.nav-sidebar>.active>a:focus {
   color: #fff;
   background-color: #428bca;
 }
 
 #grid>.sidebar>ul {
-  background-color:#2e3338;
+  background-color: #2e3338;
   border-right: 1px solid #1d1d1d;
 }
-

@@ -1,214 +1,28 @@
-body {
-  padding-bottom: 20px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  line-height: 120%;
-}
-.loader {
-   width: 100%;
-   height: 100%;
-   margin: 0;
-   position: fixed;
-   display: block;
-   opacity: 1.0;
-   background-color: #1f2127;
-   z-index: 99;
-   text-align: center;
-}
 
 a {
   color: #00B7FF;
 }
-
-td {
-  word-wrap: break-word;
-}
-
-.choice {
-  font-family: Arial, sans-serif;
-  font: white;
-}
-
-.choice:hover {
-  background-color: #7900C2;
-  transition: color 0.25s ease, background-color 0.25s ease;
-}
-
-.navbar-nav {
-  color: white;
-}
-
-.navbar {
-  background-color: #000;
-}
-
-.navbar-inverse {
-  background-image: none;
-  color: white;
-}
-
-.choice:hover {
-  background-color: #7900C2;
-}
-
-.navbar {
-  background-color: #000;
-}
-
-.navbar-inverse {
-  background-image: none;
-  color: white;
-}
-
-/*
- * Base structure
- */
-
-/* Move down content because we have a fixed navbar that is 50px tall */
-
-/*
- * Global add-ons
- */
 
 .glossary {
   border-bottom: 1px #50007F dotted;
   color: #50007F;
 }
 
-.navbar-right {
-  margin-right: 5px;
-}
-
 .sub-header {
-  padding-bottom: 10px;
   border-bottom: 1px solid #eee;
 }
 
-/*
- * Top navigation
- * Hide default border to remove 1px line.
- */
 
-
-.navbar-fixed-top {
-  border: 0;
-}
-/* Switch that toggles theme */
-
-/* Switch that toggles theme */
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-  margin: 10px 0px 0px 0px;
-}
-
-.switch input {display:none;}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #2e3338;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-#switchText {
-  color: #428bca;
-  text-align: center;
-  font-size: 10px;
-  padding-top: 8px;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: #428bca;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #2e3338;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2e3338;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-.slider {
-  border-radius: 34px;
-}
-
-.slider:before {
-  border-radius: 50%;
-}
-/* text style and padding for switch */
-.switchpadding{
-  padding-top: 10px;
-  display: inline;
-}
 .nav-text{
-  padding-top: 17px;
-  padding-right: 10px;
-  padding-left: 7px;
-  box-shadow:none !important;
   color: #9d9d9d;
   text-shadow: 0 -1px 0 rgba(0,0,0,.25);
 }
-/*
- * Placeholder dashboard ideas
- */
-
-.placeholders {
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-.placeholders h4 {
-  margin-bottom: 0;
-}
-
-.placeholder {
-  margin-bottom: 20px;
-}
-
-.placeholder img {
-  display: inline-block;
-  border-radius: 50%;
-}
-
-/* Base styles (regardless of theme) */
 
 .bs-callout {
-  margin: 20px 0;
-  padding: 15px 15px 15px 15px;
-  padding-top: 5px;
   border-left: 5px solid #aaa;
   background-color: #eeeeee;
 }
 
-.bs-callout h4 {
-  margin-top: 0;
-}
-
-.bs-callout p:last-child {
-  margin-bottom: 0;
-}
 
 .bs-callout code, .bs-callout .highlight {
   background-color: #fff;
@@ -218,8 +32,6 @@ input:checked + .slider:before {
   background-color: #fffacb;
   border-color: #827700;
 }
-
-/* Themes for different contexts */
 
 .bs-callout-lowdec {
   background-color: #d8effe;
@@ -247,22 +59,18 @@ input:checked + .slider:before {
 }
 
 .bs-callout-psychedelic {
-  /* background-color: #CCFFCC;*/
   border-color: #00A388;
 }
 
 .bs-callout-opioid {
-  /* background-color: #CCFFCC;*/
   border-color: #C0D9AF;
 }
 
 .bs-callout-stimulant {
-  /*background-color: #BFEFFF;*/
   border-color: #31B0D5;
 }
 
 .bs-callout-dissociative {
-  /*background-color:#B23609;*/
   border-color: #9b59b6;
 }
 
@@ -294,10 +102,6 @@ input:checked + .slider:before {
   color: #001713;
 }
 
-.label {
-  padding:3px;
-  margin:5px;
-}
 
 .phaedra-colors .label-default, .label-benzodiazepine {
   background-color: #95a5a6;
@@ -359,225 +163,17 @@ input:checked + .slider:before {
   background-color: #e67e22;
 }
 
-/*
- * Sidebar
- */
-
-/* Sidebar navigation */
-
-.nav-sidebar {
-  margin-bottom: 20px;
-}
-
-.nav-sidebar>li>a {
-  padding-right: 20px;
-  padding-left: 20px;
-}
-
 .nav-sidebar>.active>a, .nav-sidebar>.active>a:hover, .nav-sidebar>.active>a:focus {
   color: #fff;
   background-color: #428bca;
 }
 
-/* Top Grid setup layout */
-
-#grid {
-  display: grid;
-  grid-template-columns: 1fr 5fr;
-}
-
 #grid>.sidebar>ul {
-  grid-column: 1;
-  margin: 4px;
-  border-radius: 7pt;
   background: #ccccff;
-  order: 0;
-  margin-right: 15px;
-  margin-left: 0px;
-  margin-top: 0px;
-  padding-top: 0px;
-  min-height: 100vh;
   background-color: #f5f5f5;
   border-right: 1px solid #eee;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 20px;
-}
-
-/* Flex layout  */
-
-.flexDose {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.flexDuration {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.flexEffects {
-  display: flex;
-}
-
-/*  Main content */
-
-.main {
-  padding: 20px 20px 20px 0px;
-}
-
-.main .page-header {
-  margin-top: 0;
-}
-
-.mainText {
-  padding-bottom: 20px;
-  font: 14px;
-  line-height: 120%;
-}
-
-.textFormat {
-  line-height: 1.42857143;
 }
 
 .subtitles {
-  padding: 8px;
-  line-height: 1.42857143;
   border-top: 1px solid #ddd;
-}
-
-.doseChart {
-  height:380px;
-  margin:0px;
-}
-/* Mobile layout */
-
-@media all and (max-width: 640px) {
-  #grid, #page {
-    grid: none;
-    display: flex;
-    flex-flow: row;
-    flex-direction: column-reverse;
-    align-self: center;
-  }
-  #grid>.sidebar>ul {
-    min-height: 50px;
-    max-height: 50px;
-    margin: 0px;
-    border-radius: 0px;
-  }
-  #grid>.sidebar {
-    width: 100%;
-    margin: 0px;
-    padding: 0px;
-    min-height: 50px;
-    max-height: 50px;
-    max-width: 100%;
-    text-align: center;
-  }
-  #grid>.main {
-    margin: auto;
-    padding: 5px;
-  }
-  h1 {
-    padding-top: 20px;
-    text-align: center;
-  }
-  h2 {
-    text-align: center;
-  }
-  h3 {
-    text-align: center;
-  }
-  a {
-    text-align: center;
-  }
-  .flexDose {
-    flex-direction: column;
-    margin: 0px;
-  }
-  .flexDuration {
-    flex-direction: column;
-    margin: 0px;
-  }
-  .flexEffects {
-    flex-direction: column;
-    margin: 0px;
-  }
-  .chartContainer {
-    width: 100%;
-  }
-  .layoutPosition {
-    margin-left: 0;
-    text-align: center;
-  }
-  #durationChart {
-    height: 250px;
-    width: 90%;
-    margin-bottom: 20px;
-  }
-  .doseChart {
-    height:300px;
-  }
-  /*center nav switch */
-  .nav-text{
-    text-align: center;
-  }
-  .switchpadding{
-    text-align: center;
-  }
-}
-
-/* Laptop sized layout */
-
-@media (min-width: 768px) {
-  .main {
-    padding-right: 70px;
-  }
-  .textFormat {
-    margin-top: 75px;
-    width: 300px;
-    padding-right: 50px;
-  }
-  .chartContainer {
-    width: 450px;
-  }
-  #durationChart {
-    height: 250px;
-    width: 450px;
-  }
-  .layoutPosition {
-    margin-left: 20%;
-  }
-  .effectsLeft {
-    width: 20%;
-  }
-  .effectsRight{
-    width: 80%;
-  }
-}
-
-/* Desktop sized layout */
-
-@media (min-width: 1300px) {
-  .layoutPosition {
-    margin-left: 25%;
-  }
-  .textFormat {
-    padding-right: 100px;
-    width: 400px;
-  }
-  #durationChart {
-    height: 300px;
-    width: 500px;
-  }
-  .chartContainer {
-    width: 500px;
-  }
-  .effectsLeft {
-    width: 25%;
-  }
-  .effectsRight{
-    width: 75%;
-  }
 }
