@@ -184,120 +184,24 @@ block content
       a(name='interact')
       a(style='float:right;font:10px;' href='http://combo.tripsit.me/') See TripSit Wiki for more information about drug interactions
       h2.sub-header Interactions
-      // this can clearly be iterated TODO
       if interactions
-        -if(interactions.dangerous.length > 0)
-          .bs-callout.bs-callout-danger
-            h3 Dangerous
-            ul
-              each d in interactions.dangerous
-                li
-                  if d.wiki
-                    a(href=d.wiki) #{d.pname}
-                    -if(d.note)
-                     ul
-                      li #{d.note}
-                  else 
-                    a(href='/'+d.name) #{d.pname}
-                    -if(d.note)
-                     ul
-                      li #{d.note}
-        -if(interactions.ss.length > 0)
-          .bs-callout.bs-callout-ss
-            h3 Serotonin Syndrome
-            ul
-              each d in interactions.ss
-                li
-                  if d.wiki
-                    a(href=d.wiki) #{d.pname}
-                    -if(d.note)
-                     ul
-                      li #{d.note}
-                  else 
-                    a(href='/'+d.name) #{d.pname}
-                    -if(d.note)
-                     ul
-                      li #{d.note}
-        -if(interactions.unsafe.length > 0)
-          .bs-callout.bs-callout-unsafe
-            h3 Unsafe
-            ul
-              each d in interactions.unsafe
-                li
-                  if d.wiki
-                    a(href=d.wiki) #{d.pname}
-                    -if(d.note)
-                     ul
-                      li #{d.note}
-                  else 
-                    a(href='/'+d.name) #{d.pname}
-                    -if(d.note)
-                     ul
-                      li #{d.note}
-        -if(interactions.caution.length > 0)
-          .bs-callout.bs-callout-caution
-            h3 Caution
-            ul
-              each d in interactions.caution
-                li
-                  if d.wiki
-                    a(href=d.wiki) #{d.pname}
-                    -if(d.note)
-                     ul
-                      li #{d.note}
-                  else 
-                    a(href='/'+d.name) #{d.pname}
-                    -if(d.note)
-                     ul
-                      li #{d.note}
-        -if(interactions.lowinc.length > 0)
-          .bs-callout.bs-callout-lowinc
-            h3 Low risk & Increased Effects
-            ul
-              each d in interactions.lowinc
-                li
-                  if d.wiki
-                    a(href=d.wiki) #{d.pname}
-                    -if(d.note)
-                     ul
-                      li #{d.note}
-                  else 
-                    a(href='/'+d.name) #{d.pname}
-                    -if(d.note)
-                     ul
-                      li #{d.note}
-        -if(interactions.lowdec.length > 0)
-          .bs-callout.bs-callout-lowdec
-            h3 Low risk & Decreased Effects
-            ul
-              each d in interactions.lowdec
-                li
-                  if d.wiki
-                    a(href=d.wiki) #{d.pname}
-                    -if(d.note)
-                     ul
-                      li #{d.note}
-                  else 
-                    a(href='/'+d.name) #{d.pname}
-                    -if(d.note)
-                     ul
-                      li #{d.note}
-        -if(interactions.lowno.length > 0)
-          .bs-callout.bs-callout-default
-            h3 Low risk & No Synergy
-            ul
-              each d in interactions.lowno
-                li
-                  if d.wiki
-                    a(href=d.wiki) #{d.pname}
-                    -if(d.note)
-                     ul
-                      li #{d.note}
-                  else 
-                    a(href='/'+d.name) #{d.pname}
-                    -if(d.note)
-                     ul
-                      li #{d.note}
+        each interaction in interactions
+          -if(interaction.length > 0)
+            div(class=`bs-callout.bs-callout-${interaction}`)
+              h3 #{interaction}
+              ul
+                each d in interaction
+                  li
+                    if d.wiki
+                      a(href=d.wiki) #{d.pname}
+                      -if(d.note)
+                        ul
+                          li #{d.note}
+                    else 
+                      a(href='/'+d.name) #{d.pname}
+                      -if(d.note)
+                        ul
+                          li #{d.note}
   
       else
         p No interaction information for #{drug.pretty_name}
