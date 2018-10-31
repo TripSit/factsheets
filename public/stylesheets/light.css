@@ -226,16 +226,14 @@ input:checked + .slider:before {
   border-color: #00426c;
 }
 
-/* Themes for different contexts */
-
 .bs-callout-danger {
   background-color: #fdc9cc;
   border-color: #7f0006;
 }
 
-.bs-callout-unsafe {
+.bs-callout-unsafe, .bs-callout-dangerous {
   background-color: #ffe6cb;
-  border-color: #874600;
+  border-color: #873100;
 }
 
 .bs-callout-lowinc {
