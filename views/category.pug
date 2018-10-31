@@ -1,0 +1,76 @@
+extends layout
+
+block content
+  .container-fluid(style="margin-top:2%;")
+    .jumbotron
+      .bs-callout.catcallout(class='bs-callout-#{category.name}')
+        - if(!category.pretty_name) category.pretty_name = category.name.charAt(0).toUpperCase() + category.name.slice(1);
+        h4
+          a(href='/category/#{category.name}') #{category.pretty_name}
+        span(style='font:14px;') #{category.description}
+        br
+        br
+        - if(category.wiki)
+        a(href='#{category.wiki}') Read more on TripSit Wiki...
+.table
+  table.table.table-striped.table_class.table-hover
+    thead
+      tr
+        th.theader
+          | Name
+        th.theader
+          | Categories
+        th.theader
+          | Summary
+        th.theader
+          | Alias
+    tfoot
+      tr
+        th.theader
+          | Name
+        th.theader
+          | Categories
+        th.theader
+          | Summary
+        th.theader
+          | Alias
+    tbody.tbody1.table-hover
+      -each drug in drugs
+        tr
+          td.ttext.all
+            a.boxed2(href='/'+encodeURIComponent(drug.name)) 
+              | #{drug.pretty_name}
+          td.min-tablet
+            if drug.categories 
+              each kw in drug.categories
+                if kw == 'psychedelic'
+                  a.label.label-psychedelic(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
+                else if kw == 'benzodiazepine'
+                  a.label.label-default(href='/category/'+kw style='background-color:#000;color:#FF0000;padding:3px;margin:5px;') benzo
+                else if kw == 'stimulant'
+                  a.label.label-info(href='/category/'+kw style='padding:3px;margin:5px;') stimulant
+                else if kw == 'dissociative'
+                  a.label.label-disso(href='/category/'+kw style='padding:3px;margin:5px;') dissociative
+                else if kw == 'opioid'
+                  a.label.label-success(href='/category/'+kw style='padding:3px;margin:5px;') opioid
+                else if kw == 'depressant'
+                  a.label.label-danger(href='/category/'+kw style='padding:3px;margin:5px;') depressant 
+                else if kw == 'habit-forming'
+                  a.label.label-habit(href='/category/'+kw style='padding:3px;margin:5px;') habit forming
+                else if kw == 'research-chemical'
+                  a.label.label-warning(href='/category/'+kw style='padding:3px;margin:5px;') research chemical
+                else if kw == 'tentative'
+                  a.label.label-tentative(href='/category/'+kw style='padding:3px;margin:5px;') tentative
+                else if kw == 'empathogen'
+                  a.label.label-empathogen(href='/category/'+kw style='padding:3px;margin:5px;') empathogen
+                else
+                  a.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
+            else
+              span.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') other
+          td.ttext.desktop
+            | !{drug.properties.summary}
+          td.ttext.desktop
+            | !{drug.properties.aliases}
+p
+p
+b Factsheets on #{drugs.length} drugs
