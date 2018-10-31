@@ -184,7 +184,149 @@ body {
   
   /* Base styles (regardless of theme) */
   
+  
+  
+  .bs-callout code, .bs-callout .highlight {
+    background-color: #fff;
+  }
+  
+  .bs-callout-caution {
+    background-color: #fffacb;
+    border-color: #827700;
+  }
+  
+  .bs-callout-lowdec {
+    background-color: #d8effe;
+    border-color: #00426c;
+  }
+  
+  .bs-callout-danger {
+    background-color: #fdc9cc;
+    border-color: #7f0006;
+  }
+  
+  .bs-callout-unsafe, .bs-callout-dangerous {
+    background-color: #ffe6cb;
+    border-color: #873100;
+  }
+  
+  .bs-callout-lowinc {
+    background-color: #cbf0d1;
+    border-color: #077c1b;
+  }
+  
+  .bs-callout-ss {
+    background-color: #dfd3ec !important;
+    border-color: #3d166c !important;
+  }
+  
+  .bs-callout-psychedelic {
+    border-color: #00A388;
+  }
+  
+  .bs-callout-opioid {
+    border-color: #C0D9AF;
+  }
+  
+  .bs-callout-stimulant {
+    border-color: #31B0D5;
+  }
+  
+  .bs-callout-dissociative {
+    border-color: #9b59b6;
+  }
+  
+  .bs-callout-benzodiazepine {
+    border-color: #000;
+  }
+  
+  .bs-callout-research-chemical {
+    border-color: #EC971F;
+  }
+  
+  .bs-callout-habit-forming {
+    border-color: #e67e22;
+  }
+  
+  .bs-callout-depressant {
+    border-color: #C9302C;
+  }
+  
+  .bs-callout-tentative {
+    border-color: #FFFF9D;
+  }
+  
+  .catcallout {
+    background-color: #FFF;
+  }
+  
+  .phaedra-colors .label {
+    color: #001713;
+  }
+  
+  
+  .phaedra-colors .label-default, .label-benzodiazepine {
+    background-color: #95a5a6;
+  }
+  
+  .phaedra-colors .label-default[href]:hover, .phaedra-colors .label-default[href]:focus,
+  .label-benzodiazepine[href]:hover, .label-benzodiazepine[href]:active {
+    background-color: #7f8c8d;
+  }
+  
+  .label-psychedelic {
+    background-color: #00A388;
+  }
+  
+  .phaedra-colors .label-primary[href]:hover, .phaedra-colors .label-primary[href]:focus {
+    background-color: #007D68;
+  }
+  
+  .label-empathogen {
+    background-color: #79BD8F;
+  }
+  
+  .phaedra-colors .label-success[href]:hover, .phaedra-colors .label-success[href]:focus, .label-opioid {
+    background-color: #659E78;
+  }
+  
+  .phaedra-colors .label-info, .label-stimulant {
+    background-color: #31B0D5;
+  }
+  
+  .phaedra-colors .label-stimulant[href]:hover, .phaedra-colors .label-info[href]:focus,
+  .label-stimulant[href]:hover, .label-stimulant[href]:focus  {
+    background-color: #37bfe9;
+  }
+  
+  .label-tentative {
+    background-color: #FFFF9D;
+    color: #001713;
+  }
+  
+  .phaedra-colors .label-warning[href]:hover, .phaedra-colors .label-warning[href]:focus, .label-research-chemical {
+    background-color: #D1D181;
+  }
+  
+  .phaedra-colors .label-danger, .label-depressant {
+    background-color: #FF6138;
+  }
+  
+  .phaedra-colors .label-danger[href]:hover, .phaedra-colors .label-danger[href]:focus,
+  .label-depressant[href]:hover, .label-depressant[href]:active {
+    background-color: #D6512F;
+  }
+  
+  .label-dissociative {
+    background-color: #9b59b6;
+  }
+  
+  .label-habit-forming {
+    background-color: #e67e22;
+  }
   .bs-callout {
+    border-left: 5px solid #aaa;
+    background-color: #eeeeee;
     margin: 20px 0;
     padding: 15px 15px 15px 15px;
     padding-top: 5px;

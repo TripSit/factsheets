@@ -109,8 +109,8 @@ a {
 }
 
 .bs-callout-ss {
-  background-color: #353a41;
-  border-color: #00a388;
+  background-color: #353a41 !important;
+  border-color: #00a388 !important;
 }
 
 
@@ -209,7 +209,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before 
 }
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-  background-color: #12324e;
+  background-color: #23262b;
 }
 
 .pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
