@@ -1,49 +1,49 @@
 extends layout
 block content
-  div#grid
-    script var drug = !{JSON.stringify(drug)};
-    nav.sidebar
+ div#grid
+  script var drug = !{JSON.stringify(drug)};
+  nav.sidebar
       ul.nav.nav-sidebar
-        li
-          a(href='/') 
-            span.glyphicon.glyphicon-menu-left(aria-hidden='true') 
-            span Back to Browse
-        li.divider(role='presentation', style="background-color:#aaa;height:5px;")
-        li.active
-          a(href='#basic') Basic Information
-        li
-          a(href='#summary') Summary
-        li
-          a(href='#dose') Dose
-        li
-          a(href='#duration') Duration
-        li
-          a(href='#effects') Effects
-        if interactions
           li
-            a(href='#interact') Interactions
-        if(drug.sources)
+            a(href='/') 
+              span.glyphicon.glyphicon-menu-left(aria-hidden='true') 
+              span Back to Browse
+          li.divider(role='presentation', style="background-color:#aaa;height:5px;")
+          li.active
+            a(href='#basic') Basic Information
           li
-            a(href='#references') References & Notes
-        if wiki
+            a(href='#summary') Summary
           li
-            a(href=wiki) Read more on TripSit Wiki
-        if(drug.links && drug.links.tihkal)
+            a(href='#dose') Dose
           li
-            a(href=drug.links.tihkal) TiHKAL Entry
-        if(drug.links && drug.links.pihkal)
+            a(href='#duration') Duration
           li
-            a(href=drug.links.pihkal) PiHKAL Entry
-        if(pw)
-          li 
-            a(href=pw) Read more on PsychonautWiki
-        if(erowid && erowid.subtopics && erowid.subtopics.htmlMAIN)
-          li 
-            a(href='https://erowid.org#{erowid.subtopics.htmlMAIN}') Read more on Erowid
-        if(drug.links && drug.links.experiences)
-          li
-            a(href=drug.links.experiences) Erowid Experience Reports
-    .main
+            a(href='#effects') Effects
+          if interactions
+            li
+              a(href='#interact') Interactions
+          if(drug.sources)
+            li
+              a(href='#references') References & Notes
+          if wiki
+            li
+              a(href=wiki) Read more on TripSit Wiki
+          if(drug.links && drug.links.tihkal)
+            li
+              a(href=drug.links.tihkal) TiHKAL Entry
+          if(drug.links && drug.links.pihkal)
+            li
+              a(href=drug.links.pihkal) PiHKAL Entry
+          if(pw)
+            li 
+              a(href=pw) Read more on PsychonautWiki
+          if(erowid && erowid.subtopics && erowid.subtopics.htmlMAIN)
+            li 
+              a(href='https://erowid.org#{erowid.subtopics.htmlMAIN}') Read more on Erowid
+          if(drug.links && drug.links.experiences)
+            li
+              a(href=drug.links.experiences) Erowid Experience Reports
+  .main
       .bs-callout.bs-callout-ss(style='padding-top:10px;')
         span(style='font:14px;') 
           b New: 
@@ -58,129 +58,129 @@ block content
       div#drugname(style='display:none;') #{drug.name}
       h2.sub-header Basic Information
       .mainText
-        for pName in order
-          if drug.properties[pName]
-            - name = pName.charAt(0).toUpperCase() + pName.slice(1);
-            - property = drug.properties[pName]
-            - if(pName == 'dose')
-              -if(drug.hasOwnProperty('formatted_dose'))
-                p.tlefttext.subtitles
-                  b#dose Dose
-                .flexDose.layoutPosition
-                  -each item,roa in drug.formatted_dose
-                    .textFormat(width="30%")
-                      table.table
-                        thead
-                          tr
-                            -if(roa == 'none')
-                              th(colspan='2') 
-                            -else
-                              th(colspan='2') #{roa}
-                        -each i,t in item
-                          tr 
-                            td(style='width:20%') #{t}
-                            td #{i}
-                    .chartContainer
-                      div.doseChart(id=roa+'Chart')
--if(drug.hasOwnProperty('dose_note'))
-  .bs-callout.bs-callout-benzodiazepine.layoutPosition
-    h4 
-    p #{drug.dose_note}
-            - else if(pName == 'pweffects')
-              p.tlefttext.subtitles(style='vertical-align: top;') 
-                b Effects
-              p
-                ul.layoutPosition
-                -if(drug.properties.pweffects && drug.properties.pweffects.length > 0)
-                  -each i,y in drug.properties.pweffects
-                    a(href=i) 
-                      button.btn.btn-default(style="padding:5px;margin:5px;") #{y}
-                  p Effects lovingly provided by 
-                    a(href='http://psychonautwiki.org/') PsychonautWiki
-            - else if(pName == 'duration' && drug['formatted_duration'])
-              p.tlefttext.subtitles(style='vertical-align: top;') 
-                b#duration Duration
-              .flexDuration.layoutPosition
-                .textFormat(width="30%")
-                  - if((!drug.formatted_duration || (drug.formatted_duration && drug.formatted_duration.value)) && (!drug.formatted_onset || (drug.formatted_onset && drug.formatted_onset.value)) && (!drug.formatted_aftereffects || (drug.formatted_aftereffects && drug.formatted_aftereffects.value)))
-                    table.table
-                      thead
-                        tr
-                          th(colspan='2') All ROAs
-                            tbody
-                              -if(drug.formatted_onset)
-                                tr 
-                                  td(style='width:20%') Onset
-                                  td #{drug.formatted_onset.value} #{drug.formatted_onset._unit}
-                              -if(drug.formatted_duration)
-                                tr
-                                  td(style='width:20%') Duration
-                                  td #{drug.formatted_duration.value} #{drug.formatted_duration._unit}
-                              -if(drug.formatted_aftereffects)
-                                tr
-                                  td(style='width:20%') After-effects
-                                  td #{drug.formatted_aftereffects.value} #{drug.formatted_aftereffects._unit}
-                  - else
-                    -each item,roa in drug.formatted_duration
-                      -if(roa != '_unit' && roa != 'value')
-                        table.table
-                          thead
-                            tr
-                              th(colspan='2') #{roa}
-                                if(drug.formatted_onset)
-                                  tr 
-                                    td(style='width:20%') Onset
-                                    if(drug.formatted_onset[roa])
-                                      td #{drug.formatted_onset[roa]} #{drug.formatted_onset._unit}
-                                    else 
-                                      td #{drug.formatted_onset.value} #{drug.formatted_onset._unit}
-                                if(drug.formatted_duration)
-                                  tr
-                                    td(style='width:20%') Duration
-                                    if(drug.formatted_duration[roa])
-                                      td #{drug.formatted_duration[roa]} #{drug.formatted_duration._unit}
-                                    else 
-                                      td #{drug.formatted_duration.value} #{drug.formatted_duration._unit}
-                                if(drug.formatted_aftereffects)
-                                  tr
-                                    td(style='width:20%') After-effects
-                                    if(drug.formatted_aftereffects[roa])
-                                      td #{drug.formatted_aftereffects[roa]} #{drug.formatted_aftereffects._unit}
-                                    else 
-                                      td #{drug.formatted_aftereffects.value} #{drug.formatted_aftereffects._unit}
-                .chartContainer
-                  div(id='durationChart')
-            - else if(pName == 'onset' || pName == 'after-effects' || pName == 'categories')
-              span 
-            - else if(pName == 'summary')
-              tr
-                p.tlefttext(style='width:25%;vertical-align: top;padding: 8px;') 
-                  b#summary Summary
-                td.ttext(style='width:75%')
-                  -if(drug.properties.summary)
-                    p.layoutPosition !{drug.properties.summary}
-                  -if(drug.properties.categories)
-                    - each i in drug.properties.categories
-                      - var category = categories[i]
-                      - if(!category.pretty_name) category.pretty_name = category.name.charAt(0).toUpperCase() + category.name.slice(1);
-                      .bs-callout.layoutPosition(class='bs-callout-#{category.name}')
-                        h4
-                          a(href='/category/#{category.name}') #{category.pretty_name}
-                        p #{category.description}
-                        -if(category.wiki)
-                          a(href='#{category.wiki}') Read more on TripSit Wiki...
-            - else
-              .flexEffects.subtitles#effects
-                p.tlefttext.effectsLeft
-                  b #{name}
-                p.ttext.effectsRight
-                  - if (typeof(property) === 'string'){
-                    | !{property}
-                  -} else {
-                    -each line in property
-                      | #{line}
-                      br
-                  -}
+          for pName in order
+            if drug.properties[pName]
+              - name = pName.charAt(0).toUpperCase() + pName.slice(1);
+              - property = drug.properties[pName]
+              - if(pName == 'dose')
+                -if(drug.hasOwnProperty('formatted_dose'))
+                    p.tlefttext.subtitles
+                      b#dose Dose
+                    .flexDose.layoutPosition
+                      each item,roa in drug.formatted_dose
+                            .textFormat(width="30%")
+                                table.table
+                                  thead
+                                    tr
+                                      -if(roa == 'none')
+                                        th(colspan='2') 
+                                      -else
+                                        th(colspan='2') #{roa}
+                                  each i,t in item
+                                    tr 
+                                     td(style='width:20%') #{t}
+                                     td #{i}
+                            .chartContainer
+                              div.doseChart(id=roa+'Chart')
+                -if(drug.hasOwnProperty('dose_note'))
+                    .bs-callout.bs-callout-benzodiazepine.layoutPosition
+                      h4 
+                      p #{drug.dose_note}
+              - else if(pName == 'pweffects')
+                  p.tlefttext.subtitles(style='vertical-align: top;') 
+                    b Effects
+                  p
+                    ul.layoutPosition
+                    -if(drug.properties.pweffects && drug.properties.pweffects.length > 0)
+                      each i,y in drug.properties.pweffects
+                       a(href=i) 
+                        button.btn.btn-default(style="padding:5px;margin:5px;") #{y}
+                      p Effects lovingly provided by 
+                       a(href='http://psychonautwiki.org/') PsychonautWiki
+              - else if(pName == 'duration' && drug['formatted_duration'])
+                  p.tlefttext.subtitles(style='vertical-align: top;') 
+                    b#duration Duration
+                  .flexDuration.layoutPosition
+                      .textFormat(width="30%")
+                              - if((!drug.formatted_duration || (drug.formatted_duration && drug.formatted_duration.value)) && (!drug.formatted_onset || (drug.formatted_onset && drug.formatted_onset.value)) && (!drug.formatted_aftereffects || (drug.formatted_aftereffects && drug.formatted_aftereffects.value)))
+                                  table.table
+                                    thead
+                                      tr
+                                        th(colspan='2') All ROAs
+                                      tbody
+                                        -if(drug.formatted_onset)
+                                          tr 
+                                            td(style='width:20%') Onset
+                                            td #{drug.formatted_onset.value} #{drug.formatted_onset._unit}
+                                        -if(drug.formatted_duration)
+                                          tr
+                                            td(style='width:20%') Duration
+                                            td #{drug.formatted_duration.value} #{drug.formatted_duration._unit}
+                                        -if(drug.formatted_aftereffects)
+                                          tr
+                                            td(style='width:20%') After-effects
+                                            td #{drug.formatted_aftereffects.value} #{drug.formatted_aftereffects._unit}
+                              - else
+                                each item,roa in drug.formatted_duration
+                                  -if(roa != '_unit' && roa != 'value')
+                                       table.table
+                                        thead
+                                          tr
+                                            th(colspan='2') #{roa}
+                                          if(drug.formatted_onset)
+                                            tr 
+                                              td(style='width:20%') Onset
+                                              if(drug.formatted_onset[roa])
+                                                td #{drug.formatted_onset[roa]} #{drug.formatted_onset._unit}
+                                              else 
+                                                td #{drug.formatted_onset.value} #{drug.formatted_onset._unit}
+                                          if(drug.formatted_duration)
+                                            tr
+                                              td(style='width:20%') Duration
+                                              if(drug.formatted_duration[roa])
+                                                td #{drug.formatted_duration[roa]} #{drug.formatted_duration._unit}
+                                              else 
+                                                td #{drug.formatted_duration.value} #{drug.formatted_duration._unit}
+                                          if(drug.formatted_aftereffects)
+                                            tr
+                                              td(style='width:20%') After-effects
+                                              if(drug.formatted_aftereffects[roa])
+                                                td #{drug.formatted_aftereffects[roa]} #{drug.formatted_aftereffects._unit}
+                                              else 
+                                                td #{drug.formatted_aftereffects.value} #{drug.formatted_aftereffects._unit}
+                      .chartContainer
+                       div(id='durationChart')
+              - else if(pName == 'onset' || pName == 'after-effects' || pName == 'categories')
+                span 
+              - else if(pName == 'summary')
+                tr
+                  p.tlefttext(style='width:25%;vertical-align: top;padding: 8px;') 
+                    b#summary Summary
+                  td.ttext(style='width:75%')
+                    -if(drug.properties.summary)
+                      p.layoutPosition !{drug.properties.summary}
+                    -if(drug.properties.categories)
+                      each i in drug.properties.categories
+                        - var category = categories[i]
+                        - if(!category.pretty_name) category.pretty_name = category.name.charAt(0).toUpperCase() + category.name.slice(1);
+                        .bs-callout.layoutPosition(class='bs-callout-#{category.name}')
+                          h4
+                            a(href='/category/#{category.name}') #{category.pretty_name}
+                          p #{category.description}
+                          -if(category.wiki)
+                            a(href='#{category.wiki}') Read more on TripSit Wiki...
+              - else
+                    .flexEffects.subtitles#effects
+                      p.tlefttext.effectsLeft
+                        b #{name}
+                      p.ttext.effectsRight
+                        - if (typeof(property) === 'string'){
+                          | !{property}
+                        -} else {
+                          each line in property
+                            | #{line}
+                            br
+                        -}
       a(name='interact')
       a(style='float:right;font:10px;' href='http://combo.tripsit.me/') See TripSit Wiki for more information about drug interactions
       h2.sub-header Interactions
@@ -190,131 +190,131 @@ block content
           .bs-callout.bs-callout-danger
             h3 Dangerous
             ul
-              -each d in interactions.dangerous
+              each d in interactions.dangerous
                 li
                   if d.wiki
                     a(href=d.wiki) #{d.pname}
                     -if(d.note)
-                      ul
-                        li #{d.note}
+                     ul
+                      li #{d.note}
                   else 
                     a(href='/'+d.name) #{d.pname}
                     -if(d.note)
-                      ul
-                        li #{d.note}
+                     ul
+                      li #{d.note}
         -if(interactions.ss.length > 0)
           .bs-callout.bs-callout-ss
             h3 Serotonin Syndrome
             ul
-              -each d in interactions.ss
+              each d in interactions.ss
                 li
                   if d.wiki
                     a(href=d.wiki) #{d.pname}
                     -if(d.note)
-                      ul
-                        li #{d.note}
+                     ul
+                      li #{d.note}
                   else 
                     a(href='/'+d.name) #{d.pname}
                     -if(d.note)
-                      ul
-                        li #{d.note}
+                     ul
+                      li #{d.note}
         -if(interactions.unsafe.length > 0)
           .bs-callout.bs-callout-unsafe
             h3 Unsafe
             ul
-              -each d in interactions.unsafe
+              each d in interactions.unsafe
                 li
                   if d.wiki
                     a(href=d.wiki) #{d.pname}
                     -if(d.note)
-                      ul
-                        li #{d.note}
+                     ul
+                      li #{d.note}
                   else 
                     a(href='/'+d.name) #{d.pname}
                     -if(d.note)
-                      ul
-                        li #{d.note}
+                     ul
+                      li #{d.note}
         -if(interactions.caution.length > 0)
           .bs-callout.bs-callout-caution
             h3 Caution
             ul
-              -each d in interactions.caution
+              each d in interactions.caution
                 li
                   if d.wiki
                     a(href=d.wiki) #{d.pname}
                     -if(d.note)
-                      ul
-                        li #{d.note}
+                     ul
+                      li #{d.note}
                   else 
                     a(href='/'+d.name) #{d.pname}
                     -if(d.note)
-                      ul
-                        li #{d.note}
+                     ul
+                      li #{d.note}
         -if(interactions.lowinc.length > 0)
           .bs-callout.bs-callout-lowinc
             h3 Low risk & Increased Effects
             ul
-              -each d in interactions.lowinc
+              each d in interactions.lowinc
                 li
                   if d.wiki
                     a(href=d.wiki) #{d.pname}
                     -if(d.note)
-                      ul
-                        li #{d.note}
+                     ul
+                      li #{d.note}
                   else 
                     a(href='/'+d.name) #{d.pname}
                     -if(d.note)
-                      ul
-                        li #{d.note}
+                     ul
+                      li #{d.note}
         -if(interactions.lowdec.length > 0)
           .bs-callout.bs-callout-lowdec
             h3 Low risk & Decreased Effects
             ul
-              -each d in interactions.lowdec
+              each d in interactions.lowdec
                 li
                   if d.wiki
                     a(href=d.wiki) #{d.pname}
                     -if(d.note)
-                      ul
-                        li #{d.note}
+                     ul
+                      li #{d.note}
                   else 
                     a(href='/'+d.name) #{d.pname}
                     -if(d.note)
-                      ul
-                        li #{d.note}
+                     ul
+                      li #{d.note}
         -if(interactions.lowno.length > 0)
           .bs-callout.bs-callout-default
             h3 Low risk & No Synergy
             ul
-              -each d in interactions.lowno
+              each d in interactions.lowno
                 li
                   if d.wiki
                     a(href=d.wiki) #{d.pname}
                     -if(d.note)
-                      ul
-                        li #{d.note}
+                     ul
+                      li #{d.note}
                   else 
                     a(href='/'+d.name) #{d.pname}
                     -if(d.note)
-                      ul
-                        li #{d.note}
-
+                     ul
+                      li #{d.note}
+  
       else
         p No interaction information for #{drug.pretty_name}
-
+  
       -if(drug.sources)
         h2.sub-header#references References & Notes
 
 
-        -each p,i in drug.sources
+        each p,i in drug.sources
           - i = i.replace('_', '');
           - i = i.charAt(0).toUpperCase() + i.slice(1)
           h3.sub-header #{i}
-
-
+          
+            
           ul.collapse.navbar-collapse#references-collapse
-            -each r in p
+            each r in p
               li !{r}
         div(style="margin:0 auto; width:50%")
-          button.navbar-toggle.collapsed.btn.btn-primary(type="button", data-toggle="collapse", data-target="#references-collapse", aria-expanded="false") Expand for references
-
+         button.navbar-toggle.collapsed.btn.btn-primary(type="button", data-toggle="collapse", data-target="#references-collapse", aria-expanded="false") Expand for references
+ 

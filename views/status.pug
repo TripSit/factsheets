@@ -15,27 +15,27 @@ block content
       .table
         table.table.table-striped.table_status.table-hover
           thead
-            tr
-              th.theader
-                | Name
-              th.theader
-                | Categories
-              th.theader
-                | Summary
-              th.theader
-                | Alias
+              tr
+                th.theader
+                  | Name
+                th.theader
+                  | Categories
+                th.theader
+                  | Summary
+                th.theader
+                  | Alias
           tfoot
-            tr
-              th.theader
-                | Name
-              th.theader
-                | Categories
-              th.theader
-                | Summary
-              th.theader
-                | Alias
+               tr
+                 th.theader
+                   | Name
+                 th.theader
+                   | Categories
+                 th.theader
+                   | Summary
+                 th.theader
+                   | Alias
           tbody.tbody1
-            -each drug in brokenDose
+            each drug in brokenDose
               tr
                 td.ttext
                   a.boxed2(href='/factsheet/'+drug.name) 
@@ -43,30 +43,30 @@ block content
                 td
                   if drug.categories 
                     each kw in drug.categories
-                      if kw == 'psychedelic'
-                        a.label.label-psychedelic(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
-                      else if kw == 'benzodiazepine'
-                        a.label.label-default(href='/category/'+kw style='background-color:#000;color:#FF0000;padding:3px;margin:5px;') benzo
-                      else if kw == 'stimulant'
-                        a.label.label-info(href='/category/'+kw style='padding:3px;margin:5px;') stimulant
-                      else if kw == 'dissociative'
-                        a.label.label-disso(href='/category/'+kw style='padding:3px;margin:5px;') dissociative
-                      else if kw == 'opioid'
-                        a.label.label-success(href='/category/'+kw style='padding:3px;margin:5px;') opioid
-                      else if kw == 'depressant'
-                        a.label.label-danger(href='/category/'+kw style='padding:3px;margin:5px;') depressant 
-                      else if kw == 'habit-forming'
-                        a.label.label-habit(href='/category/'+kw style='padding:3px;margin:5px;') habit forming
-                      else if kw == 'research-chemical'
-                        a.label.label-warning(href='/category/'+kw style='padding:3px;margin:5px;') research chemical
-                      else if kw == 'tentative'
-                        a.label.label-tentative(href='/category/'+kw style='padding:3px;margin:5px;') tentative
-                      else if kw == 'empathogen'
-                        a.label.label-empathogen(href='/category/'+kw style='padding:3px;margin:5px;') empathogen
-                      else
-                        a.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
-else
-  span.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') other
+                          if kw == 'psychedelic'
+                            a.label.label-psychedelic(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
+                          else if kw == 'benzodiazepine'
+                            a.label.label-default(href='/category/'+kw style='background-color:#000;color:#FF0000;padding:3px;margin:5px;') benzo
+                          else if kw == 'stimulant'
+                            a.label.label-info(href='/category/'+kw style='padding:3px;margin:5px;') stimulant
+                          else if kw == 'dissociative'
+                            a.label.label-disso(href='/category/'+kw style='padding:3px;margin:5px;') dissociative
+                          else if kw == 'opioid'
+                            a.label.label-success(href='/category/'+kw style='padding:3px;margin:5px;') opioid
+                          else if kw == 'depressant'
+                            a.label.label-danger(href='/category/'+kw style='padding:3px;margin:5px;') depressant 
+                          else if kw == 'habit-forming'
+                            a.label.label-habit(href='/category/'+kw style='padding:3px;margin:5px;') habit forming
+                          else if kw == 'research-chemical'
+                            a.label.label-warning(href='/category/'+kw style='padding:3px;margin:5px;') research chemical
+                          else if kw == 'tentative'
+                            a.label.label-tentative(href='/category/'+kw style='padding:3px;margin:5px;') tentative
+                          else if kw == 'empathogen'
+                            a.label.label-empathogen(href='/category/'+kw style='padding:3px;margin:5px;') empathogen
+                          else
+                            a.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
+                  else
+                    span.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') other
                 td.ttext
                   | !{drug.properties.summary}
                 td.ttext.desktop
@@ -76,27 +76,27 @@ else
       .table
         table.table.table-striped.table_status.table-hover
           thead
-            tr
-              th.theader
-                | Name
-              th.theader
-                | Categories
-              th.theader
-                | Summary
-              th.theader
-                | Alias
+              tr
+                th.theader
+                  | Name
+                th.theader
+                  | Categories
+                th.theader
+                  | Summary
+                th.theader
+                  | Alias
           tfoot
-            tr
-              th.theader
-                | Name
-              th.theader
-                | Categories
-              th.theader
-                | Summary
-              th.theader
-                | Alias
+               tr
+                 th.theader
+                   | Name
+                 th.theader
+                   | Categories
+                 th.theader
+                   | Summary
+                 th.theader
+                   | Alias
           tbody.tbody1
-            -each drug in brokenOnset
+            each drug in brokenOnset
               tr
                 td.ttext 
                   a.boxed2(href='/factsheet/'+drug.name) 
@@ -104,30 +104,30 @@ else
                 td
                   if drug.categories 
                     each kw in drug.categories
-                      if kw == 'psychedelic'
-                        a.label.label-psychedelic(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
-                      else if kw == 'benzodiazepine'
-                        a.label.label-default(href='/category/'+kw style='background-color:#000;color:#FF0000;padding:3px;margin:5px;') benzo
-                      else if kw == 'stimulant'
-                        a.label.label-info(href='/category/'+kw style='padding:3px;margin:5px;') stimulant
-                      else if kw == 'dissociative'
-                        a.label.label-disso(href='/category/'+kw style='padding:3px;margin:5px;') dissociative
-                      else if kw == 'opioid'
-                        a.label.label-success(href='/category/'+kw style='padding:3px;margin:5px;') opioid
-                      else if kw == 'depressant'
-                        a.label.label-danger(href='/category/'+kw style='padding:3px;margin:5px;') depressant 
-                      else if kw == 'habit-forming'
-                        a.label.label-habit(href='/category/'+kw style='padding:3px;margin:5px;') habit forming
-                      else if kw == 'research-chemical'
-                        a.label.label-warning(href='/category/'+kw style='padding:3px;margin:5px;') research chemical
-                      else if kw == 'tentative'
-                        a.label.label-tentative(href='/category/'+kw style='padding:3px;margin:5px;') tentative
-                      else if kw == 'empathogen'
-                        a.label.label-empathogen(href='/category/'+kw style='padding:3px;margin:5px;') empathogen
-                      else
-                        a.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
-else
-  span.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') other
+                          if kw == 'psychedelic'
+                            a.label.label-psychedelic(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
+                          else if kw == 'benzodiazepine'
+                            a.label.label-default(href='/category/'+kw style='background-color:#000;color:#FF0000;padding:3px;margin:5px;') benzo
+                          else if kw == 'stimulant'
+                            a.label.label-info(href='/category/'+kw style='padding:3px;margin:5px;') stimulant
+                          else if kw == 'dissociative'
+                            a.label.label-disso(href='/category/'+kw style='padding:3px;margin:5px;') dissociative
+                          else if kw == 'opioid'
+                            a.label.label-success(href='/category/'+kw style='padding:3px;margin:5px;') opioid
+                          else if kw == 'depressant'
+                            a.label.label-danger(href='/category/'+kw style='padding:3px;margin:5px;') depressant 
+                          else if kw == 'habit-forming'
+                            a.label.label-habit(href='/category/'+kw style='padding:3px;margin:5px;') habit forming
+                          else if kw == 'research-chemical'
+                            a.label.label-warning(href='/category/'+kw style='padding:3px;margin:5px;') research chemical
+                          else if kw == 'tentative'
+                            a.label.label-tentative(href='/category/'+kw style='padding:3px;margin:5px;') tentative
+                          else if kw == 'empathogen'
+                            a.label.label-empathogen(href='/category/'+kw style='padding:3px;margin:5px;') empathogen
+                          else
+                            a.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
+                  else
+                    span.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') other
                 td.ttext
                   | !{drug.properties.summary}
                 td.ttext.desktop
@@ -137,27 +137,27 @@ else
       .table
         table.table.table-striped.table_status.table-hover
           thead
-            tr
-              th.theader
-                | Name
-              th.theader
-                | Categories
-              th.theader
-                | Summary
-              th.theader
-                | Alias
+              tr
+                th.theader
+                  | Name
+                th.theader
+                  | Categories
+                th.theader
+                  | Summary
+                th.theader
+                  | Alias
           tfoot
-            tr
-              th.theader
-                | Name
-              th.theader
-                | Categories
-              th.theader
-                | Summary
-              th.theader
-                | Alias
+               tr
+                 th.theader
+                   | Name
+                 th.theader
+                   | Categories
+                 th.theader
+                   | Summary
+                 th.theader
+                   | Alias
           tbody.tbody1
-            -each drug in brokenDuration
+            each drug in brokenDuration
               tr
                 td.ttext 
                   a.boxed2(href='/factsheet/'+drug.name) 
@@ -165,30 +165,30 @@ else
                 td
                   if drug.categories 
                     each kw in drug.categories
-                      if kw == 'psychedelic'
-                        a.label.label-psychedelic(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
-                      else if kw == 'benzodiazepine'
-                        a.label.label-default(href='/category/'+kw style='background-color:#000;color:#FF0000;padding:3px;margin:5px;') benzo
-                      else if kw == 'stimulant'
-                        a.label.label-info(href='/category/'+kw style='padding:3px;margin:5px;') stimulant
-                      else if kw == 'dissociative'
-                        a.label.label-disso(href='/category/'+kw style='padding:3px;margin:5px;') dissociative
-                      else if kw == 'opioid'
-                        a.label.label-success(href='/category/'+kw style='padding:3px;margin:5px;') opioid
-                      else if kw == 'depressant'
-                        a.label.label-danger(href='/category/'+kw style='padding:3px;margin:5px;') depressant 
-                      else if kw == 'habit-forming'
-                        a.label.label-habit(href='/category/'+kw style='padding:3px;margin:5px;') habit forming
-                      else if kw == 'research-chemical'
-                        a.label.label-warning(href='/category/'+kw style='padding:3px;margin:5px;') research chemical
-                      else if kw == 'tentative'
-                        a.label.label-tentative(href='/category/'+kw style='padding:3px;margin:5px;') tentative
-                      else if kw == 'empathogen'
-                        a.label.label-empathogen(href='/category/'+kw style='padding:3px;margin:5px;') empathogen
-                      else
-                        a.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
-else
-  span.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') other
+                          if kw == 'psychedelic'
+                            a.label.label-psychedelic(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
+                          else if kw == 'benzodiazepine'
+                            a.label.label-default(href='/category/'+kw style='background-color:#000;color:#FF0000;padding:3px;margin:5px;') benzo
+                          else if kw == 'stimulant'
+                            a.label.label-info(href='/category/'+kw style='padding:3px;margin:5px;') stimulant
+                          else if kw == 'dissociative'
+                            a.label.label-disso(href='/category/'+kw style='padding:3px;margin:5px;') dissociative
+                          else if kw == 'opioid'
+                            a.label.label-success(href='/category/'+kw style='padding:3px;margin:5px;') opioid
+                          else if kw == 'depressant'
+                            a.label.label-danger(href='/category/'+kw style='padding:3px;margin:5px;') depressant 
+                          else if kw == 'habit-forming'
+                            a.label.label-habit(href='/category/'+kw style='padding:3px;margin:5px;') habit forming
+                          else if kw == 'research-chemical'
+                            a.label.label-warning(href='/category/'+kw style='padding:3px;margin:5px;') research chemical
+                          else if kw == 'tentative'
+                            a.label.label-tentative(href='/category/'+kw style='padding:3px;margin:5px;') tentative
+                          else if kw == 'empathogen'
+                            a.label.label-empathogen(href='/category/'+kw style='padding:3px;margin:5px;') empathogen
+                          else
+                            a.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
+                  else
+                    span.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') other
                 td.ttext
                   | !{drug.properties.summary}
                 td.ttext.desktop
@@ -198,27 +198,27 @@ else
       .table
         table.table.table-striped.table_status.table-hover
           thead
-            tr
-              th.theader
-                | Name
-              th.theader
-                | Categories
-              th.theader
-                | Summary
-              th.theader
-                | Alias
+              tr
+                th.theader
+                  | Name
+                th.theader
+                  | Categories
+                th.theader
+                  | Summary
+                th.theader
+                  | Alias
           tfoot
-            tr
-              th.theader
-                | Name
-              th.theader
-                | Categories
-              th.theader
-                | Summary
-              th.theader
-                | Alias
+               tr
+                 th.theader
+                   | Name
+                 th.theader
+                   | Categories
+                 th.theader
+                   | Summary
+                 th.theader
+                   | Alias
           tbody.tbody1
-            -each drug in brokenAfter
+            each drug in brokenAfter
               tr
                 td.ttext 
                   a.boxed2(href='/factsheet/'+drug.name) 
@@ -226,30 +226,30 @@ else
                 td
                   if drug.categories 
                     each kw in drug.categories
-                      if kw == 'psychedelic'
-                        a.label.label-psychedelic(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
-                      else if kw == 'benzodiazepine'
-                        a.label.label-default(href='/category/'+kw style='background-color:#000;color:#FF0000;padding:3px;margin:5px;') benzo
-                      else if kw == 'stimulant'
-                        a.label.label-info(href='/category/'+kw style='padding:3px;margin:5px;') stimulant
-                      else if kw == 'dissociative'
-                        a.label.label-disso(href='/category/'+kw style='padding:3px;margin:5px;') dissociative
-                      else if kw == 'opioid'
-                        a.label.label-success(href='/category/'+kw style='padding:3px;margin:5px;') opioid
-                      else if kw == 'depressant'
-                        a.label.label-danger(href='/category/'+kw style='padding:3px;margin:5px;') depressant 
-                      else if kw == 'habit-forming'
-                        a.label.label-habit(href='/category/'+kw style='padding:3px;margin:5px;') habit forming
-                      else if kw == 'research-chemical'
-                        a.label.label-warning(href='/category/'+kw style='padding:3px;margin:5px;') research chemical
-                      else if kw == 'tentative'
-                        a.label.label-tentative(href='/category/'+kw style='padding:3px;margin:5px;') tentative
-                      else if kw == 'empathogen'
-                        a.label.label-empathogen(href='/category/'+kw style='padding:3px;margin:5px;') empathogen
-                      else
-                        a.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
-else
-  span.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') other
+                          if kw == 'psychedelic'
+                            a.label.label-psychedelic(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
+                          else if kw == 'benzodiazepine'
+                            a.label.label-default(href='/category/'+kw style='background-color:#000;color:#FF0000;padding:3px;margin:5px;') benzo
+                          else if kw == 'stimulant'
+                            a.label.label-info(href='/category/'+kw style='padding:3px;margin:5px;') stimulant
+                          else if kw == 'dissociative'
+                            a.label.label-disso(href='/category/'+kw style='padding:3px;margin:5px;') dissociative
+                          else if kw == 'opioid'
+                            a.label.label-success(href='/category/'+kw style='padding:3px;margin:5px;') opioid
+                          else if kw == 'depressant'
+                            a.label.label-danger(href='/category/'+kw style='padding:3px;margin:5px;') depressant 
+                          else if kw == 'habit-forming'
+                            a.label.label-habit(href='/category/'+kw style='padding:3px;margin:5px;') habit forming
+                          else if kw == 'research-chemical'
+                            a.label.label-warning(href='/category/'+kw style='padding:3px;margin:5px;') research chemical
+                          else if kw == 'tentative'
+                            a.label.label-tentative(href='/category/'+kw style='padding:3px;margin:5px;') tentative
+                          else if kw == 'empathogen'
+                            a.label.label-empathogen(href='/category/'+kw style='padding:3px;margin:5px;') empathogen
+                          else
+                            a.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') #{kw}
+                  else
+                    span.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') other
                 td.ttext
                   | !{drug.properties.summary}
                 td.ttext.desktop
