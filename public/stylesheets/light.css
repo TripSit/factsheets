@@ -296,11 +296,12 @@ input:checked + .slider:before {
   color: #001713;
 }
 
-.phaedra-colors .label-default {
+.phaedra-colors .label-default, .label-benzodiazepine {
   background-color: #95a5a6;
 }
 
-.phaedra-colors .label-default[href]:hover, .phaedra-colors .label-default[href]:focus {
+.phaedra-colors .label-default[href]:hover, .phaedra-colors .label-default[href]:focus,
+.label-benzodiazepine[href]:hover, .label-benzodiazepine[href]:active {
   background-color: #7f8c8d;
 }
 
@@ -316,15 +317,16 @@ input:checked + .slider:before {
   background-color: #79BD8F;
 }
 
-.phaedra-colors .label-success[href]:hover, .phaedra-colors .label-success[href]:focus {
+.phaedra-colors .label-success[href]:hover, .phaedra-colors .label-success[href]:focus, .label-opioid {
   background-color: #659E78;
 }
 
-.phaedra-colors .label-info {
+.phaedra-colors .label-info, .label-stimulant {
   background-color: #BEEB9F;
 }
 
-.phaedra-colors .label-info[href]:hover, .phaedra-colors .label-info[href]:focus {
+.phaedra-colors .label-stimulant[href]:hover, .phaedra-colors .label-info[href]:focus,
+.label-stimulant[href]:hover, .label-stimulant[href]:focus  {
   background-color: #A5CC8A;
 }
 
@@ -333,23 +335,24 @@ input:checked + .slider:before {
   color: #001713;
 }
 
-.phaedra-colors .label-warning[href]:hover, .phaedra-colors .label-warning[href]:focus {
+.phaedra-colors .label-warning[href]:hover, .phaedra-colors .label-warning[href]:focus, .label-research-chemical {
   background-color: #D1D181;
 }
 
-.phaedra-colors .label-danger {
+.phaedra-colors .label-danger, .label-depressant {
   background-color: #FF6138;
 }
 
-.phaedra-colors .label-danger[href]:hover, .phaedra-colors .label-danger[href]:focus {
+.phaedra-colors .label-danger[href]:hover, .phaedra-colors .label-danger[href]:focus,
+.label-depressant[href]:hover, .label-depressant[href]:active {
   background-color: #D6512F;
 }
 
-.label-disso {
+.label-dissociative {
   background-color: #9b59b6;
 }
 
-.label-habit {
+.label-habit-forming {
   background-color: #e67e22;
 }
 
