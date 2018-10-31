@@ -4,19 +4,19 @@
 function changeCss() {
 	if($( "#switch" ).prop( "checked")) {
 		localStorage.setItem("loadout", "dark")
-		localStorage.setItem("bootstrap", "dark")
+		//localStorage.setItem("bootstrap", "dark")
 
-        document.getElementById("bootstrap-theme").href = "/stylesheets/bootstrap-dark.min.css";
+        //document.getElementById("bootstrap-theme").href = "/stylesheets/bootstrap-dark.min.css";
         $('head').append('<link rel="stylesheet" type="text/css" href="/stylesheets/dark.css">')
 
 		drawCharts('dark');
 	}
 	else{
 		localStorage.setItem("loadout", "light")
-		localStorage.setItem("bootstrap", "light")
+		//localStorage.setItem("bootstrap", "light")
 
         $('link[rel=stylesheet][href*="dark.css"]').remove();
-        document.getElementById("bootstrap-theme").href = "/stylesheets/bootstrap-light.min.css";
+        //document.getElementById("bootstrap-theme").href = "/stylesheets/bootstrap-light.min.css";
 		drawCharts('light');
 	}
 }
@@ -27,7 +27,6 @@ function loadStyle() {
 	var stylePreference = localStorage.getItem("loadout");
 	if(stylePreference) {
 		if(stylePreference === "dark") {
-            document.getElementById("bootstrap-theme").href = "/stylesheets/bootstrap-dark.min.css";
             $('head').append('<link rel="stylesheet" type="text/css" href="/stylesheets/dark.css">')
 			//Check the switch button is set correctly
 			$( "#switch" ).prop( "checked", true );
@@ -37,7 +36,6 @@ function loadStyle() {
 		else {
 			//Check the switch button is set correctly
 			$("#switch").prop( "checked", false );
-            document.getElementById("bootstrap-theme").href = "/stylesheets/bootstrap-light.min.css";
             $('head').append('<link rel="stylesheet" type="text/css" href="/stylesheets/light.css">')
 			//Draws the light graphs
 			drawCharts('light');

@@ -129,12 +129,12 @@ a {
 }
 
 .phaedra-colors .label-info, .label-stimulant {
-  background-color: #BEEB9F;
+  background-color: #31B0D5;
 }
 
 .phaedra-colors .label-stimulant[href]:hover, .phaedra-colors .label-info[href]:focus,
 .label-stimulant[href]:hover, .label-stimulant[href]:focus  {
-  background-color: #A5CC8A;
+  background-color: #37bfe9;
 }
 
 .label-tentative {

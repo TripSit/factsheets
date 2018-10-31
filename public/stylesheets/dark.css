@@ -15,7 +15,6 @@ body {
 
 /* place holder while the theme is applied in the background */
 
-
 .jumbotron {
   background-color: #1f2127;
   border: 0px !important;
@@ -24,7 +23,6 @@ body {
 a {
   color: #00B7FF;
 }
-
 
 
 .navbar-inverse {
@@ -77,8 +75,11 @@ a {
   background-color: #454545;
 }
 
+.bs-callout-benzodiazepine {
+  border-color: #bd07c2;
+}
 
-.bs-callout-caution {
+.bs-callout-caution{
   background-color: #7d4c02;
   border-color: #827700;
 }
@@ -92,7 +93,7 @@ a {
 
 /* Themes for different contexts */
 
-.bs-callout-danger {
+.bs-callout-danger, .bs-callout-dangerous {
   background-color: #520502;
   border-color: #7f0006;
 }
@@ -111,6 +112,7 @@ a {
   background-color: #353a41;
   border-color: #00a388;
 }
+
 
 .catcallout {
   background-color: #242424;
@@ -178,4 +180,67 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before 
 #grid>.sidebar>ul {
   background-color: #2e3338;
   border-right: 1px solid #1d1d1d;
+}
+
+ /* Table */
+
+ .theader {
+   background-color: #272b30;
+   color: #cccccc;
+ } 
+
+ .odd {
+  background-color: #353a41 !important;
+  color: #cccccc;
+ }
+
+ .even {
+  background-color: #272b30;
+  color: #cccccc;
+} 
+
+.table {
+  background-color: #272b30;
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+  border-bottom: 2px solid #1c1e22;
+  border-top: 1px solid #1c1e22;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #12324e;
+}
+
+.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
+  color: #7a8288;
+  background-color: #3a3f44;
+  border-color: rgba(0,0,0,0.6);
+}
+
+.pagination > li > a, .pagination > li > span {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #3a3f44;
+  border: 1px solid rgba(0,0,0,0.6);
+
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    color: #ffffff;
+    background-color: #232628;
+    border-color: rgba(0,0,0,0.6);
+    cursor: default;
+}
+
+
+
+.pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus {
+  color: #ffffff;
+  background-color: transparent;
+  border-color: rgba(0,0,0,0.6);
+}
+
+.form-control {
+  border: 1px solid #141414;
 }
