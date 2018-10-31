@@ -296,6 +296,11 @@ input:checked + .slider:before {
   color: #001713;
 }
 
+.label {
+  padding:3px;
+  margin:5px;
+}
+
 .phaedra-colors .label-default, .label-benzodiazepine {
   background-color: #95a5a6;
 }

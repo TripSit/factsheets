@@ -38,11 +38,11 @@ block content
                     - var categoryNames = ['psychedelic', 'benzodiazepine', 'stimulant', 'dissociative', 'opioid', 'depressant', 'habit-forming', 'research-chemical', 'tentative', 'empathogen']
                     each kw in drug.categories
                           if categoryNames.indexOf(kw) > -1
-                            a(href='/category/'+kw class=`label label-${kw}` style='padding:3px;margin:5px;' ) #{kw}
+                            a(href='/category/'+kw class=`label label-${kw}`  ) #{kw}
                           else
-                            a(href='/category/'+kw class="label label-default" style='padding:3px;margin:5px;' ) #{kw}
+                            a(href='/category/'+kw class="label label-default"  ) #{kw}
                   else
-                    span.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;' ) other
+                    span.label.label-default(href='/category/'+kw  ) other
                 td.ttext
                   | Missing references for: #{drug.missingSources.join(', ')}
                 td.ttext.desktop
