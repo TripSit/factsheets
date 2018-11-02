@@ -1,13 +1,13 @@
 extends layout
 
 block content
-  .container-fluid(style="margin-top:2%;")
+  .container-fluid#container
     .jumbotron
       .bs-callout.catcallout(class=`bs-callout-${category.name}`)
         - if(!category.pretty_name) category.pretty_name = category.name.charAt(0).toUpperCase() + category.name.slice(1);
         h4
           a(href=`/category/${category.name}`) #{category.pretty_name}
-        span(style='font:14px;') #{category.description}
+        span #{category.description}
         br
         br
         - if(category.wiki)

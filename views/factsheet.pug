@@ -8,7 +8,7 @@ block content
             a(href='/') 
               span.glyphicon.glyphicon-menu-left(aria-hidden='true') 
               span Back to Browse
-          li.divider(role='presentation', style="background-color:#aaa;height:5px;")
+          li.divider(role='presentation')
           li.active
             a(href='#basic') Basic Information
           li
@@ -44,8 +44,8 @@ block content
             li
               a(href=drug.links.experiences) Erowid Experience Reports
   .main
-      .bs-callout.bs-callout-ss(style='padding-top:10px;')
-        span(style='font:14px;') 
+      .bs-callout.bs-callout-ss
+        span 
           b New: 
           span Mobile-mode and night-mode!
           br
@@ -53,9 +53,9 @@ block content
           span Are you a harm reduction organisation using TripSit? 
           a(href='https://tripsit.me/harm-reduction-organisation-contact-form/' target="_blank") Let us know about you!
       a(name='basic')
-      a(href='http://tripsit.me/contact-us/' style='font:10px;float:right') Notice something wrong with this page? Let us know!
+      a.links(href='http://tripsit.me/contact-us/') Notice something wrong with this page? Let us know!
       h1#drug.page-header #{drug.pretty_name}
-      div#drugname(style='display:none;') #{drug.name}
+      div#drugname #{drug.name}
       h2.sub-header Basic Information
       .mainText
           for pName in order
@@ -78,7 +78,7 @@ block content
                                         th(colspan='2') #{roa}
                                   each i,t in item
                                     tr 
-                                     td(style='width:20%') #{t}
+                                     td.td_width #{t}
                                      td #{i}
                             .chartContainer
                               div.doseChart(id=roa+'Chart')
@@ -87,21 +87,21 @@ block content
                       h4 
                       p #{drug.dose_note}
               - else if(pName == 'pweffects')
-                  p.tlefttext.subtitles(style='vertical-align: top;') 
+                  p.tlefttext.subtitles.subtitles_top
                     b Effects
                   p
                     ul.layoutPosition
                     -if(drug.properties.pweffects && drug.properties.pweffects.length > 0)
                       each i,y in drug.properties.pweffects
                        a(href=i) 
-                        button.btn.btn-default(style="padding:5px;margin:5px;") #{y}
+                        button.btn.btn-default.btn-properties #{y}
                       p Effects lovingly provided by 
                        a(href='http://psychonautwiki.org/') PsychonautWiki
               - else if(pName == 'duration' && drug['formatted_duration'])
-                  p.tlefttext.subtitles(style='vertical-align: top;') 
+                  p.tlefttext.subtitles.subtitles_top
                     b#duration Duration
                   .flexDuration.layoutPosition
-                      .textFormat(width="30%")
+                      .textFormat
                               - if((!drug.formatted_duration || (drug.formatted_duration && drug.formatted_duration.value)) && (!drug.formatted_onset || (drug.formatted_onset && drug.formatted_onset.value)) && (!drug.formatted_aftereffects || (drug.formatted_aftereffects && drug.formatted_aftereffects.value)))
                                   table.table
                                     thead
@@ -110,15 +110,15 @@ block content
                                       tbody
                                         -if(drug.formatted_onset)
                                           tr 
-                                            td(style='width:20%') Onset
+                                            td.td_width Onset
                                             td #{drug.formatted_onset.value} #{drug.formatted_onset._unit}
                                         -if(drug.formatted_duration)
                                           tr
-                                            td(style='width:20%') Duration
+                                            td.td_width Duration
                                             td #{drug.formatted_duration.value} #{drug.formatted_duration._unit}
                                         -if(drug.formatted_aftereffects)
                                           tr
-                                            td(style='width:20%') After-effects
+                                            td.td_width After-effects
                                             td #{drug.formatted_aftereffects.value} #{drug.formatted_aftereffects._unit}
                               - else
                                 each item,roa in drug.formatted_duration
@@ -129,21 +129,21 @@ block content
                                             th(colspan='2') #{roa}
                                           if(drug.formatted_onset)
                                             tr 
-                                              td(style='width:20%') Onset
+                                              td.td_width Onset
                                               if(drug.formatted_onset[roa])
                                                 td #{drug.formatted_onset[roa]} #{drug.formatted_onset._unit}
                                               else 
                                                 td #{drug.formatted_onset.value} #{drug.formatted_onset._unit}
                                           if(drug.formatted_duration)
                                             tr
-                                              td(style='width:20%') Duration
+                                              td.td_width Duration
                                               if(drug.formatted_duration[roa])
                                                 td #{drug.formatted_duration[roa]} #{drug.formatted_duration._unit}
                                               else 
                                                 td #{drug.formatted_duration.value} #{drug.formatted_duration._unit}
                                           if(drug.formatted_aftereffects)
                                             tr
-                                              td(style='width:20%') After-effects
+                                              td.td_width After-effects
                                               if(drug.formatted_aftereffects[roa])
                                                 td #{drug.formatted_aftereffects[roa]} #{drug.formatted_aftereffects._unit}
                                               else 
@@ -154,9 +154,9 @@ block content
                 span 
               - else if(pName == 'summary')
                 tr
-                  p.tlefttext(style='width:25%;vertical-align: top;padding: 8px;') 
+                  p.tlefttext
                     b#summary Summary
-                  td.ttext(style='width:75%')
+                  td.ttext.ttext_width
                     -if(drug.properties.summary)
                       p.layoutPosition !{drug.properties.summary}
                     -if(drug.properties.categories)
@@ -182,7 +182,7 @@ block content
                             br
                         -}
       a(name='interact')
-      a(style='float:right;font:10px;' href='http://combo.tripsit.me/') See TripSit Wiki for more information about drug interactions
+      a.links( href='http://combo.tripsit.me/') See TripSit Wiki for more information about drug interactions
       h2.sub-header Interactions
       if interactions
         - var interactionKeys = {dangerous: "Dangerous", ss: "Serotonin Syndrome", unsafe: "Unsafe", caution: "Caution", lowinc: "Low Risk & Increased Effects", lowdec: "Low Risk & Decreased Effects", lowno: "Low Risk & No Synegery"}
@@ -220,7 +220,7 @@ block content
           ul.collapse.navbar-collapse#references-collapse
             each r in p
               li !{r}
-        div(style="margin:0 auto; width:50%")
+        div.no_margin#reference_container
          button.navbar-toggle.collapsed.btn.btn-primary(type="button", data-toggle="collapse", data-target="#references-collapse", aria-expanded="false") Expand for references
   script(src='https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js')
   script(src='/javascripts/charts.js')

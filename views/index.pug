@@ -1,16 +1,16 @@
 extends layout
 
 block content
-  .container-fluid(style="margin-top:2%;")
+  .container-fluid#container
     .jumbotron
       .bs-callout.bs-callout-ss
-        p(style='padding-top:5px;font:14px;') Welcome to TripSit Factsheets.
-        span(style='font:14px;') Click on drugs, categories. Mouseover technical terms. Send us 
+        p#welcome Welcome to TripSit Factsheets.
+        span Click on drugs, categories. Mouseover technical terms. Send us 
           a(href='http://tripsit.me/contact-us') feedback
           span .
         br
         br
-        span(style='font:14px;') 
+        span 
           b New: 
           span Mobile-mode and night-mode!
           br
@@ -50,11 +50,11 @@ block content
                     - var categoryNames = ['psychedelic', 'benzodiazepine', 'stimulant', 'dissociative', 'opioid', 'depressant', 'habit-forming', 'research-chemical', 'tentative', 'empathogen']
                     each kw in drug.categories
                           if categoryNames.indexOf(kw) > -1
-                            a(href='/category/'+kw class=`label label-${kw}` style='padding:3px;margin:5px;' ) #{kw}
+                            a(href='/category/'+kw class=`label label-${kw}`) #{kw}
                           else
-                            a(href='/category/'+kw class="label label-default" style='padding:3px;margin:5px;' ) #{kw}
+                            a(href='/category/'+kw class="label label-default") #{kw}
                   else
-                    span.label.label-default(href='/category/'+kw style='padding:3px;margin:5px;') other
+                    span.label.label-default(href='/category/'+kw) other
                 td.ttext.desktop
                   | !{drug.properties.summary}
                 td.ttext.desktop

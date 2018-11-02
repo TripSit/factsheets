@@ -3,6 +3,16 @@ body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     line-height: 120%;
   }
+
+  .no_margin {
+    margin: 0;
+    padding: 0;
+  }
+
+  #container {
+    margin-top: 2%;
+  }
+
   .loader {
      width: 100%;
      height: 100%;
@@ -14,9 +24,23 @@ body {
      text-align: center;
   }
   
-  
+  #welcome {
+    padding-top:5px;
+    font:14px;
+  }
   td {
     word-wrap: break-word;
+  }
+  .td_width {
+    width: 20%;
+  }
+  .tlefttext {
+    width:25%;
+    vertical-align: top;
+    padding: 8px;
+  }
+  .ttext_width {
+    width:75%;
   }
   
   .choice {
@@ -73,12 +97,7 @@ body {
   .sub-header {
     padding-bottom: 10px;
   }
-  
-  /*
-   * Top navigation
-   * Hide default border to remove 1px line.
-   */
-  
+    
   
   .navbar-fixed-top {
     border: 0;
@@ -184,8 +203,22 @@ body {
   
   /* Base styles (regardless of theme) */
   
+  .bs-callout {
+    border-left: 5px solid #aaa;
+    background-color: #eeeeee;
+    margin: 20px 0;
+    padding: 15px 15px 15px 15px;
+    padding-top: 5px;
+  }
   
+  .bs-callout h4 {
+    margin-top: 0;
+  }
   
+  .bs-callout p:last-child {
+    margin-bottom: 0;
+  }
+
   .bs-callout code, .bs-callout .highlight {
     background-color: #fff;
   }
@@ -324,30 +357,21 @@ body {
   .label-habit-forming {
     background-color: #e67e22;
   }
-  .bs-callout {
-    border-left: 5px solid #aaa;
-    background-color: #eeeeee;
-    margin: 20px 0;
-    padding: 15px 15px 15px 15px;
-    padding-top: 5px;
-  }
-  
-  .bs-callout h4 {
-    margin-top: 0;
-  }
-  
-  .bs-callout p:last-child {
-    margin-bottom: 0;
-  }
-  
  
+  
+  #drugname {
+    display: none;
+  }
   
   .label {
     padding:3px;
     margin:5px;
   }
   
-  
+  .btn-properties {
+    padding:5px;
+    margin:5px;
+  }
   
   /*
    * Sidebar
@@ -364,7 +388,10 @@ body {
     padding-left: 20px;
   }
   
-
+ .divider {
+  background-color:#aaa;
+  height:5px;
+ }
   
   /* Top Grid setup layout */
   
@@ -382,7 +409,7 @@ body {
     margin-left: 0px;
     margin-top: 0px;
     padding-top: 0px;
-    min-height: 100vh;
+    min-height: 90vh;
     position: sticky;
     position: -webkit-sticky;
     top: 20px;
@@ -407,7 +434,7 @@ body {
   /*  Main content */
   
   .main {
-    padding: 20px 20px 20px 0px;
+    padding: 20px 20px 30px 0px;
   }
   
   .main .page-header {
@@ -424,15 +451,29 @@ body {
     line-height: 1.42857143;
   }
   
+  .links {
+    float:right;
+    font:10px;
+  }
+
   .subtitles {
     padding: 8px;
     line-height: 1.42857143;
   }
   
+  .subtitles_top {
+    vertical-align: top;
+  }
+
   .doseChart {
     height:380px;
     margin:0px;
   }
+
+  #reference_container {
+    width: 50%;
+  }
+
   /* Mobile layout */
   
   @media all and (max-width: 640px) {

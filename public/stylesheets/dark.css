@@ -131,18 +131,13 @@ a {
 }
 
 
-/* .nav-sidebar>.active>a,
-.nav-sidebar>a:hover {
-  background-color: #1F1F1F;
-} */
 
-.nav-sidebar>.active>a,
-.nav-sidebar>.active>a:hover,
-.nav-sidebar>.active>a:focus {
+.nav > li > a:focus, .nav > li > a:hover {
   color: #fff;
+  text-decoration: none;
   background-color: #428bca;
-}
 
+}
 
 .divider {
   background-color: #2f2e2e !important;
