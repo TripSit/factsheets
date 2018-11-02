@@ -5,12 +5,20 @@ function changeCss() {
 	if($( "#switch" ).prop( "checked")) {
 		localStorage.setItem("loadout", "dark")
 		document.getElementById("theme").href = "/stylesheets/dark.css";
-		drawCharts('dark');
+		try {
+			drawCharts('dark');
+		}
+		catch(e){	
+		}
 	}
 	else{
 		localStorage.setItem("loadout", "light")
 		document.getElementById("theme").href = "/stylesheets/light.css";
-		drawCharts('light');
+		try {
+			drawCharts('light');
+		}
+		catch(e){
+		}
 	}
 }
 
@@ -22,17 +30,30 @@ function loadStyle() {
 		if(stylePreference === "dark") {
             document.getElementById("theme").href = "/stylesheets/dark.css";
 			$( "#switch" ).prop( "checked", true );
-			drawCharts('dark');
+			try {
+				drawCharts('dark');
+			}
+			catch(e){
+			}
 		}
+		
 		else {
 			$("#switch").prop( "checked", false );
             document.getElementById("theme").href = "/stylesheets/light.css";
-			drawCharts('light');
+			try {
+				drawCharts('light');
+			}
+			catch(e){
+			}
 		}
 	//Incase there's no localStorage draws the light graph	
 	} else {
         document.getElementById("theme").href = "/stylesheets/light.css";
-		drawCharts('light');
+		try {
+			drawCharts('light');
+		}
+		catch(e){
+		}
 	}
 };
 
