@@ -59,19 +59,60 @@ var pCats = {
 }; 
 var wikiCache = {};
 
-var updateCache = function() {
+var getCache = function(url,filename) {
   try {
-    // Get the drugs
-    request.get('http://tripbot.tripsit.me/api/tripsit/getAllDrugs', {
+    request.get(url, {
       'json': true
     }, function(request, response, body) {
       if(!_.includes([200, 201], response.statusCode) || !_.isObject(body)) {
         return;
       }
+      cache = body.data[0];
+      let cacheParsed = JSON.stringify(cache); 
+      fs.stat(filename + '.json', function(err, stat) {
+        if(err == null) {
+          let rawdata = fs.readFileSync(filename +'.json');
+          let storedCache = JSON.stringify(JSON.parse(rawdata));
+          if(storedCache !== cacheParsed) {
+            fs.writeFileSync(filename + '.json', cacheParsed);
+            console.log(`Updated ${filename}.`);
+            if(filename === 'drugCache') {
+              updateCache()
+              drugCache = cache
+            }
+            if(filename === 'catCache') {
+              catCache = cache
+            }
+            return
+          } else {
+            console.log(`No change in ${filename} found.`);
+            return
+          }
+        } else if (err.code == 'ENOENT') {
+        // This gonna take a while. Quite a few lines to parse
+        console.log(`No ${filename} cache found. Writting cache.`);
+        fs.writeFileSync(filename + '.json', cacheParsed)
+        if(filename === 'drugCache') {
+          updateCache()
+          drugCache = cache
+        }
+        if(filename === 'catCache') {
+          catCache = cache
+        }
+        return
+        } 
+      })
+  })
+  } catch(e) {
+    console.log(`Error happened getting ${cache}: ${e}`); 
+  }
+};
 
+getCache(url='http://tripbot.tripsit.me/api/tripsit/getAllDrugs', filename='drugCache')
+getCache(url='http://tripbot.tripsit.me/api/tripsit/getAllCategories', filename='catCache')
+
+var updateCache = function() {
       try {
-        drugCache = body.data[0]; // update the cache of drugs
-     
         // Here we annotate the data with links to other drugs etc. There is likely a better way to do this.
         _.each(drugCache, function(drug) {
           if(drug.properties.summary && drug.properties.summary.match(/a href/)) return; // sorry jesus
@@ -131,21 +172,8 @@ var updateCache = function() {
             aliasCache[a] = d.name; 
           }); 
         });
-      } catch(err) {}
-    });
-    
-    // Update category cache
-    request.get('http://tripbot.tripsit.me/api/tripsit/getAllCategories', {
-      'json': true
-    }, function(request, response, body) {
-      if(!_.includes([200, 201], response.statusCode) || !_.isObject(body)) {
-        return;
-      }
-      try {
-        catCache = body.data[0];
-      } catch(err) {}
-    });
-  } catch(err) {}
+
+    } catch(e){}    
 };
 
 // Update cache from erowid
@@ -165,12 +193,15 @@ var updateErowidCache = function() {
   } catch(err) {}
 }
 
+
+
 // Update from our cache every minute, update from erowid's api every 60 minutes
-setInterval(updateCache, 60000);
+setInterval(function() {getCache(url='http://tripbot.tripsit.me/api/tripsit/getAllDrugs',filename='drugCache')},120000);
+setInterval(function() {getCache(url='http://tripbot.tripsit.me/api/tripsit/getAllCategories', filename='catCache')},120000);
+//setInterval(updateCache, 60000);
 updateCache();
 setInterval(updateErowidCache, 3600000);
 updateErowidCache();
-
 // Grab the combos (note: this is not auto updated)
 request.get('http://tripsit.me/combo_beta.json', {
   'json': true
