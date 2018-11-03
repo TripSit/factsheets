@@ -2,6 +2,7 @@ var express = require('express');
 var _ = require('underscore')._;
 var request = require('request');
 var router = express.Router();
+var version = 1.000;
 var fs = require('fs');
 var glossary = JSON.parse(fs.readFileSync('glossary.json', 'utf-8'));
 var aliasCache = {};
@@ -10,6 +11,7 @@ var pwCache = {};
 var pwEffects = {};
 var combos = {};
 var pCats = { 
+
   "dox": {
     "pname": "DOx",
     "wiki": "https://wiki.tripsit.me/wiki/DOx"
@@ -84,7 +86,6 @@ var getCache = function(url,filename) {
           let storedCache = JSON.stringify(JSON.parse(rawdata));
           if(storedCache !== cacheParsed) {
             fs.writeFileSync(filename + '.json', cacheParsed);
-            console.log(`Updated ${filename}.`);
             if(filename === 'drugCache') {
               updateCache()
               drugCache = cache
@@ -92,14 +93,18 @@ var getCache = function(url,filename) {
             if(filename === 'catCache') {
               catCache = cache
             }
+            // Notify service workers there has been an update to the API
+            version += 0.01
+            console.log(version);
+            fs.writeFileSync('./public/version.js', `var version = ${version}`)
+            console.log(`Updated ${filename}.`);
             return
           } else {
             console.log(`No change in ${filename} found.`);
             return
           }
+          // Cache doesn't exit and will be written to file. This gonna take a while.
         } else if (err.code == 'ENOENT') {
-        // This gonna take a while. Quite a few lines to parse
-        console.log(`No ${filename} cache found. Writting cache.`);
         fs.writeFileSync(filename + '.json', cacheParsed)
         if(filename === 'drugCache') {
           updateCache()
@@ -108,6 +113,10 @@ var getCache = function(url,filename) {
         if(filename === 'catCache') {
           catCache = cache
         }
+        // Notify service workers there has been an update to the API
+        version += 0.01
+        fs.writeFileSync('./public/version.js', `var version = ${version}`)
+        console.log(`No ${filename} cache found. Writting cache.`);
         return
         } 
       })
@@ -207,8 +216,6 @@ var updateErowidCache = function() {
 // Update from our cache every minute, update from erowid's api every 60 minutes
 setInterval(function() {getCache(url='http://tripbot.tripsit.me/api/tripsit/getAllDrugs',filename='drugCache')},120000);
 setInterval(function() {getCache(url='http://tripbot.tripsit.me/api/tripsit/getAllCategories', filename='catCache')},120000);
-//setInterval(updateCache, 60000);
-updateCache();
 setInterval(updateErowidCache, 3600000);
 updateErowidCache();
 // Grab the combos (note: this is not auto updated)

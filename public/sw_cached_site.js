@@ -1,5 +1,7 @@
-const cacheName = 'v3';
+self.importScripts('version.js');
 
+var cacheName = version;
+console.log(cacheName);
 // Call Install Event
 self.addEventListener('install', e => {
   console.log('Service Worker: Installed');
@@ -8,6 +10,7 @@ self.addEventListener('install', e => {
 // Call Activate Event
 self.addEventListener('activate', e => {
   console.log('Service Worker: Activated');
+  
   // Remove unwanted caches
   e.waitUntil(
     caches.keys().then(cacheNames => {
