@@ -4,8 +4,6 @@ var request = require('request');
 var router = express.Router();
 var fs = require('fs');
 var glossary = JSON.parse(fs.readFileSync('glossary.json', 'utf-8'));
-var drugCache = {};
-var catCache = {};
 var aliasCache = {};
 var erowidCache = {};
 var pwCache = {};
@@ -58,6 +56,17 @@ var pCats = {
   }
 }; 
 var wikiCache = {};
+try {
+  var drugCache = JSON.parse(fs.readFileSync('drugCache.json'));
+} catch (ex) {
+  var drugCache = {}
+}
+try {
+  var catCache = JSON.parse(fs.readFileSync('catCache.json'));
+} catch (ex) {
+  var catCache = {}
+}
+
 
 var getCache = function(url,filename) {
   try {
