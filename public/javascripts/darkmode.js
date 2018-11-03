@@ -1,10 +1,11 @@
 //the button toggles the css file. the app remembers the last chosen settings and reloads the app with the last file loaded instead of the default 
-
+var theme = document.getElementsByClassName("theme")
 //toggles css files. saves value of either day or night to localstorage
 function changeCss() {
 	if($( "#switch" ).prop( "checked")) {
 		localStorage.setItem("loadout", "dark")
-		document.getElementById("theme").href = "/stylesheets/dark.css";
+		theme[0].href = "/stylesheets/dark.css";		
+		theme[1].href = "/stylesheets/dark.css";
 		try {
 			drawCharts('dark');
 		}
@@ -13,7 +14,8 @@ function changeCss() {
 	}
 	else{
 		localStorage.setItem("loadout", "light")
-		document.getElementById("theme").href = "/stylesheets/light.css";
+		theme[0].href = "/stylesheets/light.css";		
+		theme[1].href = "/stylesheets/light.css";
 		try {
 			drawCharts('light');
 		}
@@ -28,7 +30,8 @@ function loadStyle() {
 	var stylePreference = localStorage.getItem("loadout");
 	if(stylePreference) {
 		if(stylePreference === "dark") {
-            document.getElementById("theme").href = "/stylesheets/dark.css";
+            theme[0].href = "/stylesheets/dark.css";		
+			theme[1].href = "/stylesheets/dark.css";
 			$( "#switch" ).prop( "checked", true );
 			try {
 				drawCharts('dark');
@@ -39,7 +42,8 @@ function loadStyle() {
 		
 		else {
 			$("#switch").prop( "checked", false );
-            document.getElementById("theme").href = "/stylesheets/light.css";
+            theme[0].href = "/stylesheets/light.css";		
+			theme[1].href = "/stylesheets/light.css";
 			try {
 				drawCharts('light');
 			}
@@ -48,7 +52,8 @@ function loadStyle() {
 		}
 	//Incase there's no localStorage draws the light graph	
 	} else {
-        document.getElementById("theme").href = "/stylesheets/light.css";
+        theme[0].href = "/stylesheets/light.css";		
+		theme[1].href = "/stylesheets/light.css";
 		try {
 			drawCharts('light');
 		}
