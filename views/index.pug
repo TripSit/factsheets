@@ -62,11 +62,17 @@ block content
     p
     p
     b Factsheets on #{drugs.length} drugs
+    
+ 
+  link(rel="stylesheet" type="text/css" href="/css/main.css")
+  link(rel="stylesheet" class="theme" type="text/css" href="/css/light.css")
+  script(src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous")
+  script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")  
+  include scripts
+  script(src='https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js' )
+  script(src='https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap.min.js' )
+  script(src='https://cdn.datatables.net/responsive/2.2.2/js/dataTables.responsive.min.js' )
+  script(src='https://cdn.datatables.net/responsive/2.2.2/js/responsive.bootstrap.min.js' async)
+  script(src='/javascript/dataTable.js')
   link(rel='stylesheet' type="text/css" href='https://cdn.datatables.net/responsive/2.2.2/css/responsive.bootstrap.min.css')
   link(rel='stylesheet' type="text/css" href='https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap.min.css')
-  include scripts
-  script(src='https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js')
-  script(src='https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap.min.js')
-  script(src='https://cdn.datatables.net/responsive/2.2.2/js/dataTables.responsive.min.js')
-  script(src='https://cdn.datatables.net/responsive/2.2.2/js/responsive.bootstrap.min.js')
-  script(src='/javascripts/dataTable.js')

@@ -4,8 +4,8 @@ var theme = document.getElementsByClassName("theme")
 function changeCss() {
 	if($( "#switch" ).prop( "checked")) {
 		localStorage.setItem("loadout", "dark")
-		theme[0].href = "/stylesheets/dark.css";		
-		theme[1].href = "/stylesheets/dark.css";
+		theme[0].href = "/css/dark.css";		
+		theme[1].href = "/css/dark.css";
 		try {
 			drawCharts('dark');
 		}
@@ -14,8 +14,8 @@ function changeCss() {
 	}
 	else{
 		localStorage.setItem("loadout", "light")
-		theme[0].href = "/stylesheets/light.css";		
-		theme[1].href = "/stylesheets/light.css";
+		theme[0].href = "/css/light.css";		
+		theme[1].href = "/css/light.css";
 		try {
 			drawCharts('light');
 		}
@@ -30,8 +30,8 @@ function loadStyle() {
 	var stylePreference = localStorage.getItem("loadout");
 	if(stylePreference) {
 		if(stylePreference === "dark") {
-            theme[0].href = "/stylesheets/dark.css";		
-			theme[1].href = "/stylesheets/dark.css";
+            theme[0].href = "/css/dark.css";		
+			theme[1].href = "/css/dark.css";
 			$( "#switch" ).prop( "checked", true );
 			try {
 				drawCharts('dark');
@@ -42,8 +42,8 @@ function loadStyle() {
 		
 		else {
 			$("#switch").prop( "checked", false );
-            theme[0].href = "/stylesheets/light.css";		
-			theme[1].href = "/stylesheets/light.css";
+            theme[0].href = "/css/light.css";		
+			theme[1].href = "/css/light.css";
 			try {
 				drawCharts('light');
 			}
@@ -52,8 +52,8 @@ function loadStyle() {
 		}
 	//Incase there's no localStorage draws the light graph	
 	} else {
-        theme[0].href = "/stylesheets/light.css";		
-		theme[1].href = "/stylesheets/light.css";
+        theme[0].href = "/css/light.css";		
+		theme[1].href = "/css/light.css";
 		try {
 			drawCharts('light');
 		}
