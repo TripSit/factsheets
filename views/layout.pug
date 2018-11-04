@@ -13,7 +13,9 @@ html
 
     //-   ga('create', 'UA-4573307-4', 'auto');
     //-   ga('send', 'pageview');
-
+  link(rel="preload" href="https://code.jquery.com/jquery-3.3.1.min.js" as="script")
+  link(rel="preload" href="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" as="script")
+  link(rel="preload" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" as="style")
   body
     
 
@@ -71,7 +73,7 @@ html
             li.choice
               a(href='http://tripsit.me/donate/') Donate
 
-    link(rel='stylesheet' id="bootstrap-theme" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" )
+    
     .loader#coverScreen    
     
     block content
