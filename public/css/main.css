@@ -334,7 +334,7 @@ body {
   
   .label-tentative {
     background-color: #FFFF9D;
-    color: #001713;
+    color: #001713 !important;
   }
   
   .phaedra-colors .label-warning[href]:hover, .phaedra-colors .label-warning[href]:focus, .label-research-chemical {
@@ -366,6 +366,7 @@ body {
   .label {
     padding:3px;
     margin:5px;
+    
   }
   
   .btn-properties {
