@@ -13,9 +13,12 @@ html
 
     //-   ga('create', 'UA-4573307-4', 'auto');
     //-   ga('send', 'pageview');
-  link(rel="preload" href="https://code.jquery.com/jquery-3.3.1.min.js" as="script")
+  script(src="https://code.jquery.com/jquery-3.3.1.min.js" async)
+  script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" async)
+  link(rel='stylesheet' href="/css/loader.css")
   link(rel="preload" href="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" as="script")
-  link(rel="preload" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" as="style")
+  link(rel='stylesheet' id="bootstrap-theme" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" )  
+
   body
     
 

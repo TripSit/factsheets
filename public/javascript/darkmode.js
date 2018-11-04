@@ -63,6 +63,6 @@ function loadStyle() {
 };
 
 $(window).on('load', function () {
-	$("#coverScreen").hide();
 	loadStyle();
+	$("#coverScreen").hide();
 });
