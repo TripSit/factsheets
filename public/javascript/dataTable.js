@@ -1,4 +1,4 @@
-$( function () {
+$(document).load( function () {
     $('.table_class').DataTable( {
    responsive: true,
    pageLength: 30,
@@ -32,7 +32,7 @@ $( function () {
     } );
 });
 
-$( function () {
+$(document).load( function () {
     $('.table_status').DataTable( {
    responsive: true,
    pageLength: 30,

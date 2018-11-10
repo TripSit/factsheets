@@ -59,12 +59,12 @@ var pCats = {
 }; 
 var wikiCache = {};
 try {
-  var drugCache = JSON.parse(fs.readFileSync('drugCache.json'));
+  var drugCache = JSON.parse(fs.readFileSync('./cache/drugCache.json'));
 } catch (ex) {
   var drugCache = {}
 }
 try {
-  var catCache = JSON.parse(fs.readFileSync('catCache.json'));
+  var catCache = JSON.parse(fs.readFileSync('./cache/catCache.json'));
 } catch (ex) {
   var catCache = {}
 }
@@ -86,11 +86,11 @@ var getCache = function(url,filename) {
           let storedCache = JSON.stringify(JSON.parse(rawdata));
           if(storedCache !== cacheParsed) {
             fs.writeFileSync(filename + '.json', cacheParsed);
-            if(filename === 'drugCache') {
+            if(filename === './cache/drugCache') {
               updateCache()
               drugCache = cache
             }
-            if(filename === 'catCache') {
+            if(filename === './cache/catCache') {
               catCache = cache
             }
             // Notify service workers there has been an update to the API
@@ -106,11 +106,11 @@ var getCache = function(url,filename) {
           // Cache doesn't exit and will be written to file. This gonna take a while.
         } else if (err.code == 'ENOENT') {
         fs.writeFileSync(filename + '.json', cacheParsed)
-        if(filename === 'drugCache') {
+        if(filename === './cache/drugCache') {
           updateCache()
           drugCache = cache
         }
-        if(filename === 'catCache') {
+        if(filename === './cache/catCache') {
           catCache = cache
         }
         // Notify service workers there has been an update to the API
@@ -126,8 +126,8 @@ var getCache = function(url,filename) {
   }
 };
 
-getCache(url='http://tripbot.tripsit.me/api/tripsit/getAllDrugs', filename='drugCache')
-getCache(url='http://tripbot.tripsit.me/api/tripsit/getAllCategories', filename='catCache')
+getCache(url='http://tripbot.tripsit.me/api/tripsit/getAllDrugs', filename='./cache/drugCache')
+getCache(url='http://tripbot.tripsit.me/api/tripsit/getAllCategories', filename='./cache/catCache')
 
 var updateCache = function() {
       try {
