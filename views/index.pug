@@ -1,0 +1,71 @@
+extends layout
+
+block content
+  .container-fluid#container
+    .jumbotron
+      .bs-callout.bs-callout-ss
+        p#welcome Welcome to TripSit Factsheets.
+        span Click on drugs, categories. Mouseover technical terms. Send us 
+          a(href='http://tripsit.me/contact-us') feedback
+          span .
+        br
+        br
+        span 
+          b New: 
+          span Mobile-mode and night-mode!
+          br
+          br
+          span Are you a harm reduction organisation using TripSit? 
+          a(href='https://tripsit.me/harm-reduction-organisation-contact-form/' target="_blank") Let us know about you!
+      .table
+        table.table.table-striped.table_class.table-hover
+          thead
+            tr
+              th.theader
+                | Name
+              th.theader
+                | Categories
+              th.theader
+                | Summary
+              th.theader
+                | Alias
+          tfoot
+            tr
+              th.theader
+                | Name
+              th.theader
+                | Categories
+              th.theader
+                | Summary
+              th.theader
+                | Alias
+          tbody.tbody1.table-hover
+            each drug in drugs
+              tr
+                td.ttext.all
+                  a.boxed2(href='/'+encodeURIComponent(drug.name)) 
+                    | #{drug.pretty_name}
+                td.min-tablet
+                  if drug.categories 
+                    - var categoryNames = ['psychedelic', 'benzodiazepine', 'stimulant', 'dissociative', 'opioid', 'depressant', 'habit-forming', 'research-chemical', 'tentative', 'empathogen']
+                    each kw in drug.categories
+                          if categoryNames.indexOf(kw) > -1
+                            a(href='/category/'+kw class=`label label-${kw}`) #{kw}
+                          else
+                            a(href='/category/'+kw class="label label-default") #{kw}
+                  else
+                    span.label.label-default(href='/category/'+kw) other
+                td.ttext.desktop
+                  | !{drug.properties.summary}
+                td.ttext.desktop
+                  | !{drug.properties.aliases}
+    p
+    p
+    b Factsheets on #{drugs.length} drugs
+    
+ 
+  
+  
+  include scripts
+  include datatables
+  link(rel='stylesheet' type="text/css" href='https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap.min.css')

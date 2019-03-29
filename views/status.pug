@@ -1,0 +1,192 @@
+extends layout
+
+block content
+  .container-fluid#container
+    .jumbotron
+      h1 Grand Update Status
+
+      ul
+        li #{brokenDose.length} missing/broken doses
+        li #{brokenOnset.length} missing/broken onset
+        li #{brokenDuration.length} missing/broken duration
+        li #{brokenAfter.length} missing/broken after-effects
+
+      h2 Missing/Broken Format Dose
+      .table
+        table.table.table-striped.table_status.table-hover
+          thead
+              tr
+                th.theader
+                  | Name
+                th.theader
+                  | Categories
+                th.theader
+                  | Summary
+                th.theader
+                  | Alias
+          tfoot
+               tr
+                 th.theader
+                   | Name
+                 th.theader
+                   | Categories
+                 th.theader
+                   | Summary
+                 th.theader
+                   | Alias
+          tbody.tbody1
+            each drug in brokenDose
+              tr
+                td.ttext
+                  a.boxed2(href='/factsheet/'+drug.name) 
+                    | #{drug.pretty_name}
+                td
+                  if drug.categories 
+                    - var categoryNames = ['psychedelic', 'benzodiazepine', 'stimulant', 'dissociative', 'opioid', 'depressant', 'habit-forming', 'research-chemical', 'tentative', 'empathogen']
+                    each kw in drug.categories
+                          if categoryNames.indexOf(kw) > -1
+                            a(href='/category/'+kw class=`label label-${kw}`  ) #{kw}
+                          else
+                            a(href='/category/'+kw class="label label-default"  ) #{kw}
+                  else
+                    span.label.label-default(href='/category/'+kw ) other
+                td.ttext
+                  | !{drug.properties.summary}
+                td.ttext.desktop
+                  | !{drug.properties.aliases}
+
+      h2 Missing/Broken Format Onset
+      .table
+        table.table.table-striped.table_status.table-hover
+          thead
+              tr
+                th.theader
+                  | Name
+                th.theader
+                  | Categories
+                th.theader
+                  | Summary
+                th.theader
+                  | Alias
+          tfoot
+               tr
+                 th.theader
+                   | Name
+                 th.theader
+                   | Categories
+                 th.theader
+                   | Summary
+                 th.theader
+                   | Alias
+          tbody.tbody1
+            each drug in brokenOnset
+              tr
+                td.ttext 
+                  a.boxed2(href='/factsheet/'+drug.name) 
+                    | #{drug.pretty_name}
+                td
+                  if drug.categories 
+                    - var categoryNames = ['psychedelic', 'benzodiazepine', 'stimulant', 'dissociative', 'opioid', 'depressant', 'habit-forming', 'research-chemical', 'tentative', 'empathogen']
+                    each kw in drug.categories
+                          if categoryNames.indexOf(kw) > -1
+                            a(href='/category/'+kw class=`label label-${kw}`  ) #{kw}
+                          else
+                            a(href='/category/'+kw class="label label-default"  ) #{kw}
+                  else
+                    span.label.label-default(href='/category/'+kw ) other
+                td.ttext
+                  | !{drug.properties.summary}
+                td.ttext.desktop
+                  | !{drug.properties.aliases}
+
+      h2 Missing/Broken Format Duration
+      .table
+        table.table.table-striped.table_status.table-hover
+          thead
+              tr
+                th.theader
+                  | Name
+                th.theader
+                  | Categories
+                th.theader
+                  | Summary
+                th.theader
+                  | Alias
+          tfoot
+               tr
+                 th.theader
+                   | Name
+                 th.theader
+                   | Categories
+                 th.theader
+                   | Summary
+                 th.theader
+                   | Alias
+          tbody.tbody1
+            each drug in brokenDuration
+              tr
+                td.ttext 
+                  a.boxed2(href='/factsheet/'+drug.name) 
+                    | #{drug.pretty_name}
+                td
+                  if drug.categories 
+                    if drug.categories 
+                    - var categoryNames = ['psychedelic', 'benzodiazepine', 'stimulant', 'dissociative', 'opioid', 'depressant', 'habit-forming', 'research-chemical', 'tentative', 'empathogen']
+                    each kw in drug.categories
+                          if categoryNames.indexOf(kw) > -1
+                            a(href='/category/'+kw class=`label label-${kw}`  ) #{kw}
+                          else
+                            a(href='/category/'+kw class="label label-default"  ) #{kw}
+                  else
+                    span.label.label-default(href='/category/'+kw ) other
+                td.ttext
+                  | !{drug.properties.summary}
+                td.ttext.desktop
+                  | !{drug.properties.aliases}
+
+      h2 Missing/Broken Format After effects (after-effects)
+      .table
+        table.table.table-striped.table_status.table-hover
+          thead
+              tr
+                th.theader
+                  | Name
+                th.theader
+                  | Categories
+                th.theader
+                  | Summary
+                th.theader
+                  | Alias
+          tfoot
+               tr
+                 th.theader
+                   | Name
+                 th.theader
+                   | Categories
+                 th.theader
+                   | Summary
+                 th.theader
+                   | Alias
+          tbody.tbody1
+            each drug in brokenAfter
+              tr
+                td.ttext 
+                  a.boxed2(href='/factsheet/'+drug.name) 
+                    | #{drug.pretty_name}
+                td
+                  if drug.categories 
+                    - var categoryNames = ['psychedelic', 'benzodiazepine', 'stimulant', 'dissociative', 'opioid', 'depressant', 'habit-forming', 'research-chemical', 'tentative', 'empathogen']
+                    each kw in drug.categories
+                          if categoryNames.indexOf(kw) > -1
+                            a(href='/category/'+kw class=`label label-${kw}`  ) #{kw}
+                          else
+                            a(href='/category/'+kw class="label label-default"  ) #{kw}
+                  else
+                    span.label.label-default(href='/category/'+kw ) other
+                td.ttext
+                  | !{drug.properties.summary}
+                td.ttext.desktop
+                  | !{drug.properties.aliases}
+  include scripts
+  include datatables
+  link(rel='stylesheet' type="text/css" href='https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap.min.css')

@@ -1,0 +1,62 @@
+extends layout
+
+block content
+  .container-fluid#container
+    .jumbotron
+      .bs-callout.catcallout(class=`bs-callout-${category.name}`)
+        - if(!category.pretty_name) category.pretty_name = category.name.charAt(0).toUpperCase() + category.name.slice(1);
+        h4
+          a(href=`/category/${category.name}`) #{category.pretty_name}
+        span #{category.description}
+        br
+        br
+        - if(category.wiki)
+        a(href=`${category.wiki}`) Read more on TripSit Wiki...
+      .table
+      table.table.table-striped.table_class.table-hover
+        thead
+            tr
+              th.theader
+                | Name
+              th.theader
+                | Categories
+              th.theader
+                | Summary
+              th.theader
+                | Alias
+        tfoot
+              tr
+                th.theader
+                  | Name
+                th.theader
+                  | Categories
+                th.theader
+                  | Summary
+                th.theader
+                  | Alias
+        tbody.tbody1.table-hover
+          each drug in drugs
+            tr
+              td.ttext.all
+                a.boxed2(href='/'+encodeURIComponent(drug.name)) 
+                  | #{drug.pretty_name}
+              td.min-tablet
+                if drug.categories 
+                    - var categoryNames = ['psychedelic', 'benzodiazepine', 'stimulant', 'dissociative', 'opioid', 'depressant', 'habit-forming', 'research-chemical', 'tentative', 'empathogen']
+                    each kw in drug.categories
+                          if categoryNames.indexOf(kw) > -1
+                            a(href='/category/'+kw class=`label label-${kw}`  ) #{kw}
+                          else
+                            a(href='/category/'+kw class="label label-default"  ) #{kw}
+                else
+                  span.label.label-default(href='/category/'+kw ) other
+              td.ttext.desktop
+                | !{drug.properties.summary}
+              td.ttext.desktop
+                | !{drug.properties.aliases}
+      p
+      p
+      b Factsheets on #{drugs.length} drugs
+  include scripts
+  include datatables
+  link(rel='stylesheet' type="text/css" href='https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap.min.css')

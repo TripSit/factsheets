@@ -1,0 +1,5 @@
+/node_modules
+.vscode/
+catCache.json
+drugCache.json
+.gitignore

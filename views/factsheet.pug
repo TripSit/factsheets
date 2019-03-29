@@ -1,0 +1,230 @@
+extends layout
+block content
+ div#grid
+  script var drug = !{JSON.stringify(drug)};
+  nav.sidebar
+      ul.nav.nav-sidebar
+          li
+            a(href='/') 
+              span.glyphicon.glyphicon-menu-left(aria-hidden='true') 
+              span Back to Browse
+          li.divider(role='presentation')
+          li.active
+            a(href='#basic') Basic Information
+          li
+            a(href='#summary') Summary
+          li
+            a(href='#dose') Dose
+          li
+            a(href='#duration') Duration
+          li
+            a(href='#effects') Effects
+          if interactions
+            li
+              a(href='#interact') Interactions
+          if(drug.sources)
+            li
+              a(href='#references') References & Notes
+          if wiki
+            li
+              a(href=wiki) Read more on TripSit Wiki
+          if(drug.links && drug.links.tihkal)
+            li
+              a(href=drug.links.tihkal) TiHKAL Entry
+          if(drug.links && drug.links.pihkal)
+            li
+              a(href=drug.links.pihkal) PiHKAL Entry
+          if(pw)
+            li 
+              a(href=pw) Read more on PsychonautWiki
+          if(erowid && erowid.subtopics && erowid.subtopics.htmlMAIN)
+            li 
+              a(href='https://erowid.org#{erowid.subtopics.htmlMAIN}') Read more on Erowid
+          if(drug.links && drug.links.experiences)
+            li
+              a(href=drug.links.experiences) Erowid Experience Reports
+  .main
+      .bs-callout.bs-callout-ss
+        span 
+          b New: 
+          span Mobile-mode and night-mode!
+          br
+          br
+          span Are you a harm reduction organisation using TripSit? 
+          a(href='https://tripsit.me/harm-reduction-organisation-contact-form/' target="_blank") Let us know about you!
+      a(name='basic')
+      a.links(href='http://tripsit.me/contact-us/') Notice something wrong with this page? Let us know!
+      h1#drug.page-header #{drug.pretty_name}
+      div#drugname #{drug.name}
+      h2.sub-header Basic Information
+      .mainText
+          for pName in order
+            if drug.properties[pName]
+              - name = pName.charAt(0).toUpperCase() + pName.slice(1);
+              - property = drug.properties[pName]
+              - if(pName == 'dose')
+                -if(drug.hasOwnProperty('formatted_dose'))
+                    p.tlefttext.subtitles
+                      b#dose Dose
+                    .flexDose.layoutPosition
+                      each item,roa in drug.formatted_dose
+                            .textFormat(width="30%")
+                                table.table
+                                  thead
+                                    tr
+                                      -if(roa == 'none')
+                                        th(colspan='2') 
+                                      -else
+                                        th(colspan='2') #{roa}
+                                  each i,t in item
+                                    tr 
+                                     td.td_width #{t}
+                                     td #{i}
+                            .chartContainer
+                              div.doseChart(id=roa+'Chart')
+                -if(drug.hasOwnProperty('dose_note'))
+                    .bs-callout.bs-callout-benzodiazepine.layoutPosition
+                      h4 
+                      p #{drug.dose_note}
+              - else if(pName == 'pweffects')
+                  p.tlefttext.subtitles.subtitles_top
+                    b Effects
+                  p
+                    ul.layoutPosition
+                    -if(drug.properties.pweffects && drug.properties.pweffects.length > 0)
+                      each i,y in drug.properties.pweffects
+                       a(href=i) 
+                        button.btn.btn-default.btn-properties #{y}
+                      p Effects lovingly provided by 
+                       a(href='http://psychonautwiki.org/') PsychonautWiki
+              - else if(pName == 'duration' && drug['formatted_duration'])
+                  p.tlefttext.subtitles.subtitles_top
+                    b#duration Duration
+                  .flexDuration.layoutPosition
+                      .textFormat
+                              - if((!drug.formatted_duration || (drug.formatted_duration && drug.formatted_duration.value)) && (!drug.formatted_onset || (drug.formatted_onset && drug.formatted_onset.value)) && (!drug.formatted_aftereffects || (drug.formatted_aftereffects && drug.formatted_aftereffects.value)))
+                                  table.table
+                                    thead
+                                      tr
+                                        th(colspan='2') All ROAs
+                                      tbody
+                                        -if(drug.formatted_onset)
+                                          tr 
+                                            td.td_width Onset
+                                            td #{drug.formatted_onset.value} #{drug.formatted_onset._unit}
+                                        -if(drug.formatted_duration)
+                                          tr
+                                            td.td_width Duration
+                                            td #{drug.formatted_duration.value} #{drug.formatted_duration._unit}
+                                        -if(drug.formatted_aftereffects)
+                                          tr
+                                            td.td_width After-effects
+                                            td #{drug.formatted_aftereffects.value} #{drug.formatted_aftereffects._unit}
+                              - else
+                                each item,roa in drug.formatted_duration
+                                  -if(roa != '_unit' && roa != 'value')
+                                       table.table
+                                        thead
+                                          tr
+                                            th(colspan='2') #{roa}
+                                          if(drug.formatted_onset)
+                                            tr 
+                                              td.td_width Onset
+                                              if(drug.formatted_onset[roa])
+                                                td #{drug.formatted_onset[roa]} #{drug.formatted_onset._unit}
+                                              else 
+                                                td #{drug.formatted_onset.value} #{drug.formatted_onset._unit}
+                                          if(drug.formatted_duration)
+                                            tr
+                                              td.td_width Duration
+                                              if(drug.formatted_duration[roa])
+                                                td #{drug.formatted_duration[roa]} #{drug.formatted_duration._unit}
+                                              else 
+                                                td #{drug.formatted_duration.value} #{drug.formatted_duration._unit}
+                                          if(drug.formatted_aftereffects)
+                                            tr
+                                              td.td_width After-effects
+                                              if(drug.formatted_aftereffects[roa])
+                                                td #{drug.formatted_aftereffects[roa]} #{drug.formatted_aftereffects._unit}
+                                              else 
+                                                td #{drug.formatted_aftereffects.value} #{drug.formatted_aftereffects._unit}
+                      .chartContainer
+                       div(id='durationChart')
+              - else if(pName == 'onset' || pName == 'after-effects' || pName == 'categories')
+                span 
+              - else if(pName == 'summary')
+                tr
+                  p.tlefttext
+                    b#summary Summary
+                  td.ttext.ttext_width
+                    -if(drug.properties.summary)
+                      p.layoutPosition !{drug.properties.summary}
+                    -if(drug.properties.categories)
+                      each i in drug.properties.categories
+                        - var category = categories[i]
+                        - if(!category.pretty_name) category.pretty_name = category.name.charAt(0).toUpperCase() + category.name.slice(1);
+                        .bs-callout.layoutPosition(class=`bs-callout-${category.name}`)
+                          h4
+                            a(href=`/category/${category.name}`) #{category.pretty_name}
+                          p #{category.description}
+                          -if(category.wiki)
+                            a(href='#{category.wiki}') Read more on TripSit Wiki...
+              - else
+                    .flexEffects.subtitles#effects
+                      p.tlefttext.effectsLeft
+                        b #{name}
+                      p.ttext.effectsRight
+                        - if (typeof(property) === 'string'){
+                          | !{property}
+                        -} else {
+                          each line in property
+                            | #{line}
+                            br
+                        -}
+      a(name='interact')
+      a.links( href='http://combo.tripsit.me/') See TripSit Wiki for more information about drug interactions
+      h2.sub-header Interactions
+      if interactions
+        - var interactionKeys = {dangerous: "Dangerous", ss: "Serotonin Syndrome", unsafe: "Unsafe", caution: "Caution", lowinc: "Low Risk & Increased Effects", lowdec: "Low Risk & Decreased Effects", lowno: "Low Risk & No Synegery"}
+        each interaction, key in interactions
+          -if(interaction.length > 0)
+            div(class=`bs-callout bs-callout-${key}`)
+              h3 #{interactionKeys[key]}
+              ul
+                each d in interaction
+                  li
+                    if d.wiki
+                      a(href=d.wiki) #{d.pname}
+                      -if(d.note)
+                        ul
+                          li #{d.note}
+                    else 
+                      a(href='/'+d.name) #{d.pname}
+                      -if(d.note)
+                        ul
+                          li #{d.note}
+  
+      else
+        p No interaction information for #{drug.pretty_name}
+  
+      -if(drug.sources)
+        h2.sub-header#references References & Notes
+
+
+        each p,i in drug.sources
+          - i = i.replace('_', '');
+          - i = i.charAt(0).toUpperCase() + i.slice(1)
+          h3.sub-header #{i}
+          
+            
+          ul.collapse.navbar-collapse#references-collapse
+            each r in p
+              li !{r}
+        div.no_margin#reference_container
+         button.navbar-toggle.collapsed.btn.btn-primary(type="button", data-toggle="collapse", data-target="#references-collapse", aria-expanded="false") Expand for references
+  
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js')
+  script(src='/javascript/charts.js' )
+  script(src='https://cdn.plot.ly/plotly-latest.min.js')
+  include scripts
+  link(rel='stylesheet' type="text/css" href='https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap.min.css')

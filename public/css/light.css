@@ -1,0 +1,36 @@
+
+a {
+  color: #00B7FF;
+}
+
+.glossary {
+  border-bottom: 1px #50007F dotted;
+  color: #50007F;
+}
+
+.sub-header {
+  border-bottom: 1px solid #eee;
+}
+
+
+.nav-text{
+  color: #9d9d9d;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+}
+
+
+
+.nav-sidebar>.active>a, .nav-sidebar>.active>a:hover, .nav-sidebar>.active>a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+#grid>.sidebar>ul {
+  background: #ccccff;
+  background-color: #f5f5f5;
+  border-right: 1px solid #eee;
+}
+
+.subtitles {
+  border-top: 1px solid #ddd;
+}
