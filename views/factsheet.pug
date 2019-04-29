@@ -185,7 +185,7 @@ block content
       a.links( href='http://combo.tripsit.me/') See TripSit Wiki for more information about drug interactions
       h2.sub-header Interactions
       if interactions
-        - var interactionKeys = {dangerous: "Dangerous", ss: "Serotonin Syndrome", unsafe: "Unsafe", caution: "Caution", lowinc: "Low Risk & Increased Effects", lowdec: "Low Risk & Decreased Effects", lowno: "Low Risk & No Synegery"}
+        - var interactionKeys = {dangerous: "Dangerous", ss: "Serotonin Syndrome", unsafe: "Unsafe", caution: "Caution", lowinc: "Low Risk & Increased Effects", lowdec: "Low Risk & Decreased Effects", lowno: "Low Risk & No Increased Effects"}
         each interaction, key in interactions
           -if(interaction.length > 0)
             div(class=`bs-callout bs-callout-${key}`)
