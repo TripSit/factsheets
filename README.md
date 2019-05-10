@@ -3,7 +3,7 @@
 A nodejs-based web app which organises data from [TripSit's](https://tripsit.me/) database of drug information into 
 factsheets for general use. See [here](http://drugs.tripsit.me/) for a working example.
 
-## Dependencies
+## Requirements
 
 1. nodejs
 2. npm
