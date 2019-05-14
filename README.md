@@ -17,7 +17,7 @@ Install with `npm install`.
 
 Run with `npm start run`.
 
-The repo will initially download and cache data from TripSit and periodically check for updates. The app runs on port 5001 by 
+The repo will initially download and cache data from TripSit and periodically check for updates. The app runs on port 3006 by 
 default.
 
 
