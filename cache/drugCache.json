@@ -4,7 +4,6 @@
     "properties": {
       "dose": "Oral Threshold: 5-10mg Light: 10-25mg Common: 25-50mg Strong: 50-70mg. Heavy: 70mg+ | Insufflated Light: 10-20mg Common: 20-35mg Strong: 35-50mg Heavy: 50mg+",
       "summary": "A rare phenethylamine stimulant related to 3-FPM. Virtually nothing is known about the pharmacology or effects of this compound but it is likely to have similar properties to other stimulants of its type. Not to be confused with phenmetrazine.",
-      "category": "tentative",
       "categories": ["stimulant", "habit-forming", "tentative"]
     },
     "pretty_name": "Phenetrazine",
@@ -634,8 +633,7 @@
         "tentative",
         "empathogen"
       ],
-      "effects": "Euphoria, empathy, insight, brightened colour, Closed/Open eye visuals, enhanced tactile sensation, mental/physical stimulation, decreased appetite, pupil dilation, restlessness, change in perception, ego softening, sweating/chills, muscle tension, confusion, insomnia.",
-      "a": "rather rare psychedelic phentlethylamine that is the hydroxlated version and prodrug for 2C-T-7. It decomposes into the parent compound."
+      "effects": "Euphoria, empathy, insight, brightened colour, Closed/Open eye visuals, enhanced tactile sensation, mental/physical stimulation, decreased appetite, pupil dilation, restlessness, change in perception, ego softening, sweating/chills, muscle tension, confusion, insomnia."
     },
     "aliases": ["hot7"],
     "categories": [
@@ -1202,7 +1200,7 @@
       "avoid": "All other CNS depressants.",
       "categories": ["depressant", "habit-forming", "barbiturate"],
       "effects": "Anxiolytic, Sedative, Muscle Relaxant, Amnesia, Dystaxia, Hypnotic.",
-      "bioavaiability": "Oral: Roughly 95%.",
+      "bioavailability": "Oral: Roughly 95%.",
       "after-effects": "2-12 hours."
     },
     "categories": ["depressant", "habit-forming", "barbiturate"],
@@ -1333,7 +1331,8 @@
     },
     "categories": ["stimulant", "research-chemical", "tentative"],
     "formatted_onset": {
-      "60": "minutes.",
+      "Oral": "60",
+      "Insufflated": "30",
       "_unit": "minutes"
     },
     "pretty_name": "MCPP"
@@ -1410,7 +1409,7 @@
       "aliases": ["ro5-4864", "4'-chlorodiazepam"],
       "categories": ["research-chemical", "tentative"]
     },
-    "pretty_name": "4-CHLORODIAZEPAM",
+    "pretty_name": "4-Chlorodiazepam",
     "aliases": ["ro5-4864", "4'-chlorodiazepam"],
     "categories": ["research-chemical", "tentative"]
   },
@@ -2856,11 +2855,11 @@
     "name": "bk-2c-i",
     "properties": {
       "summary": "Novel psychedelic that is the Beta-Ketone derivative of 2C-I.",
-      "Duration": "4-6 hours.",
+      "duration": "4-6 hours.",
       "dose": "Oral Light: 100-120mg Common: 120-180mg Strong: 180-250mg Heavy: 250mg+",
       "categories": ["psychedelic", "research-chemical", "tentative"],
-      "warn": "If you have thyroid problems, do not take this substance.",
-      "Onset": "20-40 minutes.",
+      "warning": "If you have thyroid problems, do not take this substance.",
+      "onset": "20-40 minutes.",
       "effects": "Euphoria, empathy, insight, brightened colour, Closed/Open eye visuals, enhanced tactile sensation, mental/physical stimulation, decreased appetite, pupil dilation, restlessness, change in perception, ego softening, sweating/chills, muscle tension, confusion, insomnia."
     },
     "categories": ["psychedelic", "research-chemical", "tentative"],
@@ -3023,7 +3022,6 @@
       "categories": ["benzodiazepine", "habit-forming", "depressant"],
       "effects": "Anxiolytic, but primarily sedative or hypnotic.",
       "after-effects": "1-6 hours.",
-      "alias": "Halcion",
       "dose_to_diazepam": "Triazolam - 0.5mg ~=10mg Diazepam.",
       "aliases": ["halcion"]
     },
@@ -3437,7 +3435,7 @@
         "research-chemical",
         "nootropic"
       ],
-      "bioavailabity": "Oral: 42%.",
+      "bioavailability": "Oral: 42%.",
       "after-effects": "1-10 hours."
     },
     "formatted_dose": {
@@ -3800,9 +3798,8 @@
     "properties": {
       "summary": "MDPHP aka 'Monkey-Dust' is a substituted cathinone and pyrovalerone which has been sold as an alternative to a-PHP and MDPV. Said to be less intense than MDPV with similar effects. MDPHP potency is said to vary widely, and there are reports of mixed composition batches containing other drugs. Very little is known about MDPHP in terms of toxicity, pharmacology and metabolism.",
       "duration": "Oral: 3-6 hours | Insufflated/Inhaled: 2-4 hours",
-      "onset": "Oral: 30-60 minutes | Insufflated: 5-15 minutes",
       "dose": "NOTE: Dose data is tentative; There is a large variance in potency and composition of batches, and as such caution should be used when taking MDPHP. See ~mdphp summary | Oral Light: 10-20mg Common: 20-35mg Strong: 35+mg | Insufflated/Inhaled Light: 5-10mg Common: 10-20mg Strong: 20+mg",
-      "onset:": "Oral: 2-36 minutes | Inflatted/Inhaled: 5-15 minutes",
+      "onset": "Oral: 2-36 minutes | Inflatted/Inhaled: 5-15 minutes",
       "after-effects": "Oral: 2-16h | Insufflated/Inhaled: 2-36h",
       "effects": "Stimulation, Incresed Motivation, Mood Enhancement, Euphoria, Sexual Enhancement, Anxiety, Paranoia, Dry Mouth, Muscle Tension, Restlessness, Uncomfortable Stimulation",
       "categories": [
@@ -3813,7 +3810,7 @@
       ],
       "aliases": ["monkey-dust"]
     },
-    "pretty_name": "Mdphp",
+    "pretty_name": "MDPHP",
     "formatted_duration": {
       "Oral": "3-6",
       "Insufflated/Inhaled": "2-4",
@@ -4654,8 +4651,8 @@
     "aliases": ["suboxone", "subs", "bupe"],
     "categories": ["opioid", "habit-forming", "depressant"],
     "formatted_dose": {
-      "suboxone": {
-        "dose": "Light",
+      "Oral": {
+        "Light": "1-2mg",
         "Common": "3-6mg",
         "Strong": "6-8mg",
         "Heavy": "8mg+"
@@ -5037,7 +5034,6 @@
       "after-effects": "8-48 hours.",
       "effects": "Anxiolytic, Sedative, Muscle Relaxant, Amnesia, Dystaxia, Hypnotic.",
       "bioavailability": "Oral 90%",
-      "onset:": "20-45 minutes.",
       "dose_to_diazepam": "Clonazepam - 0.5mg ~=10mg Diazepam."
     },
     "aliases": ["klonopin", "kpin"],
@@ -5836,7 +5832,7 @@
       "avoid": "Alcohol, Benzodiazepines, Opioids, Other CNS depressants, including substances that have an effect on Serotonin (For example, yet not limited to MDMA, Amphetamine, and other stimulants)",
       "aliases": ["methoxetamine", "3-meo-2'oxo-pce"],
       "categories": ["dissociative", "research-chemical", "habit-forming"],
-      "legality": "Methoxetamine is illegal in the US states Arizona, Florida, Indiana, Louisiana, Minnesota, North Dakota, Ohio and Virginia. It is also banned in Brazil, France, Germany, Japan, Russia and the UK."
+      "legal": "Methoxetamine is illegal in the US states Arizona, Florida, Indiana, Louisiana, Minnesota, North Dakota, Ohio and Virginia. It is also banned in Brazil, France, Germany, Japan, Russia and the UK."
     },
     "aliases": ["methoxetamine", "3-meo-2'oxo-pce"],
     "categories": ["dissociative", "research-chemical", "habit-forming"],
@@ -8122,7 +8118,7 @@
       "aliases": ["chloral-hydrate", "aquachloral", "somnos"],
       "onset": "20-60 minutes.",
       "duration": "5-10 hours",
-      "avod": "All other CNS depressants.",
+      "avoid": "All other CNS depressants.",
       "dose": "Light: 200mg's Common: 200-500mg's Strong: 500-1000mg's.",
       "categories": ["depressant", "habit-forming"],
       "after-effects": "2-6 hours."
@@ -8162,7 +8158,6 @@
       "aliases": ["25b"],
       "categories": ["psychedelic", "research-chemical"],
       "effects": "Euphoria, empathy, insight, brightened colour, Closed/Open eye visuals, enhanced tactile sensation, mental/physical stimulation, decreased appetite, pupil dilation, restlessness, change in perception, ego softening, sweating/chills, muscle tension, confusion, insomnia.",
-      "a": "common bomamine analogue of 2C-B. Extremely potent psychedelic with stimulating qualities. May cause  potentially dangerous vasoconstriction at high doses. May induce uncomfortable body load.",
       "test-kits": "Marquis: Dark Green. | Mecke: Dark Green. | Mandelin: Red and Green. | Froehde: Yellow | Liebermann: Yellow > Black. | Ehrlich's Reagent: No colour change."
     },
     "aliases": ["25b"],
@@ -8639,7 +8634,7 @@
         "research-chemical"
       ]
     },
-    "pretty_name": "TETRAHYDROFURAN-FENTANYL",
+    "pretty_name": "Tetrahydrofuran-Fentanyl",
     "aliases": ["thf-f", "thff"],
     "categories": ["opioid", "habit-forming", "depressant", "research-chemical"]
   },
@@ -9582,7 +9577,7 @@
         "research-chemical"
       ]
     },
-    "pretty_name": "ETHYL-PENTEDRONE",
+    "pretty_name": "Ethyl-Pentedrone",
     "aliases": ["nep", "n-ethylpentedrone"],
     "formatted_dose": {
       "Insufflated": {
@@ -10315,7 +10310,7 @@
       "duration": "2-4 hours.",
       "categories": ["research-chemical", "nootropic"],
       "onset": "Rapid",
-      "bioavaiability": "Oral: 8.6-11.4% (This is due to the extensive first pass hepatic metabolism) Presumably higher when taken with fatty acids.",
+      "bioavailability": "Oral: 8.6-11.4% (This is due to the extensive first pass hepatic metabolism) Presumably higher when taken with fatty acids.",
       "after-effects": "1-4 hours."
     },
     "formatted_dose": {
@@ -11058,7 +11053,6 @@
   "bentazepam": {
     "name": "bentazepam",
     "properties": {
-      "2-6": "hours.",
       "summary": "Thienodiazepine that is an effective anxiolyric. Liver damage among other nasty things have been reported.",
       "aliases": ["thiadipone", "tiadipona"],
       "avoid": "All other CNS depressants.",
@@ -12338,7 +12332,7 @@
       "aliases": ["theanine"],
       "after-effects": "1-2 hours."
     },
-    "pretty_name": "L-THEANINE",
+    "pretty_name": "L-Theanine",
     "formatted_dose": {
       "Oral": {
         "Common": "100-200mg."
@@ -13843,7 +13837,7 @@
     "properties": {
       "summary": "A frequently prescribed atypical antidepressant. Occasionally prescribed as an aid to smoking cessation. May lower seizure threshold in predisposed individuals. Poorly understood mechanism of action, probably an NDRI. Avoid combination with other drugs.",
       "duration": "Parent: 11-21 hours | Metabolites: 20-37 hours",
-      "general-effects": "Mild - moderate increase in motor activity and agitation/excitement",
+      "effects": "Mild - moderate increase in motor activity and agitation/excitement",
       "adverse-effects": "Agitation, dry mouth, insomnia, headache/migraine, nausea/vomiting, constipation, tremor, dizziness, excessive sweating, blurred vision, tachycardia, confusion, rash, hostility, cardiac arrhythmia, and auditory disturbance",
       "overdose-symptoms": "Seizure, hallucinations, loss of consciousness, sinus tachycardia, ECG changes, bradycardia, cardiac failure, cardiac arrest, and death",
       "warning": "Bupropion lowers the seizure threshold and can induce seizures when excessive doses are used and/or when combined with CNS stimulants or other drugs that also lower the threshold, such as theophylline, steroids, some tricyclic antidepressants, and alcohol",
@@ -13854,7 +13848,7 @@
       "categories": ["stimulant", "habit-forming"],
       "aliases": ["wellbutrin", "zyban", "amfebutamone"],
       "onset": "15-90 minutes.",
-      "contradictions": "Seizure disorder, current or prior diagnosis of bulimia or anorexia nervosa, abrupt discontinuation of alcohol, benzodiazepines, barbiturates, and anti-epileptic drugs, and MAOIs,",
+      "contraindictions": "Seizure disorder, current or prior diagnosis of bulimia or anorexia nervosa, abrupt discontinuation of alcohol, benzodiazepines, barbiturates, and anti-epileptic drugs, and MAOIs,",
       "after-effects": "1-6 hours."
     },
     "categories": ["stimulant", "habit-forming"],
@@ -15541,8 +15535,7 @@
       "aliases": ["dilaudid", "diluadid"],
       "bioavailability": "Oral 51.35% +/- 29.29% | Insufflated 52.4% | Rectal 36.33% +/- 29.6%",
       "effects": "Euphoria, Dry Mouth, Mood lift, Itchiness, Relaxant, Constipation, Pupil Constriction, Analgesia.",
-      "after-effects": "1-6 hours.",
-      "dose:": "Oral Light: 1-2mg Common: 3-4 Strong: 4-8mg+ | Insufflated Light: 1-2mg Common: 3-4mg Strong: 4-8mg+ | Intravenous Light: 1-2mg Common: 2-4mg Strong: 4-6mg+"
+      "after-effects": "1-6 hours."
     },
     "categories": ["opioid", "habit-forming", "depressant"],
     "formatted_dose": {
@@ -15653,7 +15646,7 @@
       "dose": "Wet Light: 5g, Common: 10g, Heavy: 15g+ | Dry Light: 0.5-1.5g Common: 1.5-4g Heavy: 4g+",
       "categories": ["psychedelic"],
       "effects": "visual distortion, color enhancement, sense of conection with nature, sense of well being, sense of wonder, closed eye visuals, tactile enhancement",
-      "after-effect": "1-12 hours."
+      "after-effects": "1-12 hours."
     },
     "pretty_name": "Truffles",
     "formatted_onset": {
@@ -17133,15 +17126,14 @@
         "Common": "25-35mg",
         "Strong": "35-65mg",
         "Heavy": "65-80mg+"
-      },
-      "person-to-person": {}
+      }
     },
     "formatted_onset": {
       "value": "20-60",
       "_unit": "minutes"
     },
     "pretty_name": "2-FMA",
-    "dose_note": " NOTE: Sensitivity varies from",
+    "dose_note": " NOTE: Sensitivity varies from person-to-person and with usage factors. Higher doses can often result in long crashes and sleepless nights. Always start low and titrate slowly.",
     "formatted_effects": [
       "Euphoria",
       "increased energy/alertness",
@@ -17560,7 +17552,6 @@
       "effects": "Anxiolytic, Sedative, Muscle Relaxant, Amnesia, Dystaxia, Hypnotic.",
       "bioavailability": "Oral [variable - significant first-pass metabolism] | Insufflated 55% | Intramuscular 90%",
       "after-effects": "1-12 hours.",
-      "bioavailability:": "Oral [Highly variable] | Insufflated 55% | Intramuscular 90%",
       "dose_to_diazepam": "Midazolam - 10mg ~=10mg Diazepam."
     },
     "formatted_dose": {
@@ -17990,8 +17981,7 @@
     "formatted_dose": {
       "Common:": {
         "Common": "1000-1500mg"
-      },
-      "This": {}
+      }
     },
     "formatted_onset": {
       "value": "10-30",
@@ -18396,8 +18386,7 @@
       "aliases": ["diethyltryptamine"],
       "duration": "2-4 hours.",
       "after-effects": "1-6 hours.",
-      "dosage": "Vaporized (using a 100% success method) Light: 15-25mg's Common: 30-50mg's Strong: 50mg+ Orally Light: 20-40mg's Common: 50-80mg's Strong: 80mg+",
-      "dose": "Vapourized Light: 15-25mg Common: 30-50mg Strong: 50mg+ | Oral Light: 20-40mg Common: 50-80mg Strong: 80mg+",
+      "dose": "Vaporized (using a 100% success method) Light: 15-25mg's Common: 30-50mg's Strong: 50mg+ Orally Light: 20-40mg's Common: 50-80mg's Strong: 80mg+",
       "categories": ["psychedelic", "research-chemical", "tentative"],
       "effects": "Euphoria, empathy, insight, brightened colour, Closed/Open eye visuals, enhanced tactile sensation, mental/physical stimulation, decreased appetite, pupil dilation, restlessness, change in perception, ego softening, sweating/chills, muscle tension, confusion, insomnia."
     },
@@ -18787,7 +18776,6 @@
   "clobazam": {
     "name": "clobazam",
     "properties": {
-      "Summary": "A long acting half life benzo that focues on Anxiolytic and/or Anticonvulsant.",
       "dose": "Light: 5-10mg Common: 10-15mg Heavy: 15-30mg+ | NOTE: 20mg of Clobazam is approximately equal to 10mg of Diazepam",
       "onset": "20-40 minutes",
       "duration": "6-12 hours.",
@@ -19001,7 +18989,7 @@
       "categories": ["common"],
       "onset": "60-60 minutes",
       "duration": "4-6 hours",
-      "bioavailabity": "Oral: 70-90% | Rectal: 30-70%",
+      "bioavailability": "Oral: 70-90% | Rectal: 30-70%",
       "after-effects": "1-2 hours."
     },
     "aliases": ["acetaminophen", "paracetamol", "tylenol"],
@@ -19516,7 +19504,7 @@
       "onset": "Oral: 10-30 minutes. Insufflated: 2-10 minutes.",
       "effects": "Anxiolytic, Sedative, Muscle Relaxant, Amnesia, Dystaxia.",
       "duration": "Oral: 4-8 hours. Insufflated: 2-6 hours.",
-      "bioavailabity": "Oral 70% +/- 24%.",
+      "bioavailability": "Oral 70% +/- 24%.",
       "after-effects": "1-4 hours.",
       "dose_to_diazepam": "Brotizolam - 0.25mg ~=10mg Diazepam.",
       "aliases": ["lendormin"]
@@ -19982,7 +19970,7 @@
         "habit-forming"
       ]
     },
-    "pretty_name": "CYCLOPENTYL-FENTANYL",
+    "pretty_name": "Cyclopentyl-Fentanyl",
     "aliases": ["cp-f", "cpf"],
     "categories": [
       "opioid",
@@ -19993,7 +19981,7 @@
     ]
   },
   "3-oh-phenazepam": {
-    "name": "3-oh-phenazepam",
+    "name": "3-oh-Phenazepam",
     "properties": {
       "dose": "Light: 0.5-1mg Common: 1-2mg Heavy: 2-4mg",
       "summary": "The 3-OH analogue of Phenazepam, which cuts the half life down quite a bit. Psychoactive effects are mostly lead by its metabolites, rather than the drug itself.",
@@ -20019,7 +20007,7 @@
         "depressant"
       ]
     },
-    "pretty_name": "3-OH-PHENAZEPAM",
+    "pretty_name": "3-OH-Phenazepam",
     "formatted_dose": {
       "Oral": {
         "Light": "0.5-1mg",
@@ -20986,8 +20974,7 @@
       ],
       "avoid": "Other stimulants, and depressants. MXE is also to be avoided (possibility of serotonin syndrome). See combo information for more.",
       "effects": "Euphoria, increased energy/alertness, decreased need for sleep, increased sociability, mood lift, increased sexuality, excessive talking, decreased appetite, weight loss, sweating, disturbed sleep patterns, bruxism, visual and auditory hallucinations, itchiness, aggressiveness, moodiness.",
-      "after-effects": "1-24 hours.",
-      "4-fa": "dose: Oral Light: 50-70mg Common: 70-110mg Heavy: 115-150mg | NOTE: Insufflating does not appear to provide a better bioavailability than oral ingestion, and can cause damage to nasal cavity."
+      "after-effects": "1-24 hours."
     },
     "aliases": ["4-Fluoroamphetamine", "4fa", "4-fmp", "4-fluoroamphetamine"],
     "categories": [
@@ -21274,7 +21261,7 @@
         "opioid"
       ]
     },
-    "pretty_name": "METHOXYACETYL-FENTANYL",
+    "pretty_name": "Methoxyacetyl-Fentanyl",
     "formatted_dose": {
       "Oral": {
         "Light": "0.25-0.5mg",
@@ -21300,7 +21287,6 @@
   "clomethiazole": {
     "name": "clomethiazole",
     "properties": {
-      "an": "",
       "summary": "Structurally related to Thiamine (vitamin B1), but with binding potential at the GABAa site, which causes it to produce effects most like those of a barbiturate: an effective sedative and hypnotic. Originally developed by Hoffman-LaRoche in the 1930s, it has seen use as a treatment for acute alcohol withdrawal.",
       "onset": "15-40 minutes. ",
       "duration": "5-8 hours. ",
@@ -21554,10 +21540,9 @@
       "aliases": ["kbd"],
       "dose": "Oral Light: 5mg Common: 5-10mg Strong: 10-15mg.",
       "categories": ["opioid", "habit-forming", "depressant"],
-      "Bioavailability": "Oral: 34% Insufflated ~30-40% Plugged: 44% Intravenous: 99%+",
+      "bioavailability": "Oral: 34% Insufflated ~30-40% Plugged: 44% Intravenous: 99%+",
       "half-life": "2.25-2.45 Hours.",
       "effects": "Euphoria, Dry Mouth, Mood lift, Itchiness, Relaxant, Constipation, Pupil constriction, Analgesia.",
-      "bioavailability": "Oral 34% +/- 10% | Rectal 44% +/- 9%",
       "after-effects": "1-8 hours."
     },
     "aliases": ["kbd"],
@@ -23513,7 +23498,7 @@
       "onset": "15-30 minutes.",
       "duration": "4-5 hours.",
       "dose": "Light: 40-50mg Common: 50-100mg Strong: 100-200mg+",
-      "Avoid": "All CNS depressants.",
+      "avoid": "All CNS depressants.",
       "categories": ["opioid", "habit-forming", "depressant"],
       "summary": "A medium-strength opioid analgesic and analogue of morphine. Considered less potent than morphine but more potent than codeine, and has been used in Germany for this reason. Said to have a 'ceiling' effect where no more euphoria occurs with increased dosage. Under investigation as a maintainance drug in opioid dependence therapy.",
       "effects": "Euphoria, Dry Mouth, Mood lift, Itchiness, Relaxant, Constipation, Pupil constriction, Analgesia.",
@@ -23771,7 +23756,6 @@
       "summary": "Potent short-acting opioid and fentanyl analogue. Often dispensed in a nasal spray. This is an highly potent drug - exercise extreme caution. May cause respiratory depression and death in overdose.",
       "onset": "Oral: 15-30 minutes. Insufflated: 5-10 minutes.",
       "duration": "Oral: 3-4 hours. Insufflated: 2-3 hours.",
-      "alias": "b-f",
       "categories": [
         "opioid",
         "research-chemical",
@@ -23938,7 +23922,7 @@
       "onset": "Oral: 10-15 minutes. | Insufflated: 5 minutes.",
       "effects": "Anxiolytic, Sedative, Muscle Relaxant, Amnesia, Dystaxia.",
       "after-effects": "1-12 hours.",
-      "dose_to_diazepam": "Pyrazolam - 10-20mg ~=10mg Diazepam."
+      "dose_to_diazepam": "Pyrazolam - 1-2mg ~=10mg Diazepam."
     },
     "formatted_dose": {
       "Oral": {
@@ -24674,7 +24658,7 @@
     "name": "4-aco-mipt",
     "properties": {
       "summary": "A quite potent tryptamine that has be related to having \"shroom-like\" visuals. Yet without much bodyload. Very hydroscopic. Seems to be quite safe in dosing. Similar to the likes of 2C-B.",
-      "duration": "Oral: 4-9 hours. | Duration: 1-2 hours.",
+      "duration": "Oral: 4-9 hours. | Vapourized: 1-2 hours.",
       "aliases": ["mipracetin", "4acomipt"],
       "onset": "Oral: 15-45 minutes. | Vapourized: 1-2 minutes.",
       "dose": "Oral Light: 5-10mg Common: 10-20mg Strong: 20-40mg. | Vapourized Light: 2-5mg Common: 5-10mg Strong: 10-15 mg.",
@@ -24683,13 +24667,12 @@
         "psychedelic",
         "empathogen",
         "research-chemical"
-      ],
-      "1-6": "hours."
+      ]
     },
     "pretty_name": "4-AcO-MiPT",
     "formatted_duration": {
       "Oral": "4-9",
-      "Duration": "1-2",
+      "Vapourized": "1-2",
       "_unit": "hours"
     },
     "aliases": ["mipracetin", "4acomipt"],
@@ -24826,7 +24809,6 @@
         "research-chemical",
         "habit-forming"
       ],
-      "smmary": "Rare or new pyrovalerone drug also known as Thymergix and Centroton, with effectively no history of human use. Likely to have a similar effect profile to MDPV.",
       "after-effects": "1-4 hours."
     },
     "pretty_name": "Indapyrophenidone",
@@ -27227,7 +27209,6 @@
       "summary": "A quite rare substance of the tryptamine class, was first made by Upjohn as an antidepressant. Please use extreme caution if you get the pleasure of trying this drug.",
       "dose": "Light: 80-100mg Common: 100-125mg Strong: 125-150mg+",
       "effects": "Euphoria, empathy, insight, brightened colour, Closed/Open eye visuals, enhanced tactile sensation, mental/physical stimulation, decreased appetite, pupil dilation, restlessness, change in perception, ego softening, sweating/chills, muscle tension, confusion, insomnia.",
-      "after-efects": "1-6 hours.",
       "after-effects": "1-24 hours.",
       "avoid": "It can induce serotonergic neurotoxicity similar to the likes of MDMA. Do not combine this drug if you take an MAOi."
     },
@@ -27354,7 +27335,7 @@
     "name": "yopo",
     "properties": {
       "summary": "Anadenanthera peregrina, also known as yopo, is a perennial tree native to the Caribbean and South America. It is an entheogen containing 5-MeO-DMT and DMT, and is used in healing ceremonies and rituals. It is also a source of dietary calcium.",
-      "aliases": ["anadenanthera", "\"anadenanthera"],
+      "aliases": ["anadenanthera", "anadenanthera"],
       "categories": ["empathogen", "psychedelic"]
     },
     "pretty_name": "YOPO",
@@ -27435,8 +27416,7 @@
       "onset": "20-60 minutes",
       "after-effects": "2-4 hours",
       "effects": "Similar to alcohol, but subjectively 'cleaner'",
-      "categories": ["depressant", "habit-forming", "common"],
-      "summary=a": "euphoric depressant which is prescribed as a sleep aid and sometimes to help with Alcohol detox. Also used as a recreational depressant, as a non-toxic alternative to Alcohol. Despite not having Alcohol's toxicity it is risky due to among other things inconsistent concentration in commonly sold solution form, and can be very dangerous if taken with other depressants."
+      "categories": ["depressant", "habit-forming", "common"]
     },
     "categories": ["depressant", "habit-forming", "common"],
     "formatted_dose": {
@@ -27947,7 +27927,7 @@
       "summary": "An analogue of Fentanyl that is not found in literature.",
       "categories": ["opioid", "depressant", "research-chemical", "tentative"]
     },
-    "pretty_name": "BENZODIOXOLE-FENTANYL",
+    "pretty_name": "Benzodioxole-Fentanyl",
     "categories": ["opioid", "depressant", "research-chemical", "tentative"]
   },
   "2c-b": {
@@ -28088,7 +28068,6 @@
       "pharmacology": "NDRA (Norepinephrine-Dopamine Releasing Agent)",
       "pharmacokinetics": "Bioavailability: 85% | Metabolism: minimal hepatic | Excretion: 22 - 99% renal",
       "legal": "Australia: Prescription Only (S4) | Canada: Schedule VI | United Kingdom: P | United States: List I OTC",
-      "category": "Stimulant",
       "categories": ["stimulant", "habit-forming"],
       "dose": "Oral Threshold: 5-10mg Light: 10-20mg Common: 20-30mg Strong: 30-50mg Heavy: 50mg+",
       "onset": "5-20 minutes.",
