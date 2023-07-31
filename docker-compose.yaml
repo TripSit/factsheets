@@ -1,0 +1,52 @@
+version: '3.9'
+
+name: apps
+
+########################### EXTENSION FIELDS
+# Common environment values
+x-environment: &default-tz-puid-pgid
+  TZ: 'America/Chicago'
+  PUID: '1000'
+  PGID: '1000'
+
+# Keys common to some of the dependent services/apps
+x-common-keys-apps: &common-keys-apps
+  security_opt:
+    - no-new-privileges:true
+  restart: unless-stopped
+
+########################### SERVICES
+services:
+  factsheets:
+    <<: *common-keys-apps
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: factsheets
+    working_dir: /usr/src/app
+    environment:
+      <<: *default-tz-puid-pgid
+    networks:
+      - factsheets-net
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.docker.network=factsheets-net
+      - traefik.http.services.factsheets-svc.loadbalancer.server.port=3006
+
+      - traefik.http.routers.factsheets-cloudflare.rule=Host(`drugs.tripsit.io`)
+      - traefik.http.routers.factsheets-cloudflare.entrypoints=websecure
+      - traefik.http.routers.factsheets-cloudflare.tls.certresolver=letsencrypt
+      - traefik.http.routers.factsheets-cloudflare.service=factsheets-svc
+      - traefik.http.routers.factsheets-cloudflare.middlewares=default@file
+        
+      - traefik.http.routers.factsheets-namecheap.rule=Host(`drugs.tripsit.me`)
+      - traefik.http.routers.factsheets-namecheap.entrypoints=websecure
+      - traefik.http.routers.factsheets-namecheap.tls.certresolver=letsencrypt-legacy
+      - traefik.http.routers.factsheets-namecheap.service=factsheets-svc
+      - traefik.http.routers.factsheets-namecheap.middlewares=default@file
+    command: node ./bin/www
+
+networks:
+  factsheets-net:
+    name: factsheets-net

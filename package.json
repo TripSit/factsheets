@@ -1,9 +1,25 @@
 {
-  "name": "factsheet",
-  "version": "0.0.0",
+  "name": "factsheets",
+  "version": "1.0.0",
+  "description": "Substance information",
+  "homepage": "https://drugs.tripsit.me",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "docker compose --project-name apps up -d --force-recreate --build",
+    "## Docker": "",
+    "logs": "docker container logs factsheets -f -n 100",
+    "test": "docker exec -it factsheets npm run local:test",
+    "lint": "docker exec -it factsheets npm run local:lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TripSit/factsheets.git"
+  },
+  "author": "bjorn",
+  "maintainers": ["Eric Moonbear/Teknos"],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TripSit/factsheets/issues"
   },
   "dependencies": {
     "body-parser": "~1.8.1",
