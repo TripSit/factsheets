@@ -39,12 +39,6 @@ services:
       - traefik.http.routers.factsheets-cloudflare.tls.certresolver=letsencrypt
       - traefik.http.routers.factsheets-cloudflare.service=factsheets-svc
       - traefik.http.routers.factsheets-cloudflare.middlewares=default@file
-        
-      - traefik.http.routers.factsheets-namecheap.rule=Host(`drugs.tripsit.me`)
-      - traefik.http.routers.factsheets-namecheap.entrypoints=websecure
-      - traefik.http.routers.factsheets-namecheap.tls.certresolver=letsencrypt-legacy
-      - traefik.http.routers.factsheets-namecheap.service=factsheets-svc
-      - traefik.http.routers.factsheets-namecheap.middlewares=default@file
     command: node ./bin/www
 
 networks:
