@@ -34,11 +34,11 @@ services:
       - traefik.docker.network=factsheets-net
       - traefik.http.services.factsheets-svc.loadbalancer.server.port=3006
 
-      - traefik.http.routers.factsheets-cloudflare.rule=Host(`drugs.tripsit.io`)
-      - traefik.http.routers.factsheets-cloudflare.entrypoints=websecure
-      - traefik.http.routers.factsheets-cloudflare.tls.certresolver=letsencrypt
-      - traefik.http.routers.factsheets-cloudflare.service=factsheets-svc
-      - traefik.http.routers.factsheets-cloudflare.middlewares=default@file
+      - traefik.http.routers.factsheets.rule=Host(`drugs.tripsit.io`)
+      - traefik.http.routers.factsheets.entrypoints=websecure
+      - traefik.http.routers.factsheets.tls.certresolver=letsencrypt
+      - traefik.http.routers.factsheets.service=factsheets-svc
+      - traefik.http.routers.factsheets.middlewares=default@file
     command: node ./bin/www
 
 networks:
